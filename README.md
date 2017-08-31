@@ -35,7 +35,8 @@ glAvatar is an extension that is not necessary to support by engine to render th
 ## Use case
 
 * glTF 3D avatar model generator for 3D app, indie game dev, etc.
-* Avatars for VR social experience: [Facebook Spaces](https://www.facebook.com/spaces), [AltspaceVR](https://altvr.com/)
+* Potentially be used as an standard output format of current character generator software: [IClone character generator](https://www.reallusion.com/character-creator/), [Autodesk character generator](https://www.autodesk.com/products/character-generator/overview)
+* Avatars for Web3D/VR social experience: [Facebook Spaces](https://www.facebook.com/spaces), [AltspaceVR](https://altvr.com/), [imvu](https://secure.imvu.com/welcome/ftux/)
 * 3D contents for AR apps: [Google-ARCore](https://experiments.withgoogle.com/ar)
 * Avatar for virtual performers (Live Show, Streammer, [MMD](https://learnmmd.com/downloads/)): [Miku](https://www.youtube.com/watch?v=dhYaX01NOfA), [Kizuna AI](https://www.youtube.com/channel/UC4YaOt1yT-ZeyB0OmxHgolA)
 * 3D Avatars, [3D Memes](https://github.com/shrekshao/gltf-emoji) for traditional online community: [glTF html tag renderer](https://github.com/AVGP/gltf-viewer)
@@ -112,7 +113,7 @@ glAvatar is an extension that is not necessary to support by engine to render th
     "nodes": [
         {
             "name": "jeans",
-            "mesh": 0
+            "mesh": 0,
 
             "extensions": {
                 "gl_avatar": {
