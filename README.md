@@ -29,7 +29,9 @@ The system has two types of glTF files:
 
 A combination of skeleton file and several content files will be rendered as an complete avatar with switchable skin meshes, or can be merged and output as one glTF file.
 
-glAvatar is an extension that is not necessary to support by engine to render these files separately.
+glAvatar is an extension that is not required, meaning it is not necessary to support it by engine to if only the purpose is render these glTF files separately as common ones.
+
+There wil be a set of glAvatar skeleton files, and authoring tool project file (.blend and etc.) provided for artist to create clothes, skins, accessories that binded to these skeletons. When exported as glAvatar glTF, the joint nodes will be dimissed. 
 
 
 ## Use case
