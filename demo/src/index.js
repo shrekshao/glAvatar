@@ -181,7 +181,8 @@ import '../css/style.css';
         vertexArray: gl.createVertexArray(),
         vertexBuffer: gl.createBuffer(),
 
-        program: createProgram(gl, getShaderSource('vs-bbox'), getShaderSource('fs-bbox')),
+        // program: createProgram(gl, require('./shaders/vs-bbox'), require('./shaders/fs-bbox')),
+        program: createProgram(gl, require('./shaders/vs-bbox.glsl'), require('./shaders/fs-bbox.glsl')),
         positionLocation: 0,
         uniformMvpLocation: 0, 
 
@@ -230,16 +231,16 @@ import '../css/style.css';
 
 
     // // -- Initialize program
-    // var program = createProgram(gl, getShaderSource('vs-normal'), getShaderSource('fs-normal'));
+    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-normal'));
     // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
     // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
 
-    // var program = createProgram(gl, getShaderSource('vs-normal'), getShaderSource('fs-base-color'));
+    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-base-color'));
     // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
     // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
     // var uniformBaseColorFactorLocation = gl.getUniformLocation(program, "u_baseColorFactor");
 
-    var program = createProgram(gl, getShaderSource('vs-normal'), getShaderSource('fs-base-color'));
+    var program = createProgram(gl, require('./shaders/vs-normal.glsl'), require('./shaders/fs-base-color.glsl'));
     var programBaseColor = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -247,7 +248,7 @@ import '../css/style.css';
         uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor")
     };
 
-    program = createProgram(gl, getShaderSource('vs-texture'), getShaderSource('fs-texture'));
+    program = createProgram(gl, require('./shaders/vs-texture.glsl'), require('./shaders/fs-texture.glsl'));
     var programBaseTexture = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -257,7 +258,7 @@ import '../css/style.css';
     };
 
     // @temp test
-    program = createProgram(gl, getShaderSource('vs-texture'), getShaderSource('fs-texture-normal-map'));
+    program = createProgram(gl, require('./shaders/vs-texture.glsl'), require('./shaders/fs-texture-normal-map.glsl'));
     var programBaseTextureNormalMap = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -268,7 +269,7 @@ import '../css/style.css';
         uniformNormalTextureLocation: gl.getUniformLocation(program, "u_normalTexture")
     };
 
-    program = createProgram(gl, getShaderSource('vs-skin-normal'), getShaderSource('fs-base-color'));
+    program = createProgram(gl, require('./shaders/vs-skin-normal.glsl'), require('./shaders/fs-base-color.glsl'));
     var programSkinBaseColor = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -277,7 +278,7 @@ import '../css/style.css';
         uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
     };
 
-    program = createProgram(gl, getShaderSource('vs-skin-normal-8'), getShaderSource('fs-base-color'));
+    program = createProgram(gl, require('./shaders/vs-skin-normal-8.glsl'), require('./shaders/fs-base-color.glsl'));
     var programSkinBaseColorVec8 = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -287,7 +288,7 @@ import '../css/style.css';
     };
 
     // temp
-    program = createProgram(gl, getShaderSource('vs-skin-texture'), getShaderSource('fs-texture'));
+    program = createProgram(gl, require('./shaders/vs-skin-texture.glsl'), require('./shaders/fs-texture.glsl'));
     var programSkinBaseTexture = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
@@ -297,7 +298,7 @@ import '../css/style.css';
         uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
     };
 
-    program = createProgram(gl, getShaderSource('vs-skin-texture-8'), getShaderSource('fs-texture'));
+    program = createProgram(gl, require('./shaders/vs-skin-texture-8.glsl'), require('./shaders/fs-texture.glsl'));
     var programSkinBaseTextureVec8 = {
         program: program,
         uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),

@@ -8,7 +8,8 @@ module.exports = {
   },
   resolve: {
       alias: {
-        Lib: path.resolve(__dirname, 'demo/lib/')
+        Lib: path.resolve(__dirname, 'demo/lib/'),
+        Shaders: path.resolve(__dirname, 'demo/lib/src/shaders')
       }
   },
   output: {
@@ -23,14 +24,20 @@ module.exports = {
               'style-loader',
               'css-loader'
             ]
+        },
+        {
+            test: /\.(glsl|vs|fs)$/,
+            use: [
+                'shader-loader'
+            ]
         }
     ],
-    loaders: [
-      {
-        test: /\.glsl$/,
-        loader: "webpack-glsl-loader"
-      },
-    ]
+    // loaders: [
+    //   {
+    //     test: /\.glsl$/,
+    //     loader: "webpack-glsl"
+    //   },
+    // ]
   },
   plugins: [
         // new webpack.optimize.UglifyJsPlugin({
