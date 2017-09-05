@@ -26,6 +26,12 @@ module.exports = {
             ]
         },
         {
+            test: /\.(png|jpg|gif)$/,
+            use: [
+                'file-loader'
+            ]
+        },
+        {
             test: /\.(glsl|vs|fs)$/,
             use: [
                 'shader-loader'
@@ -49,6 +55,7 @@ module.exports = {
         // new UglifyJSPlugin()
     ],
   devServer: {
+    contentBase: path.join(__dirname, "demo"),
     port: 7000
   }
 };

@@ -2,6 +2,9 @@ import {vec3, vec4, quat, mat4} from 'gl-matrix';
 import {MinimalGLTFLoader} from 'Lib/minimal-gltf-loader.js';
 // require('./lib/minimal-gltf-loader.js');
 import '../css/style.css';
+// import dat from 'dat.gui-mirror';
+import GUI from 'dat.gui';
+
 
 
 // utils
@@ -89,6 +92,14 @@ import '../css/style.css';
 
 (function()  {
     'use strict';
+
+    var gui = new GUI.GUI();
+    var glAvatarControl = function() {
+        this.helmet = 9;
+    };
+    var avatarControl = new glAvatarControl();
+    gui.add(avatarControl, 'helmet', -9, 9);
+
 
     var drawBoundingBox = false;
     var boundingBoxType = 'obb';

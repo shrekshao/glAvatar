@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <title>WebGL 2 Renderer Example</title>
+    <title>glAvatar demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
-        #controls {
+        #mycontrols {
             position: absolute;
             bottom: 20px;
             right: 20px;
@@ -20,11 +20,11 @@
 </head>
 
 <body>
-    <div id="info">WebGL 2 Renderer Example</div>
+    <div id="info">glAvatar demo</div>
     <p id="description">
-        An example viewer of the model loaded by Minimal-glTF-Loader
+        A demo implemented glAvatar extension
     </p>
-    <div id="controls">
+    <div id="mycontrols">
         Draw Bounding Box: <input id="bbox-toggle" type="checkbox" ><br>
         Bounding Box type: <select id="bbox-type">
             <option value="obb">OBB</option>
@@ -34,7 +34,7 @@
     </div>
 
 
-    <script src='/build/app.js'></script>
+    <script src='app.js'></script>
 
 </body>
 
