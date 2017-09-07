@@ -34,8 +34,8 @@ glAvatar is an extension that is not required, meaning it is not necessary to su
 There wil be a set of glAvatar skeleton files, and authoring tool project file (.blend and etc.) provided for artist to create clothes, skins, accessories that binded to these skeletons. When exported as glAvatar glTF, the joint nodes will be dimissed. 
 
 There are some other potential ideas: 
-* use morph targets for face, skin, musle shape custom controlling
 * switchable textures
+* use morph targets for face, skin, musle shape custom controlling
 
 ## Use case
 
@@ -136,8 +136,15 @@ There are some other potential ideas:
                     "attributes" : {
                         "POSITION": 0,
                         "...": "...",
-                        "JOINTS_0": 1,
-                        "WEIGHTS_0": 2
+                    },
+                    "...": "...",
+                    "extensions": {
+                        "gl_avatar": {
+                            "attributes": {
+                                "JOINTS_0": 1,
+                                "WEIGHTS_0": 2
+                            }
+                        }
                     }
                 }
             ]

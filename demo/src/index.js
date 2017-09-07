@@ -95,22 +95,28 @@ import GUI from 'dat.gui';
 
     var gui = new GUI.GUI();
     var glAvatarControl = function() {
-        this.helmet = 9;
+        this.VC = function() {
+            console.log("load VC");
+            // glTFLoader.loadGLTF("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf"
+            glTFLoader.loadGLTF("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf"
+                , setupScene
+            )
+        };
     };
     var avatarControl = new glAvatarControl();
-    gui.add(avatarControl, 'helmet', -9, 9);
+    gui.add(avatarControl, 'VC');
 
 
     var drawBoundingBox = false;
     var boundingBoxType = 'obb';
 
-    document.getElementById("bbox-toggle").addEventListener("change", function() {
-        drawBoundingBox = this.checked;
-    });
+    // document.getElementById("bbox-toggle").addEventListener("change", function() {
+    //     drawBoundingBox = this.checked;
+    // });
 
-    document.getElementById("bbox-type").addEventListener("change", function() {
-        boundingBoxType = this.value;
-    });
+    // document.getElementById("bbox-type").addEventListener("change", function() {
+    //     boundingBoxType = this.value;
+    // });
 
     var canvas = document.createElement('canvas');
     // canvas.width = Math.min(window.innerWidth, window.innerHeight);
@@ -133,6 +139,7 @@ import GUI from 'dat.gui';
     // Scene object for runtime renderer
     var Scene = function(glTFScene, glTF) {
         this.glTFScene = glTFScene;
+        this.glTF = glTF;
 
         // runtime renderer context
         this.rootTransform = mat4.create();
@@ -143,19 +150,7 @@ import GUI from 'dat.gui';
             this.nodeMatrix[i] = mat4.create();
         }
 
-
-        // if (glTF.skins) {
-        //     this.inverseSkeletonRootMatrix = new Array(glTF.skins.length);
-        //     this.inverseSkeletonRootMatrixReady = new Array(glTF.skins.length);
-        //     for(i = 0, len = this.inverseSkeletonRootMatrix.length; i < len; i++) {
-        //         if (glTF.skins[i].skeleton) {
-        //             this.inverseSkeletonRootMatrix[i] = mat4.create();
-        //             this.inverseSkeletonRootMatrixReady[i] = false;
-        //         } else {
-        //             this.inverseSkeletonRootMatrix[i] = null;
-        //         }
-        //     }
-        // }
+        // TODO: runtime joint matrix
     };
 
     var BOUNDING_BOX = {
@@ -319,6 +314,14 @@ import GUI from 'dat.gui';
         uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
     };
 
+    // -- Initialize vertex array
+    var POSITION_LOCATION = 0; // set with GLSL layout qualifier
+    var NORMAL_LOCATION = 1; // set with GLSL layout qualifier
+    var TEXCOORD_0_LOCATION = 2; // set with GLSL layout qualifier
+    var JOINTS_0_LOCATION = 3; // set with GLSL layout qualifier
+    var JOINTS_1_LOCATION = 5; // set with GLSL layout qualifier
+    var WEIGHTS_0_LOCATION = 4; // set with GLSL layout qualifier
+    var WEIGHTS_1_LOCATION = 6; // set with GLSL layout qualifier
     
     // -- Mouse Behaviour
     var isDisplayRotation = true;
@@ -417,58 +420,46 @@ import GUI from 'dat.gui';
     gl.frontFace(gl.CCW);
     var isFaceCulling = true;
 
-    glTFLoader.loadGLTF(gltfUrl, function(glTF) {
+
+    function setupScene(glTF) {
+        var i, len;
 
         var curGltfScene = glTF.scenes[glTF.defaultScene];
-
-        // // draw multiple copies of the glTF scene
-        // // to build a relative complex scene for octree and occlusion query test
-        // var sceneRootTransforms = [mat4.create(), mat4.create()];
-        // var sceneDeltaTranslate = vec3.fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
-        // mat4.fromTranslation(sceneRootTransforms[1], sceneDeltaTranslate);
-
 
         var sceneDeltaTranslate = vec3.fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
         var tmpVec3Translate = vec3.create();
 
         for (i = 0, len = glTFModelCount; i < len; i++) {
             scenes.push(new Scene(curGltfScene, glTF));
-            vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
-            mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
+            // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
+            // mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
         }
         
 
-        // center
-        s = 1.0 / Math.max( curGltfScene.boundingBox.transform[0], Math.max(curGltfScene.boundingBox.transform[5], curGltfScene.boundingBox.transform[10]) );
-        mat4.getTranslation(translate, curGltfScene.boundingBox.transform);
-        vec3.scale(translate, translate, -1);
-        translate[0] += - 0.5 * curGltfScene.boundingBox.transform[0];
-        translate[1] += - 0.5 * curGltfScene.boundingBox.transform[5];
-        translate[2] += - 0.5 * curGltfScene.boundingBox.transform[10];
+        
+        if (scenes.length === 1) {
+            // first model, adjust camera
+            
+            // center
+            s = 1.0 / Math.max( curGltfScene.boundingBox.transform[0], Math.max(curGltfScene.boundingBox.transform[5], curGltfScene.boundingBox.transform[10]) );
+            mat4.getTranslation(translate, curGltfScene.boundingBox.transform);
+            vec3.scale(translate, translate, -1);
+            translate[0] += - 0.5 * curGltfScene.boundingBox.transform[0];
+            translate[1] += - 0.5 * curGltfScene.boundingBox.transform[5];
+            translate[2] += - 0.5 * curGltfScene.boundingBox.transform[10];
+    
+            s *= 0.5;
+    
+            modelMatrix[0] = s;
+            modelMatrix[5] = s;
+            modelMatrix[10] = s;
+            mat4.translate(modelMatrix, modelMatrix, translate);
+    
+            vec3.set(translate, 0, 0, -1.5);
+            s = 1;
+        }
+        
 
-        s *= 0.5;
-
-        modelMatrix[0] = s;
-        modelMatrix[5] = s;
-        modelMatrix[10] = s;
-        mat4.translate(modelMatrix, modelMatrix, translate);
-
-        vec3.set(translate, 0, 0, -1.5);
-        s = 1;
-
-
-
-        // -- Initialize vertex array
-        var POSITION_LOCATION = 0; // set with GLSL layout qualifier
-        var NORMAL_LOCATION = 1; // set with GLSL layout qualifier
-        var TEXCOORD_0_LOCATION = 2; // set with GLSL layout qualifier
-        var JOINTS_0_LOCATION = 3; // set with GLSL layout qualifier
-        var JOINTS_1_LOCATION = 5; // set with GLSL layout qualifier
-        var WEIGHTS_0_LOCATION = 4; // set with GLSL layout qualifier
-        var WEIGHTS_1_LOCATION = 6; // set with GLSL layout qualifier
-
-        // var vertexArrayMaps = {};
-        // var vertexArrayMaps = [];
 
         // var in loop
         var mesh;
@@ -479,7 +470,7 @@ import GUI from 'dat.gui';
 
         var nid, lenNodes;
         var mid, lenMeshes;
-        var i, len;
+        
         var attribute;
 
         var image, texture, sampler;
@@ -490,7 +481,7 @@ import GUI from 'dat.gui';
 
         var skin;
 
-        var curScene;   // runtime scene object (not gltf scene object)
+        // var curScene;   // runtime scene object (not gltf scene object)
 
         program = programBaseColor;
 
@@ -521,7 +512,7 @@ import GUI from 'dat.gui';
 
         
         // create textures
-        if (this.glTF.textures) {
+        if (glTF.textures) {
             for (i = 0, len = glTF.textures.length; i < len; i++) {
                 texture = glTF.textures[i];
                 // texture.texture = gl.createTexture();
@@ -539,7 +530,7 @@ import GUI from 'dat.gui';
         }
 
         // create samplers
-        if (this.glTF.samplers) {
+        if (glTF.samplers) {
             for (i = 0, len = glTF.samplers.length; i < len; i++) {
                 sampler = glTF.samplers[i];
                 
@@ -631,19 +622,30 @@ import GUI from 'dat.gui';
             }
             
         }
-        
+    }
 
 
-        // -- Render preparation
-        gl.enable(gl.DEPTH_TEST);
-        gl.depthFunc(gl.LEQUAL);
 
-        
+
+    // -- Render preparation
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+
+
+
+    var Renderer = Renderer || {};
+
+    (function() {
+        'use strict';
+
+
+    
+    
+
         var scale = vec3.create();
         
         var r = 0.0;
         var rotationSpeedY= 0.01;
-        // var rotationSpeedY= 0.0;
 
         var perspective = mat4.create();
         mat4.perspective(perspective, 0.785, canvas.width / canvas.height, 0.01, 100);
@@ -661,13 +663,15 @@ import GUI from 'dat.gui';
         var hasSkin = false;
         var skinID;     // same for uniform block binding id
 
-        // var nodeMatrix = new Array(glTF.nodes.length);
-        // for(i = 0, len = nodeMatrix.length; i < len; i++) {
-        //     nodeMatrix[i] = mat4.create();
-        // }
+
+        var curScene;
+
+
+
+        
 
         var defaultColor = [1.0, 1.0, 1.0, 1.0];
-        function drawPrimitive(primitive, matrix) {
+        var drawPrimitive = Renderer.drawPrimitive = function(primitive, matrix) {
             mat4.multiply(localMV, modelView, matrix);
             mat4.multiply(localMVP, perspective, localMV);
             // mat4.multiply(localMVP, VP, matrix);
@@ -691,6 +695,7 @@ import GUI from 'dat.gui';
             // @tmp: program choice
             // super ugly code
 
+            var texture, sampler;
             var baseColor = defaultColor;
             // hasSkin = false;
             if (hasSkin) {
@@ -716,7 +721,7 @@ import GUI from 'dat.gui';
                             gl.uniform1i(program.uniformBaseColorTextureLocation, primitive.material.pbrMetallicRoughness.baseColorTexture.index);
                             gl.activeTexture(gl.TEXTURE0 + primitive.material.pbrMetallicRoughness.baseColorTexture.index);
                             // gl.activeTexture(gl.TEXTURE1);
-                            texture = glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
+                            texture = curScene.glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
                             gl.bindTexture(gl.TEXTURE_2D, texture.texture);
                             if (texture.sampler) {
                                 sampler = texture.sampler.sampler;
@@ -770,7 +775,7 @@ import GUI from 'dat.gui';
                                 gl.uniform1i(program.uniformNormalTextureLocation, primitive.material.normalTexture.index);
 
                                 gl.activeTexture(gl.TEXTURE0 + primitive.material.normalTexture.index);
-                                texture = glTF.textures[ primitive.material.normalTexture.index ];
+                                texture = curScene.glTF.textures[ primitive.material.normalTexture.index ];
                                 gl.bindTexture(gl.TEXTURE_2D, texture.texture);
                                 if (texture.sampler) {
                                     sampler = texture.sampler.sampler;
@@ -790,7 +795,7 @@ import GUI from 'dat.gui';
                             gl.uniform1i(program.uniformBaseColorTextureLocation, primitive.material.pbrMetallicRoughness.baseColorTexture.index);
                             gl.activeTexture(gl.TEXTURE0 + primitive.material.pbrMetallicRoughness.baseColorTexture.index);
                             // gl.activeTexture(gl.TEXTURE1);
-                            texture = glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
+                            texture = curScene.glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
                             gl.bindTexture(gl.TEXTURE_2D, texture.texture);
                             if (texture.sampler) {
                                 sampler = texture.sampler.sampler;
@@ -835,7 +840,7 @@ import GUI from 'dat.gui';
         // to compute transform matrices,
         // then sort node array by material and render use a for loop
         // to minimize context switch
-        function drawNode(node, nodeID, nodeMatrix, parentModelMatrix) {
+        var drawNode = Renderer.drawNode = function (node, nodeID, nodeMatrix, parentModelMatrix) {
             var matrix = nodeMatrix[nodeID];
             
             if (parentModelMatrix !== undefined) {
@@ -856,15 +861,7 @@ import GUI from 'dat.gui';
                 var jointNode;
 
                 mat4.invert(inverseTransformMat4, matrix);
-                // if (skin.skeleton !== null) {
-                //     // if (curScene.inverseSkeletonRootMatrixReady[skin.skinID] === false) {
-                //     //     curScene.inverseSkeletonRootMatrixReady[skin.skinID] = true;
-                //     //     mat4.invert(curScene.inverseSkeletonRootMatrix[skin.skinID], nodeMatrix[skin.skeleton.nodeID]);
-                //     // }
-                //     // inverseSkeletonRootMat4 = curScene.inverseSkeletonRootMatrix[skin.skinID];
 
-                //     mat4.mul(inverseTransformMat4, inverseTransformMat4, nodeMatrix[skin.skeleton.nodeID]);
-                // }
 
                 // @tmp: assume joint nodes are always in the front of the scene node list
                 // so that their matrices are ready to use
@@ -929,67 +926,16 @@ import GUI from 'dat.gui';
         }
 
 
-        function drawScene(scene) {
+        var drawScene = Renderer.drawScene = function (scene) {
             // for (var i = 0, len = scene.nodes.length; i < len; i++) {
             //     drawNode( scene.nodes[i], scene.nodes[i].nodeID, rootTransform );
             // }
-            for (var i = 0, len = scene.glTFScene.nodes.length; i < len; i++) {
-                drawNode( scene.glTFScene.nodes[i], scene.glTFScene.nodes[i].nodeID, scene.nodeMatrix, scene.rootTransform );
-            }
-        }
-
-        function drawSceneBBox(glTF, scene, bboxType) {
-            var node, mesh, bbox;
-            // @temp: assume all nodes are in cur scene
-            // @potential fix: can label each node's scene at the setup
-            for (i = 0, len = scene.nodeMatrix.length; i < len; i++) {
-                node = glTF.nodes[i];
-
-                if (bboxType == 'bvh') {
-                    // bvh
-                    mat4.mul(localMVP, scene.rootTransform, node.bvh.transform);
-                    mat4.mul(localMVP, VP, localMVP);
-                    gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
-                    gl.drawArrays(gl.LINES, 0, 24);
-                }
-                else if (node.mesh !== null) {
-                    // mesh = glTF.meshes[node.mesh];
-                    mesh = node.mesh;
-
-                    if (bboxType == 'aabb') {
-                        // aabb
-                        mat4.mul(localMVP, scene.rootTransform, node.aabb.transform);
-                        mat4.mul(localMVP, VP, localMVP);
-                    } else {
-                        // obb (assume object node is static)
-                        mat4.mul(localMVP, scene.nodeMatrix[i], mesh.boundingBox.transform);
-                        mat4.mul(localMVP, VP, localMVP);
-                    }
-
-                    gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
-                        
-                    gl.drawArrays(gl.LINES, 0, 24);
-
-                }   
-            }
-
-            // scene bounding box
-            mat4.mul(localMVP, scene.rootTransform, scene.glTFScene.boundingBox.transform);
-            mat4.mul(localMVP, VP, localMVP);
-            gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
-            gl.drawArrays(gl.LINES, 0, 24);
-        }
-        
-
-        var timeParameter = 0;
-
-        // -- Render loop
-        (function render() {
-            var i, len;
-            var j, lenj;
-            var node;
-
             // animation
+            var animation;
+            var i, len, j, lenj;
+            var channel, animationSampler, node;
+
+            var glTF = scene.glTF;
             if (glTF.animations) {
                 for (i = 0, len = glTF.animations.length; i < len; i++) {
                     animation = glTF.animations[i];
@@ -1036,23 +982,67 @@ import GUI from 'dat.gui';
             }
 
 
+            for (var i = 0, len = scene.glTFScene.nodes.length; i < len; i++) {
+                drawNode( scene.glTFScene.nodes[i], scene.glTFScene.nodes[i].nodeID, scene.nodeMatrix, scene.rootTransform );
+            }
+        }
+
+        var drawSceneBBox = Renderer.drawSceneBBox = function (glTF, scene, bboxType) {
+            var node, mesh, bbox;
+            // @temp: assume all nodes are in cur scene
+            // @potential fix: can label each node's scene at the setup
+            var i, len;
+            for (i = 0, len = scene.nodeMatrix.length; i < len; i++) {
+                node = glTF.nodes[i];
+
+                if (bboxType == 'bvh') {
+                    // bvh
+                    mat4.mul(localMVP, scene.rootTransform, node.bvh.transform);
+                    mat4.mul(localMVP, VP, localMVP);
+                    gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
+                    gl.drawArrays(gl.LINES, 0, 24);
+                }
+                else if (node.mesh !== null) {
+                    // mesh = glTF.meshes[node.mesh];
+                    mesh = node.mesh;
+
+                    if (bboxType == 'aabb') {
+                        // aabb
+                        mat4.mul(localMVP, scene.rootTransform, node.aabb.transform);
+                        mat4.mul(localMVP, VP, localMVP);
+                    } else {
+                        // obb (assume object node is static)
+                        mat4.mul(localMVP, scene.nodeMatrix[i], mesh.boundingBox.transform);
+                        mat4.mul(localMVP, VP, localMVP);
+                    }
+
+                    gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
+                        
+                    gl.drawArrays(gl.LINES, 0, 24);
+
+                }   
+            }
+
+            // scene bounding box
+            mat4.mul(localMVP, scene.rootTransform, scene.glTFScene.boundingBox.transform);
+            mat4.mul(localMVP, VP, localMVP);
+            gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
+            gl.drawArrays(gl.LINES, 0, 24);
+        }
+        
+
+        var timeParameter = 0;
 
 
-            // // skins
-            // if (glTF.skins) {
-            //     var skin, joints, M;
-            //     for (i = 0, len = glTF.skins.length; i < len; i++) {
-            //         skin = glTF.skins[i];
-            //         joints = skin.joints;
-            //         for (j = 0, lenj = joints.length; j < lenj; j++) {
-            //             M = skin.inverseBindMatrix[j];
-            //         }
-            //     }
-            // }
-
-            
 
 
+
+        // -- Render loop
+        // function render() {
+        var render = Renderer.render = function() {
+            var i, len;
+            var j, lenj;
+            var node;
 
 
             gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -1089,6 +1079,7 @@ import GUI from 'dat.gui';
 
             for (i = 0, len = scenes.length; i < len; i++) {
                 curScene = scenes[i];
+
                 drawScene(scenes[i]);
             }
 
@@ -1097,7 +1088,7 @@ import GUI from 'dat.gui';
                 gl.bindVertexArray(BOUNDING_BOX.vertexArray);
 
                 for (i = 0, len = scenes.length; i < len; i++) {
-                    drawSceneBBox(glTF, scenes[i], boundingBoxType);
+                    drawSceneBBox(curScene.glTF, scenes[i], boundingBoxType);
                 }
 
 
@@ -1107,8 +1098,22 @@ import GUI from 'dat.gui';
 
             requestAnimationFrame(render);
             timeParameter += 0.01;
-        })();
+        }
 
+    })();
+
+
+
+
+
+    glTFLoader.loadGLTF(gltfUrl, function(glTF) {
+
+        setupScene(glTF);
+        
+
+        // render();
+        Renderer.render();
+        
 
     });
 })();
