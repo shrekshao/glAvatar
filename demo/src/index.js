@@ -237,14 +237,6 @@ import GUI from 'dat.gui';
 
 
     // // -- Initialize program
-    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-normal'));
-    // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
-    // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
-
-    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-base-color'));
-    // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
-    // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
-    // var uniformBaseColorFactorLocation = gl.getUniformLocation(program, "u_baseColorFactor");
 
     var program = createProgram(gl, require('./shaders/vs-normal.glsl'), require('./shaders/fs-base-color.glsl'));
     var programBaseColor = {

@@ -58,6 +58,13 @@ There are some other potential ideas:
     "extensionsUsed": [
         "gl_avatar"
     ],
+    "extensions": {
+        "gl_avatar": {
+            "skins": {
+                "chibi-human": 0
+            }
+        }
+    },
     "nodes": [
         {
             "name": "scene-root",
@@ -90,19 +97,7 @@ There are some other potential ideas:
             "name": "chibi-human",
 
             "inverseBindMatrix": 0,
-            "joints": [2, 3, 4, 5, 6],
-
-            "extensions": {
-                "gl_avatar": {
-                    "joints? might not be useful": {
-                        "head": 6,
-                        "chest": 3,
-                        "pelvis": 2,
-                        "left-leg": 4,
-                        "right-leg": 5
-                    }
-                }
-            }
+            "joints": [2, 3, 4, 5, 6]
         }
     ],
     "...": "..."
@@ -122,9 +117,7 @@ There are some other potential ideas:
 
             "extensions": {
                 "gl_avatar": {
-                    "bindings": [
-                        "chibi-human"
-                    ]
+                    "skin": "chibi-human"
                 }
             }
         }
