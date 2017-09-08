@@ -105,7 +105,8 @@ import GUI from 'dat.gui';
 
         this.gltfShirt = function() {
             console.log("load gltf shirt (handcrafted glAvatar)");
-            glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
+            glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
                 , skeletonGltfScene.glTF
                 , function(gltf) {
                     gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
