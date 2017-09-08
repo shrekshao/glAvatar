@@ -106,7 +106,8 @@ import GUI from 'dat.gui';
         this.gltfShirt = function() {
             console.log("load gltf shirt (handcrafted glAvatar)");
             // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
-            glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+            glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
                 , skeletonGltfScene.glTF
                 , function(gltf) {
                     gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
@@ -417,7 +418,8 @@ import GUI from 'dat.gui';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
     
-    var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
+    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
 
     var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
 
@@ -882,7 +884,7 @@ import GUI from 'dat.gui';
                 // so that their matrices are ready to use
                 for (i = 0, len = joints.length; i < len; i++) {
                     jointNode = joints[i];
-                    if (node.skinLink) {
+                    if (skin.isLink) {
                         // gl_avatar
                         mat4.mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
                     } else {

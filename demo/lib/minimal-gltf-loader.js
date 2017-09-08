@@ -397,6 +397,60 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.skeleton = s.skeleton !== undefined ? gltf.nodes[s.skeleton] : null;
         this.inverseBindMatrices = s.inverseBindMatrices !== undefined ? gltf.accessors[s.inverseBindMatrices] : null;
 
+        // @tmp: runtime stuff should be taken care of renderer
+        // since glTF model should only store info
+        // runtime can have multiple instances of this glTF models
+        if (this.inverseBindMatrices) {
+            // should be a mat4
+            this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
+            // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
+
+            this.inverseBindMatrix = [];  // for calculation
+            this.jointMatrixUniformBuffer = null;
+            // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
+            //     this.inverseBindMatricesData, 
+            //     0, 
+            //     this.inverseBindMatricesData.length, 
+            //     this.inverseBindMatrices.componentType
+            // );      // for copy to UBO
+
+            // @tmp: fixed length to coordinate with shader, for copy to UBO
+            this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+
+            for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
+                this.inverseBindMatrix.push(mat4.fromValues(
+                    this.inverseBindMatricesData[i],
+                    this.inverseBindMatricesData[i + 1],
+                    this.inverseBindMatricesData[i + 2],
+                    this.inverseBindMatricesData[i + 3],
+                    this.inverseBindMatricesData[i + 4],
+                    this.inverseBindMatricesData[i + 5],
+                    this.inverseBindMatricesData[i + 6],
+                    this.inverseBindMatricesData[i + 7],
+                    this.inverseBindMatricesData[i + 8],
+                    this.inverseBindMatricesData[i + 9],
+                    this.inverseBindMatricesData[i + 10],
+                    this.inverseBindMatricesData[i + 11],
+                    this.inverseBindMatricesData[i + 12],
+                    this.inverseBindMatricesData[i + 13],
+                    this.inverseBindMatricesData[i + 14],
+                    this.inverseBindMatricesData[i + 15]
+                ));
+            }
+        }
+
+    };
+
+    var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseBindMatricesAccessorID) {
+        this.isLink = true;
+
+        this.name = linkedSkin.name;
+        this.skinID = linkedSkin.skinID;   // use this for uniformblock id
+
+        this.joints = linkedSkin.joints;
+
+        this.skeleton = linkedSkin.skeleton;
+        this.inverseBindMatrices = inverseBindMatricesAccessorID !== undefined ? gltf.accessors[inverseBindMatricesAccessorID] : null;
 
         // @tmp: runtime stuff should be taken care of renderer
         // since glTF model should only store info
@@ -440,8 +494,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             }
         }
 
-
-        
     };
 
 
@@ -857,13 +909,13 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @tmp, need refine (old structure code...)
         var newNode = new Node(nodeID);
         newNode.skin = node.skin !== undefined ? node.skin : null;
-        if (node.extensions !== undefined) {
-            if (node.extensions.gl_avatar !== undefined && this.enableGLAvatar === true) {
-                var linkedSkinID = this.skeletonGltf.json.extensions.gl_avatar.skins[ node.extensions.gl_avatar.skin ];
-                newNode.skin = this.skeletonGltf.skins[linkedSkinID];
-                newNode.skinLink = this.skeletonGltf;
-            }
-        }
+        // if (node.extensions !== undefined) {
+        //     if (node.extensions.gl_avatar !== undefined && this.enableGLAvatar === true) {
+        //         var linkedSkinID = this.skeletonGltf.json.extensions.gl_avatar.skins[ node.extensions.gl_avatar.skin.name ];
+        //         var linkedSkin = this.skeletonGltf.skins[linkedSkinID];
+        //         newNode.skin = new SkinLink(this.glTF, linkedSkin, node.extensions.gl_avatar.skin.inverseBindMatrices);
+        //     }
+        // }
         
 
 
@@ -1253,6 +1305,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
                     node.skin = this.glTF.skins[ node.skin ];
                 } else {
                     // assume gl_avatar is in use
+                    node.skin
                 }
                 
             }
