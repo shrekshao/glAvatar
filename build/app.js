@@ -144,13 +144,13 @@ function equals(a, b) {
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define FRAG_COLOR_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform vec4 u_baseColorFactor;\r\n\r\nin vec3 v_normal;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\r\n\r\nvoid main()\r\n{\r\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\r\n    color = u_baseColorFactor * intensity;\r\n    color.a = 1.0;\r\n}"
+module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\n\nin vec3 v_normal;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * intensity;\n    color.a = 1.0;\n}"
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define FRAG_COLOR_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform vec4 u_baseColorFactor;\r\nuniform sampler2D u_baseColorTexture;\r\n\r\nin vec3 v_normal;\r\nin vec2 v_uv;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\r\n\r\nvoid main()\r\n{\r\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\r\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity; \r\n    color.a = 1.0;\r\n}"
+module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\nuniform sampler2D u_baseColorTexture;\n\nin vec3 v_normal;\nin vec2 v_uv;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity; \n    color.a = 1.0;\n}"
 
 /***/ }),
 /* 3 */
@@ -2528,7 +2528,7 @@ const forEach = (function() {
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\r\n\r\nout vec3 v_normal;\r\nout vec2 v_uv;\r\n\r\nvoid main()\r\n{\r\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\r\n    v_uv = uv;\r\n    gl_Position = u_MVP * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 8 */
@@ -2646,10 +2646,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 , setupScene
             )
         };
+
+        this.gltfShirt = function() {
+            console.log("load gltf shirt (handcrafted glAvatar)");
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+            glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+                , skeletonGltfScene.glTF
+                , function(gltf) {
+                    gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+                    setupScene(gltf);
+                }
+            )
+        };
     };
     var avatarControl = new glAvatarControl();
     gui.add(avatarControl, 'VC');
+    gui.add(avatarControl, 'gltfShirt');
 
+
+    var skeletonGltfScene = null;
 
     var drawBoundingBox = false;
     var boundingBoxType = 'obb';
@@ -2781,14 +2797,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     // // -- Initialize program
-    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-normal'));
-    // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
-    // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
-
-    // var program = createProgram(gl, require('./shaders/vs-normal'), require('./shaders/fs-base-color'));
-    // var uniformMvpLocation = gl.getUniformLocation(program, "u_MVP");
-    // var uniformMvNormalLocation = gl.getUniformLocation(program, "u_MVNormal");
-    // var uniformBaseColorFactorLocation = gl.getUniformLocation(program, "u_baseColorFactor");
 
     var program = createProgram(gl, __webpack_require__(23), __webpack_require__(1));
     var programBaseColor = {
@@ -2950,9 +2958,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Monster/glTF/Monster.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/mrdoob/rome-gltf/master/files/models/black_soup/quadruped_wolf.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Buggy/glTF/Buggy.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TextureSettingsTest/glTF/TextureSettingsTest.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
-    var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
+    
+    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
+    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
 
     var glTFLoader = new __WEBPACK_IMPORTED_MODULE_1_Lib_minimal_gltf_loader_js__["a" /* MinimalGLTFLoader */].glTFLoader(gl);
 
@@ -2968,16 +2981,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     function setupScene(glTF) {
         var i, len;
 
+        
         var curGltfScene = glTF.scenes[glTF.defaultScene];
 
         var sceneDeltaTranslate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
         var tmpVec3Translate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
 
-        for (i = 0, len = glTFModelCount; i < len; i++) {
-            scenes.push(new Scene(curGltfScene, glTF));
-            // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
-            // mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
-        }
+        var newGltfRuntimeScene = new Scene(curGltfScene, glTF);
+        scenes.push(newGltfRuntimeScene);
+        // for (i = 0, len = glTFModelCount; i < len; i++) {
+        //     scenes.push(new Scene(curGltfScene, glTF));
+        //     // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
+        //     // mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
+        // }
         
 
         
@@ -3091,7 +3107,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 
                 skin.jointMatrixUniformBuffer = gl.createBuffer();
 
-                gl.bindBufferBase(gl.UNIFORM_BUFFER, i, skin.jointMatrixUniformBuffer);
+                // gl.bindBufferBase(gl.UNIFORM_BUFFER, i, skin.jointMatrixUniformBuffer);
+                gl.bindBufferBase(gl.UNIFORM_BUFFER, skin.skinID, skin.jointMatrixUniformBuffer);
 
                 gl.bindBuffer(gl.UNIFORM_BUFFER, skin.jointMatrixUniformBuffer);
                 gl.bufferData(gl.UNIFORM_BUFFER, skin.jointMatrixUnidormBufferData, gl.DYNAMIC_DRAW);
@@ -3104,7 +3121,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         function setupAttribuite(attrib, location) {
             if (attrib !== undefined) {
-                var accessor = glTF.accessors[ attrib ];
+                // var accessor = glTF.accessors[ attrib ];
+                var accessor = attrib;
                 var bufferView = accessor.bufferView;
                 if (bufferView.target === null) {
                     // console.log('WARNING: the bufferview of this accessor should have a target, or it should represent non buffer data (like animation)');
@@ -3166,6 +3184,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             
         }
+
+
+        return newGltfRuntimeScene;
     }
 
 
@@ -3411,7 +3432,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // so that their matrices are ready to use
                 for (i = 0, len = joints.length; i < len; i++) {
                     jointNode = joints[i];
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    if (skin.isLink) {
+                        // gl_avatar
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    } else {
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    }
+                    
                     
                     __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, inverseTransformMat4, tmpMat4);
 
@@ -3632,7 +3659,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 gl.bindVertexArray(BOUNDING_BOX.vertexArray);
 
                 for (i = 0, len = scenes.length; i < len; i++) {
-                    drawSceneBBox(curScene.glTF, scenes[i], boundingBoxType);
+                    drawSceneBBox(scenes[i].glTF, scenes[i], boundingBoxType);
                 }
 
 
@@ -3652,7 +3679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     glTFLoader.loadGLTF(gltfUrl, function(glTF) {
 
-        setupScene(glTF);
+        skeletonGltfScene = setupScene(glTF);
         
 
         // render();
@@ -7718,13 +7745,17 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     'use strict';
 
     // var curGltfModel = null;
+    var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
 
     // Data classes
-    var Scene = MinimalGLTFLoader.Scene = function (s) {
+    var Scene = MinimalGLTFLoader.Scene = function (gltf, s) {
         this.name = s.name !== undefined ? s.name : null;
-        this.nodes = [];    // root node object of this scene
+        this.nodes = new Array(s.nodes.length);    // root node object of this scene
+        for (var i = 0, len = s.nodes.length; i < len; i++) {
+            this.nodes[i] = gltf.nodes[s.nodes[i]];
+        }
 
-        this.boundingBox = null;    // actually a bvh
+        this.boundingBox = null;
     };
 
     /**
@@ -7866,22 +7897,47 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-    var Node = MinimalGLTFLoader.Node = function (nodeID) {
+    var Node = MinimalGLTFLoader.Node = function (n, nodeID) {
+        this.name = n.name !== undefined ? n.name : null;
         this.nodeID = nodeID;
+        // TODO: camera
+        this.camera = n.camera !== undefined ? n.camera : null;
+
         this.matrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+        if (n.hasOwnProperty('matrix')) {
+            for(var i = 0; i < 16; ++i) {
+                this.matrix[i] = n.matrix[i];
+            }
+        } else {
+            // this.translation = null;
+            // this.rotation = null;
+            // this.scale = null;
+            this.getTransformMatrixFromTRS(n.translation, n.rotation, n.scale);
+        }
         
-        this.translation = null;
-        this.rotation = null;
-        this.scale = null;
+        
+        
 
-        this.children = [];  // node object
-        // this.meshIDs = [];
-        this.mesh = null;   // mesh object
+        this.children = n.children || [];  // init as id, then hook up to node object later
+        this.mesh = n.mesh !== undefined ? curLoader.glTF.meshes[n.mesh] : null;
 
-        this.skin = null;
-        this.jointID = null;
+        this.skin = n.skin !== undefined ? n.skin : null;   // init as id, then hook up to skin object later
 
-        // this.scenes = [];
+        if (n.extensions !== undefined) {
+            if (n.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+                var linkedSkinID = curLoader.skeletonGltf.json.extensions.gl_avatar.skins[ n.extensions.gl_avatar.skin.name ];
+                var linkedSkin = curLoader.skeletonGltf.skins[linkedSkinID];
+                this.skin = new SkinLink(curLoader.glTF, linkedSkin, n.extensions.gl_avatar.skin.inverseBindMatrices);
+            }
+        }
+        
+
+
+        // TODO: morph targets weights
+        this.weights = n.weights !== undefined ? n.weights : null;
+
+
+        // runtime stuffs--------------
 
         this.aabb = null;   // axis aligned bounding box, not need to apply node transform to aabb
 
@@ -7942,11 +7998,43 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-    var Mesh = MinimalGLTFLoader.Mesh = function () {
-        this.meshID = -1;     // mesh id name in glTF json meshes
-        this.primitives = [];
+    var Mesh = MinimalGLTFLoader.Mesh = function (m, meshID) {
+        this.meshID = meshID;
+        this.name = m.name !== undefined ? m.name : null;
 
-        this.boundingBox = null;    // kind of function as an OBB
+        this.primitives = [];   // required
+        
+
+
+        // bounding box (runtime stuff)
+        this.boundingBox = null;
+
+        var p, primitive, accessor;
+
+        for (var i = 0, len = m.primitives.length; i < len; ++i) {
+            p = m.primitives[i];
+            primitive = new Primitive(curLoader.glTF, p);
+            this.primitives.push(primitive);
+
+            // bounding box related
+            if (primitive.boundingBox) {
+                if (!this.boundingBox) {
+                    this.boundingBox = new BoundingBox();
+                }
+                this.boundingBox.updateBoundingBox(primitive.boundingBox);
+            }
+        }
+
+        if (this.boundingBox) {
+            this.boundingBox.calculateTransform();
+        }
+
+
+        // TODO: weights for morph targets
+        this.weights = m.weights !== undefined ? m.weights : null;
+
+
+        
     };
 
     var Primitive = MinimalGLTFLoader.Primitive = function (gltf, p) {
@@ -7955,6 +8043,21 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.attributes = p.attributes;
         this.indices = p.indices !== undefined ? p.indices : null;  // accessor id
 
+        var attname;
+        if (p.extensions !== undefined) {
+            if (p.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+                if (p.extensions.gl_avatar.attributes) {
+                    for ( attname in p.extensions.gl_avatar.attributes ) {
+                        this.attributes[attname] = p.extensions.gl_avatar.attributes[attname];
+                    }
+                }
+            }
+        }
+
+        // hook up accessor object
+        for ( attname in this.attributes ) {
+            this.attributes[attname] = gltf.accessors[ this.attributes[attname] ];
+        }
 
         // @temp
         if (this.indices !== null) {
@@ -7966,6 +8069,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             this.drawArraysCount = gltf.json.accessors[this.attributes.POSITION].count;
             this.drawArraysOffset = (gltf.json.accessors[this.attributes.POSITION].byteOffset || 0);
         }
+
+        
         
 
 
@@ -7980,7 +8085,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.targets = p.targets;
 
 
-        // gl run time related
+        // ----gl run time related
         this.vertexArray = null;    //vao
         
         this.vertexBuffer = null;
@@ -7988,6 +8093,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
         this.boundingBox = null;
+        if (this.attributes.POSITION !== undefined) {
+            var accessor = this.attributes.POSITION;
+            if (accessor.max) {
+                // @todo: handle cases where no min max are provided
+
+                // assume vec3
+                if (accessor.type === 'VEC3') {
+                    this.boundingBox = new BoundingBox(
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
+                        false
+                    );
+                    this.boundingBox.calculateTransform();
+                    
+
+                    
+                }
+                
+            }
+        }
     };
 
 
@@ -8098,7 +8223,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.skeleton = s.skeleton !== undefined ? gltf.nodes[s.skeleton] : null;
         this.inverseBindMatrices = s.inverseBindMatrices !== undefined ? gltf.accessors[s.inverseBindMatrices] : null;
 
-
         // @tmp: runtime stuff should be taken care of renderer
         // since glTF model should only store info
         // runtime can have multiple instances of this glTF models
@@ -8141,8 +8265,70 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             }
         }
 
+    };
+
+    var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseBindMatricesAccessorID) {
+        this.isLink = true;
+
+        if (!gltf.skins) {
+            gltf.skins = [];
+        }
+        gltf.skins.push(this);
+
+        this.name = linkedSkin.name;
+        // this.skinID = linkedSkin.skinID;   // use this for uniformblock id
+        // this.skinID = gltf.skins.length - 1;
+        this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
+
+        this.joints = linkedSkin.joints;
+
+        this.skeleton = linkedSkin.skeleton;
+        this.inverseBindMatrices = inverseBindMatricesAccessorID !== undefined ? gltf.accessors[inverseBindMatricesAccessorID] : null;
+
+        // @tmp: runtime stuff should be taken care of renderer
+        // since glTF model should only store info
+        // runtime can have multiple instances of this glTF models
+        if (this.inverseBindMatrices) {
+            // should be a mat4
+            this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
+            // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
+
+            this.inverseBindMatrix = [];  // for calculation
+            this.jointMatrixUniformBuffer = null;
+            // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
+            //     this.inverseBindMatricesData, 
+            //     0, 
+            //     this.inverseBindMatricesData.length, 
+            //     this.inverseBindMatrices.componentType
+            // );      // for copy to UBO
+
+            // @tmp: fixed length to coordinate with shader, for copy to UBO
+            this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+
+            for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
+                this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].fromValues(
+                    this.inverseBindMatricesData[i],
+                    this.inverseBindMatricesData[i + 1],
+                    this.inverseBindMatricesData[i + 2],
+                    this.inverseBindMatricesData[i + 3],
+                    this.inverseBindMatricesData[i + 4],
+                    this.inverseBindMatricesData[i + 5],
+                    this.inverseBindMatricesData[i + 6],
+                    this.inverseBindMatricesData[i + 7],
+                    this.inverseBindMatricesData[i + 8],
+                    this.inverseBindMatricesData[i + 9],
+                    this.inverseBindMatricesData[i + 10],
+                    this.inverseBindMatricesData[i + 11],
+                    this.inverseBindMatricesData[i + 12],
+                    this.inverseBindMatricesData[i + 13],
+                    this.inverseBindMatricesData[i + 14],
+                    this.inverseBindMatricesData[i + 15]
+                ));
+            }
+        }
 
         
+
     };
 
 
@@ -8321,6 +8507,9 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         gl = glContext !== undefined ? glContext : null;
         this._init();
         this.glTF = null;
+
+        this.enableGLAvatar = false;
+        this.linkSkeletonGltf = null;
     };
 
     glTFLoader.prototype._init = function() {
@@ -8346,6 +8535,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
         this.onload = null;
 
+        curLoader = this;
     };
 
 
@@ -8461,6 +8651,9 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             }
         }
 
+        
+        
+        // TODO: refactor to post process
         // load all textures
         if (json.textures) {
             for (i = 0, len = json.textures.length; i < len; i++) {
@@ -8485,26 +8678,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-        // Iterate through every scene
-        if (json.scenes) {
-            // for (var sceneID in json.scenes) {
-            for (var sceneID = 0, lenS = json.scenes.length; sceneID < lenS; sceneID ++) {
-                var newScene = new Scene(json.scenes[sceneID]);
-                this.glTF.scenes[sceneID] = newScene;
+        // // Iterate through every scene
+        // if (json.scenes) {
+        //     // for (var sceneID in json.scenes) {
+        //     for (var sceneID = 0, lenS = json.scenes.length; sceneID < lenS; sceneID ++) {
+        //         var newScene = new Scene(json.scenes[sceneID]);
+        //         this.glTF.scenes[sceneID] = newScene;
 
-                var scene = json.scenes[sceneID];
-                var nodes = scene.nodes;
-                var nodeLen = nodes.length;
+        //         var scene = json.scenes[sceneID];
+        //         var nodes = scene.nodes;
+        //         var nodeLen = nodes.length;
 
-                // Iterate through every node within scene
-                for (var n = 0; n < nodeLen; ++n) {
-                    var nodeID = nodes[n];
+        //         // Iterate through every node within scene
+        //         for (var n = 0; n < nodeLen; ++n) {
+        //             var nodeID = nodes[n];
 
-                    // Traverse node
-                    newScene.nodes[n] = this._parseNode(json, nodeID);
-                }
-            }
-        }
+        //             // Traverse node
+        //             newScene.nodes[n] = this._parseNode(json, nodeID);
+        //         }
+        //     }
+        // }
 
         this._parseDone = true;
         this._checkComplete();
@@ -8521,7 +8714,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.glTF.meshes[meshID] = newMesh;
 
         var mesh = json.meshes[meshID];
-
         // newMesh.meshID = meshID;
 
         // Iterate through primitives
@@ -8555,6 +8747,14 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @tmp, need refine (old structure code...)
         var newNode = new Node(nodeID);
         newNode.skin = node.skin !== undefined ? node.skin : null;
+        // if (node.extensions !== undefined) {
+        //     if (node.extensions.gl_avatar !== undefined && this.enableGLAvatar === true) {
+        //         var linkedSkinID = this.skeletonGltf.json.extensions.gl_avatar.skins[ node.extensions.gl_avatar.skin.name ];
+        //         var linkedSkin = this.skeletonGltf.skins[linkedSkinID];
+        //         newNode.skin = new SkinLink(this.glTF, linkedSkin, node.extensions.gl_avatar.skin.inverseBindMatrices);
+        //     }
+        // }
+        
 
 
         this.glTF.nodes[nodeID] = newNode;
@@ -8620,6 +8820,13 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     };
 
 
+
+    glTFLoader.prototype.loadGLTF_GL_Avatar_Skin = function (uri, skeletonGltf, callback) {
+        this.enableGLAvatar = true;
+        this.skeletonGltf = skeletonGltf;
+
+        this.loadGLTF(uri, callback);
+    };
 
     /**
      * load a glTF model
@@ -8754,7 +8961,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @todo: ?? hook up pointers, get scene bounding box, etc.
         var i, leni, j, lenj;
 
-        var scene;
+        var scene, s;
         var node;
         var mesh, primitive, accessor;
 
@@ -8767,47 +8974,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-        // bounding box
-        
+        // mesh
         for (i = 0, leni = this.glTF.meshes.length; i < leni; i++) {
-            mesh = this.glTF.meshes[i];
-            // mesh.boundingBox = new BoundingBox( vec3.fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY), vec3.fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY), false );
-            mesh.boundingBox = new BoundingBox();
-            
-            for (j = 0, lenj = mesh.primitives.length; j < lenj; j++) {
-                primitive = mesh.primitives[j];
-
-                if (primitive.attributes.POSITION !== undefined) {
-                    accessor = this.glTF.accessors[ primitive.attributes.POSITION ];
-                    if (accessor.max) {
-                        // @todo: handle cases where no min max are provided
-
-                        // assume vec3
-                        if (accessor.type === 'VEC3') {
-                            primitive.boundingBox = new BoundingBox(
-                                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
-                                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
-                                false
-                            );
-                            primitive.boundingBox.calculateTransform();
-                            
-
-                            mesh.boundingBox.updateBoundingBox(primitive.boundingBox);
-                        }
-                        
-                    }
-                }
-
-
-                // // hook up accessors
-                // for (var att in primitive.attributes) {
-                //     primitive.attributes[att] = this.glTF.accessors[ primitive.attributes[att] ];
-                // }
-
-            }
-
-            mesh.boundingBox.calculateTransform();
+            this.glTF.meshes[i] = new Mesh(this.glTF.json.meshes[i], i);
         }
+
+
+
+        // node
+        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+            this.glTF.nodes[i] = new Node(this.glTF.json.nodes[i], i);
+        }
+
+        // node: hook up children
+        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+            node = this.glTF.nodes[i];
+            for (j = 0, lenj = node.children.length; j < lenj; j++) {
+                node.children[j] = this.glTF.nodes[ node.children[j] ];
+            }
+        }
+
 
 
         // scene Bounding box
@@ -8862,12 +9048,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
         for (i = 0, leni = this.glTF.scenes.length; i < leni; i++) {
-            scene = this.glTF.scenes[i];
-            // scene.boundingBox = new BoundingBox(
-            //     vec3.fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY), 
-            //     vec3.fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY),
-            //     false
-            // );
+            scene = this.glTF.scenes[i] = new Scene(this.glTF, this.glTF.json.scenes[i]);
+
             scene.boundingBox = new BoundingBox();
 
 
@@ -8915,7 +9097,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         }
 
         var joints;
-        if (this.glTF.skins) {
+        // if (this.glTF.skins) {
+        if (this.glTF.json.skins) {
             for (i = 0, leni = this.glTF.skins.length; i < leni; i++) {
                 this.glTF.skins[i] = new Skin(this.glTF, this.glTF.json.skins[i], i);
                 
@@ -8931,7 +9114,14 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
             node = this.glTF.nodes[i];
             if (node.skin !== null) {
-                node.skin = this.glTF.skins[ node.skin ];
+                if (typeof node.skin == 'number') {
+                    // usual skin, hook up
+                    node.skin = this.glTF.skins[ node.skin ];
+                } else {
+                    // assume gl_avatar is in use
+                    // do nothing
+                }
+                
             }
         } 
         
@@ -8962,14 +9152,14 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         'MAT4': 16
     };
 
-    MinimalGLTFLoader.Attributes = [
-        'POSITION',
-        'NORMAL', 
-        'TEXCOORD', 
-        'COLOR', 
-        'JOINT', 
-        'WEIGHT'
-    ];
+    // MinimalGLTFLoader.Attributes = [
+    //     'POSITION',
+    //     'NORMAL', 
+    //     'TEXCOORD', 
+    //     'COLOR', 
+    //     'JOINT', 
+    //     'WEIGHT'
+    // ];
 
     // MinimalGLTFLoader.UniformFunctionsBind = {
     //     35676: gl.uniformMatrix4fv      // FLOAT_MAT4 
@@ -9152,7 +9342,7 @@ exports = module.exports = __webpack_require__(17)(undefined);
 
 
 // module
-exports.push([module.i, "body {\r\n    color: #cccccc;\r\n    font-family: Monospace;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    background-color: #050505;\r\n    margin: 0px;\r\n    overflow: hidden;\r\n}\r\n\r\n#info {\r\n    position: absolute;\r\n    top: 0px;\r\n    width: 100%;\r\n    padding: 5px;\r\n}\r\n\r\n#description {\r\n    position: absolute;\r\n    top: 20px;\r\n    width: 100%;\r\n    padding: 5px;\r\n}\r\n\r\n.float {\r\n    float: left;\r\n    top: 10px;\r\n}\r\n\r\na {\r\n    color: #0080ff;\r\n}\r\n", ""]);
+exports.push([module.i, "body {\n    color: #cccccc;\n    font-family: Monospace;\n    font-size: 13px;\n    text-align: center;\n    background-color: #050505;\n    margin: 0px;\n    overflow: hidden;\n}\n\n#info {\n    position: absolute;\n    top: 0px;\n    width: 100%;\n    padding: 5px;\n}\n\n#description {\n    position: absolute;\n    top: 20px;\n    width: 100%;\n    padding: 5px;\n}\n\n.float {\n    float: left;\n    top: 10px;\n}\n\na {\n    color: #0080ff;\n}\n", ""]);
 
 // exports
 
@@ -9704,49 +9894,49 @@ this.domElement.appendChild(this.__input),this.domElement.appendChild(this.__sel
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\n\r\nvoid main()\r\n{\r\n    gl_Position = u_MVP * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\n\nvoid main()\n{\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define FRAG_COLOR_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\r\n\r\nvoid main()\r\n{\r\n    color = vec4(1.0, 0.0, 0.0, 1.0);\r\n}"
+module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    color = vec4(1.0, 0.0, 0.0, 1.0);\n}"
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\n\r\nout vec3 v_normal;\r\n\r\nvoid main()\r\n{\r\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\r\n    gl_Position = u_MVP * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define FRAG_COLOR_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform vec4 u_baseColorFactor;\r\nuniform sampler2D u_baseColorTexture;\r\nuniform sampler2D u_normalTexture;\r\n\r\nin vec3 v_normal;\r\nin vec2 v_uv;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\r\n\r\n\r\nvec3 applyNormalMap(vec3 geomnor, vec3 normap) {\r\n    normap = normap * 2.0 - 1.0;\r\n    vec3 up = normalize(vec3(0.001, 1, 0.001));\r\n    vec3 surftan = normalize(cross(geomnor, up));\r\n    vec3 surfbinor = cross(geomnor, surftan);\r\n    return normap.y * surftan + normap.x * surfbinor + normap.z * geomnor;\r\n}\r\n\r\nvoid main()\r\n{\r\n    vec3 normal = applyNormalMap( v_normal, texture(u_normalTexture, v_uv).rgb );\r\n    normal = gl_FrontFacing ? normal : -normal;\r\n\r\n    float intensity = dot(normal, vec3(0.0, 0.0, 1.0));\r\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity;\r\n    color.a = 1.0;\r\n}"
+module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\nuniform sampler2D u_baseColorTexture;\nuniform sampler2D u_normalTexture;\n\nin vec3 v_normal;\nin vec2 v_uv;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\n\nvec3 applyNormalMap(vec3 geomnor, vec3 normap) {\n    normap = normap * 2.0 - 1.0;\n    vec3 up = normalize(vec3(0.001, 1, 0.001));\n    vec3 surftan = normalize(cross(geomnor, up));\n    vec3 surfbinor = cross(geomnor, surftan);\n    return normap.y * surftan + normap.x * surfbinor + normap.z * geomnor;\n}\n\nvoid main()\n{\n    vec3 normal = applyNormalMap( v_normal, texture(u_normalTexture, v_uv).rgb );\n    normal = gl_FrontFacing ? normal : -normal;\n\n    float intensity = dot(normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity;\n    color.a = 1.0;\n}"
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n#define JOINTS_0_LOCATION 3\r\n#define WEIGHTS_0_LOCATION 4\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nuniform JointMatrix\r\n{\r\n    mat4 matrix[32];\r\n} u_jointMatrix;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\r\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\r\n\r\nout vec3 v_normal;\r\n\r\nvoid main()\r\n{\r\n    mat4 skinMatrix = \r\n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\r\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\r\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\r\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\r\n\r\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\r\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define WEIGHTS_0_LOCATION 4\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n#define JOINTS_0_LOCATION 3\r\n#define JOINTS_1_LOCATION 5\r\n#define WEIGHTS_0_LOCATION 4\r\n#define WEIGHTS_1_LOCATION 6\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nuniform JointMatrix\r\n{\r\n    mat4 matrix[32];\r\n} u_jointMatrix;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\r\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\r\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\r\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\r\n\r\nout vec3 v_normal;\r\n\r\nvoid main()\r\n{\r\n    mat4 skinMatrix = \r\n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\r\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\r\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\r\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\r\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\r\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\r\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\r\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\r\n\r\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\r\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define JOINTS_1_LOCATION 5\n#define WEIGHTS_0_LOCATION 4\n#define WEIGHTS_1_LOCATION 6\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n#define JOINTS_0_LOCATION 3\r\n#define WEIGHTS_0_LOCATION 4\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nuniform JointMatrix\r\n{\r\n    mat4 matrix[32];\r\n} u_jointMatrix;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\r\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\r\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\r\n\r\nout vec3 v_normal;\r\nout vec2 v_uv;\r\n\r\nvoid main()\r\n{\r\n    mat4 skinMatrix = \r\n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\r\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\r\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\r\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\r\n\r\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\r\n    v_uv = uv;\r\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define WEIGHTS_0_LOCATION 4\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n#define JOINTS_0_LOCATION 3\r\n#define JOINTS_1_LOCATION 5\r\n#define WEIGHTS_0_LOCATION 4\r\n#define WEIGHTS_1_LOCATION 6\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MVNormal;\r\n\r\nuniform JointMatrix\r\n{\r\n    mat4 matrix[32];\r\n} u_jointMatrix;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\r\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\r\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\r\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\r\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\r\n\r\nout vec3 v_normal;\r\nout vec2 v_uv;\r\n\r\nvoid main()\r\n{\r\n    mat4 skinMatrix = \r\n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\r\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\r\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\r\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\r\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\r\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\r\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\r\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\r\n    \r\n    \r\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\r\n    v_uv = uv;\r\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\r\n}"
+module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define JOINTS_1_LOCATION 5\n#define WEIGHTS_0_LOCATION 4\n#define WEIGHTS_1_LOCATION 6\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\n    \n    \n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
 
 /***/ })
 /******/ ]);

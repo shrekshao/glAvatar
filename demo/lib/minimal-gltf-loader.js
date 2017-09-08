@@ -5,14 +5,17 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     'use strict';
 
     // var curGltfModel = null;
-    var curLoader = null;       // @tmp, unsafe if loading multiple model at the same time
+    var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
 
     // Data classes
-    var Scene = MinimalGLTFLoader.Scene = function (s) {
+    var Scene = MinimalGLTFLoader.Scene = function (gltf, s) {
         this.name = s.name !== undefined ? s.name : null;
-        this.nodes = [];    // root node object of this scene
+        this.nodes = new Array(s.nodes.length);    // root node object of this scene
+        for (var i = 0, len = s.nodes.length; i < len; i++) {
+            this.nodes[i] = gltf.nodes[s.nodes[i]];
+        }
 
-        this.boundingBox = null;    // actually a bvh
+        this.boundingBox = null;
     };
 
     /**
@@ -154,22 +157,47 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-    var Node = MinimalGLTFLoader.Node = function (nodeID) {
+    var Node = MinimalGLTFLoader.Node = function (n, nodeID) {
+        this.name = n.name !== undefined ? n.name : null;
         this.nodeID = nodeID;
+        // TODO: camera
+        this.camera = n.camera !== undefined ? n.camera : null;
+
         this.matrix = mat4.create();
+        if (n.hasOwnProperty('matrix')) {
+            for(var i = 0; i < 16; ++i) {
+                this.matrix[i] = n.matrix[i];
+            }
+        } else {
+            // this.translation = null;
+            // this.rotation = null;
+            // this.scale = null;
+            this.getTransformMatrixFromTRS(n.translation, n.rotation, n.scale);
+        }
         
-        this.translation = null;
-        this.rotation = null;
-        this.scale = null;
+        
+        
 
-        this.children = [];  // node object
-        // this.meshIDs = [];
-        this.mesh = null;   // mesh object
+        this.children = n.children || [];  // init as id, then hook up to node object later
+        this.mesh = n.mesh !== undefined ? curLoader.glTF.meshes[n.mesh] : null;
 
-        this.skin = null;
-        this.jointID = null;
+        this.skin = n.skin !== undefined ? n.skin : null;   // init as id, then hook up to skin object later
 
-        // this.scenes = [];
+        if (n.extensions !== undefined) {
+            if (n.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+                var linkedSkinID = curLoader.skeletonGltf.json.extensions.gl_avatar.skins[ n.extensions.gl_avatar.skin.name ];
+                var linkedSkin = curLoader.skeletonGltf.skins[linkedSkinID];
+                this.skin = new SkinLink(curLoader.glTF, linkedSkin, n.extensions.gl_avatar.skin.inverseBindMatrices);
+            }
+        }
+        
+
+
+        // TODO: morph targets weights
+        this.weights = n.weights !== undefined ? n.weights : null;
+
+
+        // runtime stuffs--------------
 
         this.aabb = null;   // axis aligned bounding box, not need to apply node transform to aabb
 
@@ -230,11 +258,43 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-    var Mesh = MinimalGLTFLoader.Mesh = function () {
-        this.meshID = -1;     // mesh id name in glTF json meshes
-        this.primitives = [];
+    var Mesh = MinimalGLTFLoader.Mesh = function (m, meshID) {
+        this.meshID = meshID;
+        this.name = m.name !== undefined ? m.name : null;
 
-        this.boundingBox = null;    // kind of function as an OBB
+        this.primitives = [];   // required
+        
+
+
+        // bounding box (runtime stuff)
+        this.boundingBox = null;
+
+        var p, primitive, accessor;
+
+        for (var i = 0, len = m.primitives.length; i < len; ++i) {
+            p = m.primitives[i];
+            primitive = new Primitive(curLoader.glTF, p);
+            this.primitives.push(primitive);
+
+            // bounding box related
+            if (primitive.boundingBox) {
+                if (!this.boundingBox) {
+                    this.boundingBox = new BoundingBox();
+                }
+                this.boundingBox.updateBoundingBox(primitive.boundingBox);
+            }
+        }
+
+        if (this.boundingBox) {
+            this.boundingBox.calculateTransform();
+        }
+
+
+        // TODO: weights for morph targets
+        this.weights = m.weights !== undefined ? m.weights : null;
+
+
+        
     };
 
     var Primitive = MinimalGLTFLoader.Primitive = function (gltf, p) {
@@ -243,14 +303,20 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.attributes = p.attributes;
         this.indices = p.indices !== undefined ? p.indices : null;  // accessor id
 
+        var attname;
         if (p.extensions !== undefined) {
             if (p.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
                 if (p.extensions.gl_avatar.attributes) {
-                    for (var attname in p.extensions.gl_avatar.attributes) {
+                    for ( attname in p.extensions.gl_avatar.attributes ) {
                         this.attributes[attname] = p.extensions.gl_avatar.attributes[attname];
                     }
                 }
             }
+        }
+
+        // hook up accessor object
+        for ( attname in this.attributes ) {
+            this.attributes[attname] = gltf.accessors[ this.attributes[attname] ];
         }
 
         // @temp
@@ -287,6 +353,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
         this.boundingBox = null;
+        if (this.attributes.POSITION !== undefined) {
+            var accessor = this.attributes.POSITION;
+            if (accessor.max) {
+                // @todo: handle cases where no min max are provided
+
+                // assume vec3
+                if (accessor.type === 'VEC3') {
+                    this.boundingBox = new BoundingBox(
+                        vec3.fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
+                        vec3.fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
+                        false
+                    );
+                    this.boundingBox.calculateTransform();
+                    
+
+                    
+                }
+                
+            }
+        }
     };
 
 
@@ -444,8 +530,15 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseBindMatricesAccessorID) {
         this.isLink = true;
 
+        if (!gltf.skins) {
+            gltf.skins = [];
+        }
+        gltf.skins.push(this);
+
         this.name = linkedSkin.name;
-        this.skinID = linkedSkin.skinID;   // use this for uniformblock id
+        // this.skinID = linkedSkin.skinID;   // use this for uniformblock id
+        // this.skinID = gltf.skins.length - 1;
+        this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
 
         this.joints = linkedSkin.joints;
 
@@ -472,7 +565,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             // @tmp: fixed length to coordinate with shader, for copy to UBO
             this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
 
-            for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
+            for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
                 this.inverseBindMatrix.push(mat4.fromValues(
                     this.inverseBindMatricesData[i],
                     this.inverseBindMatricesData[i + 1],
@@ -493,6 +586,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
                 ));
             }
         }
+
+        
 
     };
 
@@ -816,6 +911,9 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             }
         }
 
+        
+        
+        // TODO: refactor to post process
         // load all textures
         if (json.textures) {
             for (i = 0, len = json.textures.length; i < len; i++) {
@@ -840,26 +938,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-        // Iterate through every scene
-        if (json.scenes) {
-            // for (var sceneID in json.scenes) {
-            for (var sceneID = 0, lenS = json.scenes.length; sceneID < lenS; sceneID ++) {
-                var newScene = new Scene(json.scenes[sceneID]);
-                this.glTF.scenes[sceneID] = newScene;
+        // // Iterate through every scene
+        // if (json.scenes) {
+        //     // for (var sceneID in json.scenes) {
+        //     for (var sceneID = 0, lenS = json.scenes.length; sceneID < lenS; sceneID ++) {
+        //         var newScene = new Scene(json.scenes[sceneID]);
+        //         this.glTF.scenes[sceneID] = newScene;
 
-                var scene = json.scenes[sceneID];
-                var nodes = scene.nodes;
-                var nodeLen = nodes.length;
+        //         var scene = json.scenes[sceneID];
+        //         var nodes = scene.nodes;
+        //         var nodeLen = nodes.length;
 
-                // Iterate through every node within scene
-                for (var n = 0; n < nodeLen; ++n) {
-                    var nodeID = nodes[n];
+        //         // Iterate through every node within scene
+        //         for (var n = 0; n < nodeLen; ++n) {
+        //             var nodeID = nodes[n];
 
-                    // Traverse node
-                    newScene.nodes[n] = this._parseNode(json, nodeID);
-                }
-            }
-        }
+        //             // Traverse node
+        //             newScene.nodes[n] = this._parseNode(json, nodeID);
+        //         }
+        //     }
+        // }
 
         this._parseDone = true;
         this._checkComplete();
@@ -1123,7 +1221,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @todo: ?? hook up pointers, get scene bounding box, etc.
         var i, leni, j, lenj;
 
-        var scene;
+        var scene, s;
         var node;
         var mesh, primitive, accessor;
 
@@ -1136,47 +1234,26 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-        // bounding box
-        
+        // mesh
         for (i = 0, leni = this.glTF.meshes.length; i < leni; i++) {
-            mesh = this.glTF.meshes[i];
-            // mesh.boundingBox = new BoundingBox( vec3.fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY), vec3.fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY), false );
-            mesh.boundingBox = new BoundingBox();
-            
-            for (j = 0, lenj = mesh.primitives.length; j < lenj; j++) {
-                primitive = mesh.primitives[j];
-
-                if (primitive.attributes.POSITION !== undefined) {
-                    accessor = this.glTF.accessors[ primitive.attributes.POSITION ];
-                    if (accessor.max) {
-                        // @todo: handle cases where no min max are provided
-
-                        // assume vec3
-                        if (accessor.type === 'VEC3') {
-                            primitive.boundingBox = new BoundingBox(
-                                vec3.fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
-                                vec3.fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
-                                false
-                            );
-                            primitive.boundingBox.calculateTransform();
-                            
-
-                            mesh.boundingBox.updateBoundingBox(primitive.boundingBox);
-                        }
-                        
-                    }
-                }
-
-
-                // // hook up accessors
-                // for (var att in primitive.attributes) {
-                //     primitive.attributes[att] = this.glTF.accessors[ primitive.attributes[att] ];
-                // }
-
-            }
-
-            mesh.boundingBox.calculateTransform();
+            this.glTF.meshes[i] = new Mesh(this.glTF.json.meshes[i], i);
         }
+
+
+
+        // node
+        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+            this.glTF.nodes[i] = new Node(this.glTF.json.nodes[i], i);
+        }
+
+        // node: hook up children
+        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+            node = this.glTF.nodes[i];
+            for (j = 0, lenj = node.children.length; j < lenj; j++) {
+                node.children[j] = this.glTF.nodes[ node.children[j] ];
+            }
+        }
+
 
 
         // scene Bounding box
@@ -1231,12 +1308,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
         for (i = 0, leni = this.glTF.scenes.length; i < leni; i++) {
-            scene = this.glTF.scenes[i];
-            // scene.boundingBox = new BoundingBox(
-            //     vec3.fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY), 
-            //     vec3.fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY),
-            //     false
-            // );
+            scene = this.glTF.scenes[i] = new Scene(this.glTF, this.glTF.json.scenes[i]);
+
             scene.boundingBox = new BoundingBox();
 
 
@@ -1284,7 +1357,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         }
 
         var joints;
-        if (this.glTF.skins) {
+        // if (this.glTF.skins) {
+        if (this.glTF.json.skins) {
             for (i = 0, leni = this.glTF.skins.length; i < leni; i++) {
                 this.glTF.skins[i] = new Skin(this.glTF, this.glTF.json.skins[i], i);
                 
@@ -1305,7 +1379,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
                     node.skin = this.glTF.skins[ node.skin ];
                 } else {
                     // assume gl_avatar is in use
-                    node.skin
+                    // do nothing
                 }
                 
             }
@@ -1338,14 +1412,14 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         'MAT4': 16
     };
 
-    MinimalGLTFLoader.Attributes = [
-        'POSITION',
-        'NORMAL', 
-        'TEXCOORD', 
-        'COLOR', 
-        'JOINT', 
-        'WEIGHT'
-    ];
+    // MinimalGLTFLoader.Attributes = [
+    //     'POSITION',
+    //     'NORMAL', 
+    //     'TEXCOORD', 
+    //     'COLOR', 
+    //     'JOINT', 
+    //     'WEIGHT'
+    // ];
 
     // MinimalGLTFLoader.UniformFunctionsBind = {
     //     35676: gl.uniformMatrix4fv      // FLOAT_MAT4 

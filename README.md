@@ -117,7 +117,10 @@ There are some other potential ideas:
 
             "extensions": {
                 "gl_avatar": {
-                    "skin": "chibi-human"
+                    "skin": {
+                        "name": "chibi-human",
+                        "inverseBindMatrices": 9
+                    }
                 }
             }
         }

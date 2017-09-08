@@ -414,6 +414,8 @@ import GUI from 'dat.gui';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Monster/glTF/Monster.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/mrdoob/rome-gltf/master/files/models/black_soup/quadruped_wolf.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Buggy/glTF/Buggy.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TextureSettingsTest/glTF/TextureSettingsTest.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
@@ -561,7 +563,8 @@ import GUI from 'dat.gui';
                 
                 skin.jointMatrixUniformBuffer = gl.createBuffer();
 
-                gl.bindBufferBase(gl.UNIFORM_BUFFER, i, skin.jointMatrixUniformBuffer);
+                // gl.bindBufferBase(gl.UNIFORM_BUFFER, i, skin.jointMatrixUniformBuffer);
+                gl.bindBufferBase(gl.UNIFORM_BUFFER, skin.skinID, skin.jointMatrixUniformBuffer);
 
                 gl.bindBuffer(gl.UNIFORM_BUFFER, skin.jointMatrixUniformBuffer);
                 gl.bufferData(gl.UNIFORM_BUFFER, skin.jointMatrixUnidormBufferData, gl.DYNAMIC_DRAW);
@@ -574,7 +577,8 @@ import GUI from 'dat.gui';
 
         function setupAttribuite(attrib, location) {
             if (attrib !== undefined) {
-                var accessor = glTF.accessors[ attrib ];
+                // var accessor = glTF.accessors[ attrib ];
+                var accessor = attrib;
                 var bufferView = accessor.bufferView;
                 if (bufferView.target === null) {
                     // console.log('WARNING: the bufferview of this accessor should have a target, or it should represent non buffer data (like animation)');
