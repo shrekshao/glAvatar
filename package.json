@@ -30,5 +30,9 @@
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
     "webpack-glsl-loader": "^1.0.1"
+  },
+  "dependencies": {
+    "dat.gui": "^0.6.1",
+    "gl-matrix": "^2.4.0"
   }
 }
