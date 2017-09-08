@@ -5,6 +5,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     'use strict';
 
     // var curGltfModel = null;
+    var curLoader = null;       // @tmp, unsafe if loading multiple model at the same time
 
     // Data classes
     var Scene = MinimalGLTFLoader.Scene = function (s) {
@@ -242,6 +243,15 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.attributes = p.attributes;
         this.indices = p.indices !== undefined ? p.indices : null;  // accessor id
 
+        if (p.extensions !== undefined) {
+            if (p.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+                if (p.extensions.gl_avatar.attributes) {
+                    for (var attname in p.extensions.gl_avatar.attributes) {
+                        this.attributes[attname] = p.extensions.gl_avatar.attributes[attname];
+                    }
+                }
+            }
+        }
 
         // @temp
         if (this.indices !== null) {
@@ -253,6 +263,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             this.drawArraysCount = gltf.json.accessors[this.attributes.POSITION].count;
             this.drawArraysOffset = (gltf.json.accessors[this.attributes.POSITION].byteOffset || 0);
         }
+
+        
         
 
 
@@ -267,7 +279,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.targets = p.targets;
 
 
-        // gl run time related
+        // ----gl run time related
         this.vertexArray = null;    //vao
         
         this.vertexBuffer = null;
@@ -608,6 +620,9 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         gl = glContext !== undefined ? glContext : null;
         this._init();
         this.glTF = null;
+
+        this.enableGLAvatar = false;
+        this.linkSkeletonGltf = null;
     };
 
     glTFLoader.prototype._init = function() {
@@ -633,6 +648,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
         this.onload = null;
 
+        curLoader = this;
     };
 
 
@@ -808,7 +824,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.glTF.meshes[meshID] = newMesh;
 
         var mesh = json.meshes[meshID];
-
         // newMesh.meshID = meshID;
 
         // Iterate through primitives
@@ -842,6 +857,14 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @tmp, need refine (old structure code...)
         var newNode = new Node(nodeID);
         newNode.skin = node.skin !== undefined ? node.skin : null;
+        if (node.extensions !== undefined) {
+            if (node.extensions.gl_avatar !== undefined && this.enableGLAvatar === true) {
+                var linkedSkinID = this.skeletonGltf.json.extensions.gl_avatar.skins[ node.extensions.gl_avatar.skin ];
+                newNode.skin = this.skeletonGltf.skins[linkedSkinID];
+                newNode.skinLink = this.skeletonGltf;
+            }
+        }
+        
 
 
         this.glTF.nodes[nodeID] = newNode;
@@ -907,6 +930,13 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     };
 
 
+
+    glTFLoader.prototype.loadGLTF_GL_Avatar_Skin = function (uri, skeletonGltf, callback) {
+        this.enableGLAvatar = true;
+        this.skeletonGltf = skeletonGltf;
+
+        this.loadGLTF(uri, callback);
+    };
 
     /**
      * load a glTF model
@@ -1218,7 +1248,13 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
             node = this.glTF.nodes[i];
             if (node.skin !== null) {
-                node.skin = this.glTF.skins[ node.skin ];
+                if (typeof node.skin == 'number') {
+                    // usual skin, hook up
+                    node.skin = this.glTF.skins[ node.skin ];
+                } else {
+                    // assume gl_avatar is in use
+                }
+                
             }
         } 
         

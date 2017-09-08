@@ -102,10 +102,24 @@ import GUI from 'dat.gui';
                 , setupScene
             )
         };
+
+        this.gltfShirt = function() {
+            console.log("load gltf shirt (handcrafted glAvatar)");
+            glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
+                , skeletonGltfScene.glTF
+                , function(gltf) {
+                    gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+                    setupScene(gltf);
+                }
+            )
+        };
     };
     var avatarControl = new glAvatarControl();
     gui.add(avatarControl, 'VC');
+    gui.add(avatarControl, 'gltfShirt');
 
+
+    var skeletonGltfScene = null;
 
     var drawBoundingBox = false;
     var boundingBoxType = 'obb';
@@ -400,7 +414,9 @@ import GUI from 'dat.gui';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TextureSettingsTest/glTF/TextureSettingsTest.gltf';
     // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
-    var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
+    // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
+    
+    var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
 
     var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
 
@@ -416,16 +432,19 @@ import GUI from 'dat.gui';
     function setupScene(glTF) {
         var i, len;
 
+        
         var curGltfScene = glTF.scenes[glTF.defaultScene];
 
         var sceneDeltaTranslate = vec3.fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
         var tmpVec3Translate = vec3.create();
 
-        for (i = 0, len = glTFModelCount; i < len; i++) {
-            scenes.push(new Scene(curGltfScene, glTF));
-            // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
-            // mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
-        }
+        var newGltfRuntimeScene = new Scene(curGltfScene, glTF);
+        scenes.push(newGltfRuntimeScene);
+        // for (i = 0, len = glTFModelCount; i < len; i++) {
+        //     scenes.push(new Scene(curGltfScene, glTF));
+        //     // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
+        //     // mat4.fromTranslation(scenes[i].rootTransform, tmpVec3Translate);
+        // }
         
 
         
@@ -614,6 +633,9 @@ import GUI from 'dat.gui';
             }
             
         }
+
+
+        return newGltfRuntimeScene;
     }
 
 
@@ -859,7 +881,13 @@ import GUI from 'dat.gui';
                 // so that their matrices are ready to use
                 for (i = 0, len = joints.length; i < len; i++) {
                     jointNode = joints[i];
-                    mat4.mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    if (node.skinLink) {
+                        // gl_avatar
+                        mat4.mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    } else {
+                        mat4.mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                    }
+                    
                     
                     mat4.mul(tmpMat4, inverseTransformMat4, tmpMat4);
 
@@ -1080,7 +1108,7 @@ import GUI from 'dat.gui';
                 gl.bindVertexArray(BOUNDING_BOX.vertexArray);
 
                 for (i = 0, len = scenes.length; i < len; i++) {
-                    drawSceneBBox(curScene.glTF, scenes[i], boundingBoxType);
+                    drawSceneBBox(scenes[i].glTF, scenes[i], boundingBoxType);
                 }
 
 
@@ -1100,7 +1128,7 @@ import GUI from 'dat.gui';
 
     glTFLoader.loadGLTF(gltfUrl, function(glTF) {
 
-        setupScene(glTF);
+        skeletonGltfScene = setupScene(glTF);
         
 
         // render();
