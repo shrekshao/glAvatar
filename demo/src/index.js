@@ -122,6 +122,32 @@ import GUI from 'dat.gui';
 
     var gui = new GUI.GUI();
     var glAvatarControl = function() {
+
+
+        function setupAccessory(category, name, gltf) {
+            gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+            glAvatarSystem.accessories[category][name] = gltf;
+            glAvatarSystem.curAccessories[category].name = name;
+            glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
+        }
+
+        function selectAccessory(category, name, uri) {
+
+            var loadedAccessory = glAvatarSystem.accessories[category][name];
+            if (!loadedAccessory) {
+                // load gltf first
+                console.log('first load ' + uri);
+                glTFLoader.loadGLTF_GL_Avatar_Skin(uri
+                    , skeletonGltfScene.glTF
+                    , function(gltf) {
+                        setupAccessory(category, name, gltf);
+                    }
+                )
+            } else {
+                setupAccessory(category, name, loadedAccessory);
+            }
+        }
+
         this.VC = function() {
             console.log("load VC");
             // glTFLoader.loadGLTF("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf"
@@ -131,38 +157,68 @@ import GUI from 'dat.gui';
         };
 
         this.gltfShirt = function() {
-            var name = 'gltfShirt';
+            // var name = 'gltfShirt';
 
-            // TODO: 
+            // // TODO: 
 
 
-            console.log("load gltf shirt (handcrafted glAvatar)");
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-            glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-                , skeletonGltfScene.glTF
-                , function(gltf) {
-                    gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-                    glAvatarSystem.accessories.clothes.gltfShirt = gltf;
-                    glAvatarSystem.curAccessories.clothes.name = 'gltfShirt';
-                    glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
-                }
-            )
+            // console.log("load gltf shirt (handcrafted glAvatar)");
+            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
+            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
+            //     , skeletonGltfScene.glTF
+            //     , function(gltf) {
+            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+            //         glAvatarSystem.accessories.clothes[name] = gltf;
+            //         glAvatarSystem.curAccessories.clothes.name = name;
+            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
+            //     }
+            // );
+
+            selectAccessory(
+                'clothes'
+                , 'gltfShirt'
+                ,'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
+
+        };
+
+        this.batman_armor = function() {
+            // var name = 'batman_armor';
+            // console.log("load batman armor (handcrafted glAvatar)");
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/batman_armor_glavatar/batman_armor.gltf"
+            //     , skeletonGltfScene.glTF
+            //     , function(gltf) {
+            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+            //         glAvatarSystem.accessories.clothes[name] = gltf;
+            //         glAvatarSystem.curAccessories.clothes.name = name;
+            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
+            //     }
+            // );
+
+            selectAccessory(
+                'clothes'
+                , 'batman_armor'
+                ,'models/batman_armor_glavatar/batman_armor.gltf');
         };
 
         this.hair = function() {
-            console.log("load hair (handcrafted glAvatar)");
+            // console.log("load hair (handcrafted glAvatar)");
             
-            glTFLoader.loadGLTF_GL_Avatar_Skin("models/hair_glavatar/hair.gltf"
-                , skeletonGltfScene.glTF
-                , function(gltf) {
-                    gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-                    glAvatarSystem.accessories.clothes.redhair = gltf;
-                    glAvatarSystem.curAccessories.hair.name = 'redhair';
-                    glAvatarSystem.curAccessories.hair.scene = setupScene(gltf);
-                    setupScene(gltf);
-                }
-            )
+            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/hair_glavatar/hair.gltf"
+            //     , skeletonGltfScene.glTF
+            //     , function(gltf) {
+            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+            //         glAvatarSystem.accessories.clothes.redhair = gltf;
+            //         glAvatarSystem.curAccessories.hair.name = 'redhair';
+            //         glAvatarSystem.curAccessories.hair.scene = setupScene(gltf);
+            //         setupScene(gltf);
+            //     }
+            // );
+
+            selectAccessory(
+                'hair'
+                , 'red_hair'
+                ,'models/hair_glavatar/hair.gltf');
         };
     };
     var avatarControl = new glAvatarControl();
@@ -172,6 +228,7 @@ import GUI from 'dat.gui';
     folderHair.add(avatarControl, 'hair');
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
+    folderClothes.add(avatarControl, 'batman_armor');
 
 
     var skeletonGltfScene = null;
@@ -489,7 +546,7 @@ import GUI from 'dat.gui';
     var isFaceCulling = true;
 
 
-    function setupScene(glTF, replaceID) {
+    function setupScene(glTF, replaceScene) {
         var i, len;
 
         
@@ -499,11 +556,11 @@ import GUI from 'dat.gui';
         var tmpVec3Translate = vec3.create();
 
         var newGltfRuntimeScene;
-        if (replaceID === undefined) {
+        if (!replaceScene) {
             newGltfRuntimeScene = new Scene(curGltfScene, glTF, scenes.length);
             scenes.push(newGltfRuntimeScene);
         } else {
-            newGltfRuntimeScene = scenes[replaceID] = new Scene(curGltfScene, glTF, replaceID);
+            newGltfRuntimeScene = scenes[replaceScene.id] = new Scene(curGltfScene, glTF, replaceScene.id);
         }
         
         // for (i = 0, len = glTFModelCount; i < len; i++) {

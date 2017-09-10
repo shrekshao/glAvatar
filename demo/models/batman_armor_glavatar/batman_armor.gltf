@@ -1,0 +1,404 @@
+{
+    "extensionsUsed": [
+        "gl_avatar"
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5123, 
+            "count" : 6822, 
+            "max" : [
+                1427
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                25.500200271606445, 
+                20.36667251586914, 
+                -92.16120147705078
+            ], 
+            "min" : [
+                -59.4449348449707, 
+                -25.982900619506836, 
+                -172.7379150390625
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                0.99920654296875, 
+                0.999969482421875, 
+                0.9936521649360657
+            ], 
+            "min" : [
+                -0.99920654296875, 
+                -0.999969482421875, 
+                -0.9890133142471313
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                0.9999145865440369, 
+                0.9944353699684143, 
+                0.9962522387504578, 
+                1.0
+            ], 
+            "min" : [
+                -0.9999145865440369, 
+                -0.9991146922111511, 
+                -0.9972560405731201, 
+                1.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 4, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                0.9713000059127808, 
+                0.8819999992847443
+            ], 
+            "min" : [
+                0.006899999920278788, 
+                0.0040000081062316895
+            ], 
+            "type" : "VEC2"
+        }, 
+        {
+            "bufferView" : 5, 
+            "componentType" : 5123, 
+            "count" : 1428, 
+            "max" : [
+                10, 
+                10, 
+                20, 
+                20
+            ], 
+            "min" : [
+                0, 
+                0, 
+                0, 
+                0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 6, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                0.9934629201889038, 
+                0.9599571228027344, 
+                0.9365723729133606, 
+                0.8760051131248474
+            ], 
+            "min" : [
+                0.0, 
+                0.0, 
+                0.0, 
+                0.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 7, 
+            "componentType" : 5123, 
+            "count" : 1428, 
+            "max" : [
+                20, 
+                20, 
+                20, 
+                0
+            ], 
+            "min" : [
+                0, 
+                0, 
+                0, 
+                0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 8, 
+            "componentType" : 5126, 
+            "count" : 1428, 
+            "max" : [
+                0.6511644124984741, 
+                0.49585509300231934, 
+                0.23387828469276428, 
+                0.0
+            ], 
+            "min" : [
+                0.0, 
+                0.0, 
+                0.0, 
+                0.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 9, 
+            "componentType" : 5126, 
+            "count" : 25, 
+            "max" : [
+                0.144940584897995, 
+                0.6711137890815735, 
+                0.6690529584884644, 
+                0.0, 
+                0.449455589056015, 
+                0.731886625289917, 
+                0.7431952953338623, 
+                0.0, 
+                0.44921404123306274, 
+                0.4393462836742401, 
+                0.03552721068263054, 
+                0.0, 
+                77.1799087524414, 
+                34.332950592041016, 
+                13.962920188903809, 
+                1.0
+            ], 
+            "min" : [
+                -0.6711534857749939, 
+                -0.671113908290863, 
+                -0.6690511703491211, 
+                0.0, 
+                -0.4494553208351135, 
+                -6.658413553850551e-08, 
+                -0.7431954741477966, 
+                0.0, 
+                -0.44921407103538513, 
+                -0.4492405951023102, 
+                -7.61677085847623e-08, 
+                0.0, 
+                -86.67537689208984, 
+                -75.66368103027344, 
+                -3.4223597049713135, 
+                1.0
+            ], 
+            "type" : "MAT4"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 13644, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 17136, 
+            "byteOffset" : 13644, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 17136, 
+            "byteOffset" : 30780, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 22848, 
+            "byteOffset" : 47916, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 11424, 
+            "byteOffset" : 70764, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 11424, 
+            "byteOffset" : 82188, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 22848, 
+            "byteOffset" : 93612, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 11424, 
+            "byteOffset" : 116460, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 22848, 
+            "byteOffset" : 127884, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1600, 
+            "byteOffset" : 150732
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 153932, 
+            "uri" : "batman_armor.bin"
+        }
+    ], 
+    "images" : [
+        {
+            "uri" : "1KDiff.png"
+        }, 
+        {
+            "uri" : "Normal.png"
+        }, 
+        {
+            "uri" : "EM.png"
+        }
+    ], 
+    "materials" : [
+        {
+            "emissiveFactor" : [
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "emissiveTexture" : {
+                "index" : 2
+            }, 
+            "name" : "batman", 
+            "normalTexture" : {
+                "index" : 1
+            }, 
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                }, 
+                "roughnessFactor" : 0.0
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "BatSuite", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "JOINTS_0" : 5, 
+                        "JOINTS_1" : 7, 
+                        "NORMAL" : 2, 
+                        "POSITION" : 1, 
+                        "TANGENT" : 3, 
+                        "TEXCOORD_0" : 4, 
+                        "WEIGHTS_0" : 6, 
+                        "WEIGHTS_1" : 8
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "children" : [
+                1
+            ], 
+            "name" : "Armature", 
+            "rotation" : [
+                0.7071068286895752, 
+                0.0, 
+                -0.0, 
+                0.7071067094802856
+            ], 
+            "scale" : [
+                0.009999999776482582, 
+                0.009999999776482582, 
+                0.009999999776482582
+            ]
+        }, 
+        {
+            "mesh" : 0, 
+            "name" : "BatSuite", 
+            "rotation" : [
+                3.9541331804161545e-15, 
+                0.0, 
+                -0.0, 
+                1.0
+            ], 
+            "scale" : [
+                0.6711534857749939, 
+                0.7431952953338623, 
+                0.4492405354976654
+            ], 
+            "translation" : [
+                -0.21198442578315735, 
+                1.3294227123260498, 
+                5.815125942230225
+            ],
+            "extensions": {
+                "gl_avatar": {
+                    "skin": {
+                        "name": "patrick",
+                        "inverseBindMatrices": 9
+                    }
+                }
+            }
+        }, 
+        {
+            "name" : "Point", 
+            "translation" : [
+                0.0, 
+                0.8216755986213684, 
+                1.3044323921203613
+            ]
+        }
+    ], 
+    "samplers" : [
+        {}
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                2, 
+                0
+            ]
+        }
+    ], 
+    "textures" : [
+        {
+            "sampler" : 0, 
+            "source" : 0
+        }, 
+        {
+            "sampler" : 0, 
+            "source" : 1
+        }, 
+        {
+            "sampler" : 0, 
+            "source" : 2
+        }
+    ]
+}
