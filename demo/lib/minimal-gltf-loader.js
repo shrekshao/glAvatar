@@ -4,6 +4,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 (function() {
     'use strict';
 
+    var globalUniformBlockID = 0;
+
     // var curGltfModel = null;
     var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
 
@@ -472,7 +474,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     
     var Skin = MinimalGLTFLoader.Skin = function (gltf, s, skinID) {
         this.name = s.name !== undefined ? s.name : null;
-        this.skinID = skinID;   // use this for uniformblock id
+        this.skinID = skinID;
 
         this.joints = new Array(s.joints.length);   // required
         var i, len;
@@ -486,6 +488,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @tmp: runtime stuff should be taken care of renderer
         // since glTF model should only store info
         // runtime can have multiple instances of this glTF models
+        this.uniformBlockID = globalUniformBlockID++;
+
         if (this.inverseBindMatrices) {
             // should be a mat4
             this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
@@ -538,7 +542,8 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         this.name = linkedSkin.name;
         // this.skinID = linkedSkin.skinID;   // use this for uniformblock id
         // this.skinID = gltf.skins.length - 1;
-        this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
+        // this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
+        this.skinID = gltf.skins.length - 1;
 
         this.joints = linkedSkin.joints;
 
@@ -548,6 +553,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         // @tmp: runtime stuff should be taken care of renderer
         // since glTF model should only store info
         // runtime can have multiple instances of this glTF models
+        this.uniformBlockID = globalUniformBlockID++;
         if (this.inverseBindMatrices) {
             // should be a mat4
             this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);

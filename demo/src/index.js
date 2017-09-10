@@ -93,6 +93,33 @@ import GUI from 'dat.gui';
 (function()  {
     'use strict';
 
+    var glAvatarSystem = {
+
+        curSkeleton: {
+            name: null,
+            scene: null
+        },  
+        curAccessories: {
+            clothes: {
+                name: null,
+                scene: null
+            },
+            hair: {
+                name: null,
+                scene: null
+            }
+        },
+
+
+        // assets
+        skeletons: {},
+
+        accessories: {
+            clothes: {},
+            hair: {}
+        }
+    };
+
     var gui = new GUI.GUI();
     var glAvatarControl = function() {
         this.VC = function() {
@@ -104,6 +131,11 @@ import GUI from 'dat.gui';
         };
 
         this.gltfShirt = function() {
+            var name = 'gltfShirt';
+
+            // TODO: 
+
+
             console.log("load gltf shirt (handcrafted glAvatar)");
             // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
             // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
@@ -111,14 +143,35 @@ import GUI from 'dat.gui';
                 , skeletonGltfScene.glTF
                 , function(gltf) {
                     gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+                    glAvatarSystem.accessories.clothes.gltfShirt = gltf;
+                    glAvatarSystem.curAccessories.clothes.name = 'gltfShirt';
+                    glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
+                }
+            )
+        };
+
+        this.hair = function() {
+            console.log("load hair (handcrafted glAvatar)");
+            
+            glTFLoader.loadGLTF_GL_Avatar_Skin("models/hair_glavatar/hair.gltf"
+                , skeletonGltfScene.glTF
+                , function(gltf) {
+                    gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
+                    glAvatarSystem.accessories.clothes.redhair = gltf;
+                    glAvatarSystem.curAccessories.hair.name = 'redhair';
+                    glAvatarSystem.curAccessories.hair.scene = setupScene(gltf);
                     setupScene(gltf);
                 }
             )
         };
     };
     var avatarControl = new glAvatarControl();
-    gui.add(avatarControl, 'VC');
-    gui.add(avatarControl, 'gltfShirt');
+    var folderScene = gui.addFolder('scene');
+    folderScene.add(avatarControl, 'VC');
+    var folderHair = gui.addFolder('hair');
+    folderHair.add(avatarControl, 'hair');
+    var folderClothes = gui.addFolder('clothes');
+    folderClothes.add(avatarControl, 'gltfShirt');
 
 
     var skeletonGltfScene = null;
@@ -153,9 +206,10 @@ import GUI from 'dat.gui';
     };
 
     // Scene object for runtime renderer
-    var Scene = function(glTFScene, glTF) {
+    var Scene = function(glTFScene, glTF, id) {
         this.glTFScene = glTFScene;
         this.glTF = glTF;
+        this.id = id;
 
         // runtime renderer context
         this.rootTransform = mat4.create();
@@ -422,6 +476,7 @@ import GUI from 'dat.gui';
     
     // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
     var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
+    // var gltfUrl = 'models/girl16/scene.gltf';
 
     var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
 
@@ -434,7 +489,7 @@ import GUI from 'dat.gui';
     var isFaceCulling = true;
 
 
-    function setupScene(glTF) {
+    function setupScene(glTF, replaceID) {
         var i, len;
 
         
@@ -443,8 +498,14 @@ import GUI from 'dat.gui';
         var sceneDeltaTranslate = vec3.fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
         var tmpVec3Translate = vec3.create();
 
-        var newGltfRuntimeScene = new Scene(curGltfScene, glTF);
-        scenes.push(newGltfRuntimeScene);
+        var newGltfRuntimeScene;
+        if (replaceID === undefined) {
+            newGltfRuntimeScene = new Scene(curGltfScene, glTF, scenes.length);
+            scenes.push(newGltfRuntimeScene);
+        } else {
+            newGltfRuntimeScene = scenes[replaceID] = new Scene(curGltfScene, glTF, replaceID);
+        }
+        
         // for (i = 0, len = glTFModelCount; i < len; i++) {
         //     scenes.push(new Scene(curGltfScene, glTF));
         //     // vec3.scale(tmpVec3Translate, sceneDeltaTranslate, i);
@@ -564,7 +625,7 @@ import GUI from 'dat.gui';
                 skin.jointMatrixUniformBuffer = gl.createBuffer();
 
                 // gl.bindBufferBase(gl.UNIFORM_BUFFER, i, skin.jointMatrixUniformBuffer);
-                gl.bindBufferBase(gl.UNIFORM_BUFFER, skin.skinID, skin.jointMatrixUniformBuffer);
+                gl.bindBufferBase(gl.UNIFORM_BUFFER, skin.uniformBlockID, skin.jointMatrixUniformBuffer);
 
                 gl.bindBuffer(gl.UNIFORM_BUFFER, skin.jointMatrixUniformBuffer);
                 gl.bufferData(gl.UNIFORM_BUFFER, skin.jointMatrixUnidormBufferData, gl.DYNAMIC_DRAW);
@@ -682,7 +743,7 @@ import GUI from 'dat.gui';
         var hasIndices = true;
 
         var hasSkin = false;
-        var skinID;     // same for uniform block binding id
+        var uniformBlockID;     // same for uniform block binding id
 
 
         var curScene;
@@ -773,7 +834,7 @@ import GUI from 'dat.gui';
                     }
                 }
 
-                gl.uniformBlockBinding(program.program, program.uniformBlockIndexJointMatrix, skinID);
+                gl.uniformBlockBinding(program.program, program.uniformBlockIndexJointMatrix, uniformBlockID);
             } else {
 
                 if (primitive.material !== null) {
@@ -877,7 +938,7 @@ import GUI from 'dat.gui';
                 // mesh node with skin
                 hasSkin = true;
                 var skin = node.skin;
-                skinID = skin.skinID;
+                uniformBlockID = skin.uniformBlockID;
                 var joints = node.skin.joints;
                 var jointNode;
 
