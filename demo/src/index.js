@@ -784,7 +784,8 @@ import GUI from 'dat.gui';
         var scale = vec3.create();
         
         var r = 0.0;
-        var rotationSpeedY= 0.01;
+        // var rotationSpeedY= 0.01;
+        var rotationSpeedY= 0.0;
 
         var perspective = mat4.create();
         mat4.perspective(perspective, 0.785, canvas.width / canvas.height, 0.01, 100);

@@ -6,7 +6,7 @@ An open source assest library of 3D avatar content creation where artists can co
 
 ## Demo
 
-TODO
+![](img/demo.gif)
 
 ## Overview
 
@@ -159,7 +159,8 @@ There are some other potential ideas:
                                 "JOINTS_0": 1,
                                 "WEIGHTS_0": 2
                             }
-                        }
+                        },
+                        "//comment": "this part is not necessary, depending on the engine implementation"
                     }
                 }
             ]
