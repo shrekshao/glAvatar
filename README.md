@@ -56,6 +56,16 @@ There are some other potential ideas:
 * switchable textures
 * use morph targets for face, skin, musle shape custom controlling
 
+## Things to implement
+
+* Web3D avatar renderer
+    * shows arbitrary combination of skin models
+    * export the avatar as a glTF model by merging parts
+* Template blender project file with skeleton
+* Exporter in blender glTF models with glAvatar extensions
+    * might extend [Blender glTF 2.0 Exporter](https://github.com/KhronosGroup/glTF-Blender-Exporter)
+* Online asset library for model contributions?
+
 ## Use case
 
 * glTF 3D avatar model generator for 3D app, indie game dev, etc.
