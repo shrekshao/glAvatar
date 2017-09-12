@@ -379,14 +379,15 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
     var Texture = MinimalGLTFLoader.Texture = function (t) {
-        this.sampler = t.sampler !== undefined ? t.sampler : null;  // id for now, hook to object later
-        this.source = t.source !== undefined ? t.source : null; // id for now, hook to object later
+        this.name = t.name !== undefined ? t.name : null;
+        this.sampler = t.sampler !== undefined ? curLoader.glTF.samplers[t.sampler] : null;
+        this.source = t.source !== undefined ? curLoader.glTF.images[t.source] : null;
 
+        // runtime
         this.texture = null;
     };
 
-    Texture.prototype.createTexture = function(i, gl) {
-        gl.activeTexture(gl.TEXTURE0 + i);
+    Texture.prototype.createTexture = function(gl) {
         this.texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, this.texture);
         gl.texImage2D(
@@ -404,6 +405,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     };
 
     var Sampler = MinimalGLTFLoader.Sampler = function (s) {
+        this.name = s.name !== undefined ? s.name : null;
         this.magFilter = s.magFilter !== undefined ? s.magFilter : null;
         this.minFilter = s.minFilter !== undefined ? s.minFilter : null;
         this.wrapS = s.wrapS !== undefined ? s.wrapS : 10497;
@@ -917,173 +919,12 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             }
         }
 
-        
-        
-        // TODO: refactor to post process
-        // load all textures
-        if (json.textures) {
-            for (i = 0, len = json.textures.length; i < len; i++) {
-                this.glTF.textures[i] = new Texture(json.textures[i]);
-            }
-        }
-
-        // load all samplers 
-        if (json.samplers) {
-            for (i = 0, len = json.samplers.length; i < len; i++) {
-                this.glTF.samplers[i] = new Sampler(json.samplers[i]);
-            } 
-        }
-
-        // load all materials
-        if (json.materials) {
-            for (i = 0, len = json.materials.length; i < len; i++) {
-                this.glTF.materials[i] = new Material(json.materials[i]);
-            }
-        }
-
-
-
-
-        // // Iterate through every scene
-        // if (json.scenes) {
-        //     // for (var sceneID in json.scenes) {
-        //     for (var sceneID = 0, lenS = json.scenes.length; sceneID < lenS; sceneID ++) {
-        //         var newScene = new Scene(json.scenes[sceneID]);
-        //         this.glTF.scenes[sceneID] = newScene;
-
-        //         var scene = json.scenes[sceneID];
-        //         var nodes = scene.nodes;
-        //         var nodeLen = nodes.length;
-
-        //         // Iterate through every node within scene
-        //         for (var n = 0; n < nodeLen; ++n) {
-        //             var nodeID = nodes[n];
-
-        //             // Traverse node
-        //             newScene.nodes[n] = this._parseNode(json, nodeID);
-        //         }
-        //     }
-        // }
-
         this._parseDone = true;
         this._checkComplete();
     };
 
 
-    glTFLoader.prototype._parseMesh = function(json, meshID) {
-        if (this.glTF.meshes[meshID] !== undefined) {
-            // mesh is already loaded
-            return this.glTF.meshes[meshID];
-        }
 
-        var newMesh = new Mesh();
-        this.glTF.meshes[meshID] = newMesh;
-
-        var mesh = json.meshes[meshID];
-        // newMesh.meshID = meshID;
-
-        // Iterate through primitives
-        var primitives = mesh.primitives;
-        var primitiveLen = primitives.length;
-        var primitive;  // primitive json
-
-        for (var p = 0; p < primitiveLen; ++p) {
-            primitive = primitives[p];
-            newMesh.primitives.push(new Primitive(this.glTF, primitive));
-        }
-
-        return newMesh;
-    };
-
-
-
-
-
-
-    
-    
-    glTFLoader.prototype._parseNode = function(json, nodeID) {
-        if (this.glTF.nodes[nodeID] !== undefined) {
-            // node is already loaded
-            return this.glTF.nodes[nodeID];
-        }
-
-        var node = json.nodes[nodeID];
-
-        // @tmp, need refine (old structure code...)
-        var newNode = new Node(nodeID);
-        newNode.skin = node.skin !== undefined ? node.skin : null;
-        // if (node.extensions !== undefined) {
-        //     if (node.extensions.gl_avatar !== undefined && this.enableGLAvatar === true) {
-        //         var linkedSkinID = this.skeletonGltf.json.extensions.gl_avatar.skins[ node.extensions.gl_avatar.skin.name ];
-        //         var linkedSkin = this.skeletonGltf.skins[linkedSkinID];
-        //         newNode.skin = new SkinLink(this.glTF, linkedSkin, node.extensions.gl_avatar.skin.inverseBindMatrices);
-        //     }
-        // }
-        
-
-
-        this.glTF.nodes[nodeID] = newNode;
-
-        // parentNodeIdsArray.push(nodeID);
-
-
-        // var curMatrix = mat4.create();
-        var curMatrix = newNode.matrix;
-        
-        if (node.hasOwnProperty('matrix')) {
-            // matrix
-            for(var i = 0; i < 16; ++i) {
-                curMatrix[i] = node.matrix[i];
-            }
-            // mat4.multiply(curMatrix, matrix, curMatrix);
-        } else {
-            // translation, rotation, scale (TRS)
-
-            
-
-            newNode.getTransformMatrixFromTRS(node.translation, node.rotation, node.scale);
-            
-        }
-
-        // store node matrix
-        // this.glTF.nodeMatrix[nodeID] = curMatrix;
-
-
-            
-        
-        // if(node.meshes) {
-        //     // Iterate through every mesh within node 
-        //     newNode.meshes = node.meshes;
-        //     var meshes = node.meshes;
-        //     var meshLen = meshes.length;
-        //     for (var m = 0; m < meshLen; ++m) {
-        //         this._parseMesh(json, meshes[m]);
-        //     }
-        // } 
-        // else if (node.mesh !== undefined) {
-        if (node.mesh !== undefined) {
-            // !! each node contains only one mesh in glTF2
-            // only this branch is valid in glTF2
-
-            // newNode.meshes.push(node.mesh);
-            // newNode.mesh = node.mesh;
-            newNode.mesh = this._parseMesh(json, node.mesh);
-        }
-
-
-        // Go through all the children recursively
-        var children = node.children;
-        if (children) {
-            var childreLen = children.length;
-            for (var c = 0; c < childreLen; ++c) {
-                var childNodeID = children[c];
-                newNode.children[c] = this._parseNode(json, childNodeID);
-            }
-        }
-        
-        return newNode;
-    };
 
 
 
@@ -1222,6 +1063,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         
         console.log('finish loading all assets, do a second pass postprocess');
         
+        curLoader = this;
 
         
         // @todo: ?? hook up pointers, get scene bounding box, etc.
@@ -1238,14 +1080,31 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         //     }
         // } 
 
+        // load all materials
+        if (this.glTF.materials) {
+            for (i = 0, leni = this.glTF.materials.length; i < leni; i++) {
+                this.glTF.materials[i] = new Material(this.glTF.json.materials[i]);
+            }
+        }
 
+        // load all samplers 
+        if (this.glTF.samplers) {
+            for (i = 0, leni = this.glTF.samplers.length; i < leni; i++) {
+                this.glTF.samplers[i] = new Sampler(this.glTF.json.samplers[i]);
+            } 
+        }
+
+        // load all textures
+        if (this.glTF.textures) {
+            for (i = 0, leni = this.glTF.textures.length; i < leni; i++) {
+                this.glTF.textures[i] = new Texture(this.glTF.json.textures[i]);
+            }
+        }
 
         // mesh
         for (i = 0, leni = this.glTF.meshes.length; i < leni; i++) {
             this.glTF.meshes[i] = new Mesh(this.glTF.json.meshes[i], i);
         }
-
-
 
         // node
         for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
@@ -1259,8 +1118,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
                 node.children[j] = this.glTF.nodes[ node.children[j] ];
             }
         }
-
-
 
         // scene Bounding box
         var nodeMatrix = new Array(this.glTF.nodes.length);
@@ -1335,23 +1192,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
                 node.bvh.calculateTransform();
             }
         }
-
-
-
-        // hook up image object
-        if (this.glTF.textures) {
-            for (i = 0, leni = this.glTF.textures.length; i < leni; i++) {
-                if (this.glTF.samplers && this.glTF.textures[i].sampler !== null) {
-                    this.glTF.textures[i].sampler = this.glTF.samplers[ this.glTF.textures[i].sampler ];
-                }
-                
-                if (this.glTF.images && this.glTF.textures[i].source !== null) {
-                    this.glTF.textures[i].source = this.glTF.images[ this.glTF.textures[i].source ];
-                }
-            }
-        }
-
-
 
 
 

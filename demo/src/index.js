@@ -634,12 +634,6 @@ import GUI from 'dat.gui';
         // create buffers
         for (i = 0, len = glTF.bufferViews.length; i < len; i++) {
             bufferView = glTF.bufferViews[i];
-            // bufferView.buffer = gl.createBuffer();
-            // if (bufferView.target) {
-            //     gl.bindBuffer(bufferView.target, bufferView.buffer);
-            //     gl.bufferData(bufferView.target, bufferView.data, gl.STATIC_DRAW);
-            //     gl.bindBuffer(bufferView.target, null);
-            // }
             bufferView.createBuffer(gl);
             bufferView.bindData(gl);
         }
@@ -649,17 +643,7 @@ import GUI from 'dat.gui';
         if (glTF.textures) {
             for (i = 0, len = glTF.textures.length; i < len; i++) {
                 texture = glTF.textures[i];
-                // texture.texture = gl.createTexture();
-                // gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-                // gl.texImage2D(
-                //     gl.TEXTURE_2D,  // assumed
-                //     0,        // Level of details
-                //     gl.RGBA, // Format
-                //     gl.RGBA,
-                //     gl.UNSIGNED_BYTE, // Size of each channel
-                //     texture.source
-                // );
-                texture.createTexture(i, gl);
+                texture.createTexture(gl);
             }
         }
 
