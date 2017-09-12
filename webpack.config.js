@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -53,6 +54,9 @@ module.exports = {
         //     }
         // })
         // new UglifyJSPlugin()
+        new HtmlWebpackPlugin({
+          title: "glAvatar demo"
+        })
     ],
   devServer: {
     contentBase: path.join(__dirname, "demo"),
