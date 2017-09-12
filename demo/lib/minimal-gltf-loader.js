@@ -140,6 +140,7 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
         this.data = bufferData.slice(this.byteOffset, this.byteOffset + this.byteLength);
 
+        // runtime stuffs -------------
         this.buffer = null;     // gl buffer
     };
 
@@ -781,7 +782,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     };
 
     glTFLoader.prototype._init = function() {
-        this._parseDone = false;
         this._loadDone = false;
 
         this._bufferRequested = 0;
@@ -807,68 +807,6 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
     };
 
 
-    glTFLoader.prototype._getBufferViewData = function(json, bufferViewID, callback) {
-        // var bufferViewData = this._bufferViews[bufferViewID];
-        var bufferViewObject = this.glTF.bufferViews[bufferViewID];
-        if(bufferViewObject === undefined) {
-            // load bufferView for the first time
-
-            var bufferView = json.bufferViews[bufferViewID];
-            var bufferData = this._buffers[bufferView.buffer];
-            if (bufferData) {
-                // buffer already loaded
-                console.log('dependent buffer data ready (instant), create bufferView ' + bufferViewID);
-                this.glTF.bufferViews[bufferViewID] = bufferViewObject = new BufferView( bufferView, bufferData );
-                callback(bufferViewObject);
-                this._checkComplete();
-            } else {
-                // buffer not yet loaded
-                // add pending task to _bufferTasks
-                //console.log("pending Task: wait for buffer to load bufferView " + bufferViewID);
-                this._pendingTasks++;
-                var bufferTask = this._bufferTasks[bufferView.buffer];
-                if (!bufferTask) {
-                    this._bufferTasks[bufferView.buffer] = [];
-                    bufferTask = this._bufferTasks[bufferView.buffer];
-                }
-                var loader = this;
-                bufferTask.push(function(newBufferData) {
-                    // share same bufferView
-                    // hierarchy needs to be post processed in the renderer
-                    
-                    loader._finishedPendingTasks++;
-
-                    bufferViewObject = loader.glTF.bufferViews[bufferViewID];
-                    if (bufferViewObject === undefined) {
-                        console.log('create new BufferView Data for ' + bufferViewID);
-                        bufferViewObject = loader.glTF.bufferViews[bufferViewID] = new BufferView( bufferView, newBufferData );
-                    } else {
-                        console.log('dependent buffer data ready (queued), create bufferView ' + bufferViewID);
-                    }
-                    
-                    callback(bufferViewObject);
-                    // loader._checkComplete();
-
-                    // // create new bufferView for each mesh access with a different hierarchy
-                    // // hierarchy transformation will be prepared in this way
-                    // console.log('create new BufferView Data for ' + bufferViewID);
-                    // loader._bufferViews[bufferViewID] = newBufferData.slice(bufferView.byteOffset, bufferView.byteOffset + bufferView.byteLength);
-                    // loader._finishedPendingTasks++;
-                    // callback(loader._bufferViews[bufferViewID]);
-                });
-            }
-
-        } else {
-            // no need to load buffer from file
-            // use cached ones
-            console.log("use cached bufferView " + bufferViewID);
-            callback(bufferViewObject);
-        }
-    };
-    
-    // glTFLoader.prototype._doNextLoadTaskInList = function () {
-    // };
-
     glTFLoader.prototype._checkComplete = function () {
         if (this._bufferRequested == this._bufferLoaded && 
             // this._shaderRequested == this._shaderLoaded && 
@@ -878,55 +816,13 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
             this._loadDone = true;
         }
 
-        if (this._loadDone && this._parseDone && this._pendingTasks == this._finishedPendingTasks) {
+        if (this._loadDone && this._pendingTasks == this._finishedPendingTasks) {
 
             this._postprocess();
 
             this.onload(this.glTF);
         }
     };
-
-
-    glTFLoader.prototype._parseGLTF = function (json) {
-        var i, len;
-        var a;  // acccessor json
-
-        // var callbackAccessor = (function(bufferView) {
-        //     this.glTF.accessors[i] = new Accessor(a, bufferView);
-        // }).bind(this);
-        var loader = this;
-
-
-        // tmp fix
-        function getBufferViewCallbackExec() {
-            var accessor = json.accessors[i];
-            var ii = i;
-            return function(bufferView) {
-                loader.glTF.accessors[ii] = new Accessor(accessor, bufferView);
-            };
-        }
-
-        // load all accessors (and their dependent bufferView)
-        if (json.accessors) {
-            for (i = 0, len = json.accessors.length; i < len; i++) {
-                a = json.accessors[i];
-                if (a.bufferView !== undefined) {
-                    // this._getBufferViewData(json, a.bufferView, callbackAccessor);
-                    this._getBufferViewData(json, a.bufferView, 
-                        getBufferViewCallbackExec()
-                    );
-                }
-            }
-        }
-
-        this._parseDone = true;
-        this._checkComplete();
-    };
-
-
-
-
-
 
     glTFLoader.prototype.loadGLTF_GL_Avatar_Skin = function (uri, skeletonGltf, callback) {
         this.enableGLAvatar = true;
@@ -1051,8 +947,9 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
 
 
 
-            // start glTF scene parsing
-            loader._parseGLTF(json);
+            // // start glTF scene parsing
+            // loader._parseGLTF(json);
+            loader._checkComplete();
         });
     };
 
@@ -1073,12 +970,19 @@ var MinimalGLTFLoader = MinimalGLTFLoader || {};
         var node;
         var mesh, primitive, accessor;
 
-        // for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
-        //     node = this.glTF.nodes[i];
-        //     if (node.mesh !== null) {
-        //         node.mesh = this.glTF.meshes[ node.mesh ];
-        //     }
-        // } 
+        // bufferviews
+        if (this.glTF.bufferViews) {
+            for (i = 0, leni = this.glTF.bufferViews.length; i < leni; i++) {
+                this.glTF.bufferViews[i] = new BufferView(this.glTF.json.bufferViews[i], this._buffers[ this.glTF.json.bufferViews[i].buffer ]);
+            }
+        }
+
+        // accessors
+        if (this.glTF.accessors) {
+            for (i = 0, leni = this.glTF.accessors.length; i < leni; i++) {
+                this.glTF.accessors[i] = new Accessor(this.glTF.json.accessors[i], this.glTF.bufferViews[ this.glTF.json.accessors[i].bufferView ]);
+            }
+        }
 
         // load all materials
         if (this.glTF.materials) {
