@@ -97,16 +97,20 @@ import GUI from 'dat.gui';
 
         curSkeleton: {
             name: null,
-            scene: null
-        },  
+            scene: null,
+            sceneID: null
+        },
+
         curAccessories: {
             clothes: {
                 name: null,
-                scene: null
+                scene: null,
+                sceneID: null
             },
             hair: {
                 name: null,
-                scene: null
+                scene: null,
+                sceneID: null
             }
         },
 
@@ -129,24 +133,63 @@ import GUI from 'dat.gui';
             glAvatarSystem.accessories[category][name] = gltf;
             glAvatarSystem.curAccessories[category].name = name;
             glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
+            glAvatarSystem.curAccessories[category].sceneID = scenes.length - 1;
         }
 
         function selectAccessory(category, name, uri) {
-
-            var loadedAccessory = glAvatarSystem.accessories[category][name];
-            if (!loadedAccessory) {
-                // load gltf first
-                console.log('first load ' + uri);
-                glTFLoader.loadGLTF_GL_Avatar_Skin(uri
-                    , skeletonGltfScene.glTF
-                    , function(gltf) {
-                        setupAccessory(category, name, gltf);
-                    }
-                )
-            } else {
-                setupAccessory(category, name, loadedAccessory);
+            if (glAvatarSystem.curAccessories[category].name != name) {
+                var loadedAccessory = glAvatarSystem.accessories[category][name];
+                if (!loadedAccessory) {
+                    // load gltf first
+                    console.log('first load ' + uri);
+                    glTFLoader.loadGLTF_GL_Avatar_Skin(uri
+                        , skeletonGltfScene.glTF
+                        , function(gltf) {
+                            setupAccessory(category, name, gltf);
+                        }
+                    );
+                } else {
+                    setupAccessory(category, name, loadedAccessory);
+                }
             }
+            // else {
+            //     // test
+            //     console.log('no need to change');
+            // }
         }
+
+        // function setupSkeleton(name, gltf) {
+        //     if (skeletonGltfScene) {
+        //         // unload all current skins(accessories)
+
+        //         for (var c in glAvatarSystem.curAccessories) {
+        //             glAvatarSystem.curAccessories[c].name = null;
+        //             glAvatarSystem.curAccessories[c].scene = null;
+        //             scenes[glAvatarSystem.curAccessories[c].sceneID] = null;
+        //             glAvatarSystem.curAccessories[c].sceneID = null;
+        //         }
+        //     }
+
+        //     glAvatarSystem.skeletons[name] = gltf;
+        //     glAvatarSystem.curSkeleton.name = name;
+        //     glAvatarSystem.curSkeleton.scene = skeletonGltfScene = setupScene(gltf, skeletonGltfScene);
+        //     glAvatarSystem.curSkeleton.sceneID = scenes.length - 1;
+        // }
+
+        // function selectSkeleton(name, uri) {
+        //     var loadedSkeleton = glAvatarSystem.skeletons[name];
+        //     if (!loadedSkeleton) {
+        //         console.log('first load ' + uri);
+        //         glTFLoader.loadGLTF(uri
+        //             , function(gltf) {
+        //                 setupSkeleton(name, gltf);
+        //             }
+        //         );
+        //     } else {
+        //         setupSkeleton(name, loadedSkeleton);
+        //     }
+        // }
+
 
         this.VC = function() {
             console.log("load VC");
@@ -156,76 +199,55 @@ import GUI from 'dat.gui';
             )
         };
 
+
+        // this.patrick = function() {
+        //     selectSkeleton(
+        //         'patrick'
+        //         , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
+        //     );
+
+        //     // TODO: change dat.gui accessories
+        // };
+
+
+
         this.gltfShirt = function() {
-            // var name = 'gltfShirt';
-
-            // // TODO: 
-
-
-            // console.log("load gltf shirt (handcrafted glAvatar)");
-            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
-            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes[name] = gltf;
-            //         glAvatarSystem.curAccessories.clothes.name = name;
-            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
-            //     }
-            // );
-
             selectAccessory(
                 'clothes'
                 , 'gltfShirt'
-                ,'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
-
+                , 'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
         };
 
         this.batman_armor = function() {
-            // var name = 'batman_armor';
-            // console.log("load batman armor (handcrafted glAvatar)");
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/batman_armor_glavatar/batman_armor.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes[name] = gltf;
-            //         glAvatarSystem.curAccessories.clothes.name = name;
-            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
-            //     }
-            // );
-
             selectAccessory(
                 'clothes'
                 , 'batman_armor'
-                ,'models/batman_armor_glavatar/batman_armor.gltf');
+                , 'models/batman_armor_glavatar/batman_armor.gltf');
         };
 
-        this.hair = function() {
-            // console.log("load hair (handcrafted glAvatar)");
-            
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/hair_glavatar/hair.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes.redhair = gltf;
-            //         glAvatarSystem.curAccessories.hair.name = 'redhair';
-            //         glAvatarSystem.curAccessories.hair.scene = setupScene(gltf);
-            //         setupScene(gltf);
-            //     }
-            // );
-
+        this.redHair = function() {
             selectAccessory(
                 'hair'
                 , 'red_hair'
-                ,'models/hair_glavatar/hair.gltf');
+                , 'models/hair_glavatar/hair.gltf');
         };
     };
     var avatarControl = new glAvatarControl();
+    
+
     var folderScene = gui.addFolder('scene');
     folderScene.add(avatarControl, 'VC');
+
+
+
+
+    // var folderSkeleton = gui.addFolder('skeletons');
+    // folderSkeleton.add(avatarControl, 'patrick');
+
+    
+
     var folderHair = gui.addFolder('hair');
-    folderHair.add(avatarControl, 'hair');
+    folderHair.add(avatarControl, 'redHair');
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
     folderClothes.add(avatarControl, 'batman_armor');
@@ -504,36 +526,6 @@ import GUI from 'dat.gui';
         // translate[2] *= 1 + (-event.deltaY * 0.01);
     };
 
-    
-    // 2.0
-    // var gltfUrl = '../glTFs/glTF_version_2/Duck/glTF/Duck.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/2CylinderEngine/glTF/2CylinderEngine.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/GearboxAssy/glTF/GearboxAssy.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/Buggy/glTF/Buggy.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/DamagedHelmet/glTF/DamagedHelmet.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/Avocado/glTF/Avocado.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/BoomBox/glTF/BoomBox.gltf';
-
-    // var gltfUrl = '../glTFs/glTF_version_2/BoxAnimated/glTF/BoxAnimated.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/CesiumMilkTruck/glTF/CesiumMilkTruck.gltf';
-
-    // var gltfUrl = '../glTFs/glTF_version_2/RiggedSimple/glTF/RiggedSimple.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/RiggedFigure/glTF/RiggedFigure.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/BrainStem/glTF/BrainStem.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/CesiumMan/glTF/CesiumMan.gltf';
-
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Monster/glTF/Monster.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/mrdoob/rome-gltf/master/files/models/black_soup/quadruped_wolf.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Buggy/glTF/Buggy.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TextureSettingsTest/glTF/TextureSettingsTest.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
-    
-    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
-    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
-    // var gltfUrl = 'models/girl16/scene.gltf';
 
     var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
 
@@ -1234,11 +1226,16 @@ import GUI from 'dat.gui';
 
 
 
-
+    // 2.0
+    
+    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
+    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
+    // var gltfUrl = 'models/girl16/scene.gltf';
 
     glTFLoader.loadGLTF(gltfUrl, function(glTF) {
 
-        skeletonGltfScene = setupScene(glTF);
+        glAvatarSystem.curSkeleton.name = 'patrick';
+        skeletonGltfScene = glAvatarSystem.curSkeleton.scene = setupScene(glTF);
         
 
         // render();
