@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,10 +68,11 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ARRAY_TYPE; });
-/* unused harmony export setMatrixArrayType */
-/* unused harmony export toRadian */
-/* unused harmony export equals */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARRAY_TYPE", function() { return ARRAY_TYPE; });
+/* harmony export (immutable) */ __webpack_exports__["setMatrixArrayType"] = setMatrixArrayType;
+/* harmony export (immutable) */ __webpack_exports__["toRadian"] = toRadian;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -99,11 +100,11 @@ THE SOFTWARE. */
 
 // Configuration Constants
 const EPSILON = 0.000001;
-/* harmony export (immutable) */ __webpack_exports__["b"] = EPSILON;
+/* harmony export (immutable) */ __webpack_exports__["EPSILON"] = EPSILON;
 
 let ARRAY_TYPE = (typeof Float32Array !== 'undefined') ? Float32Array : Array;
 const RANDOM = Math.random;
-/* harmony export (immutable) */ __webpack_exports__["c"] = RANDOM;
+/* harmony export (immutable) */ __webpack_exports__["RANDOM"] = RANDOM;
 
 
 /**
@@ -142,39 +143,28 @@ function equals(a, b) {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\n\nin vec3 v_normal;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * intensity;\n    color.a = 1.0;\n}"
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\nuniform sampler2D u_baseColorTexture;\n\nin vec3 v_normal;\nin vec2 v_uv;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    float intensity = dot(gl_FrontFacing ? v_normal : -v_normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity; \n    color.a = 1.0;\n}"
-
-/***/ }),
-/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__ = __webpack_require__(6);
-/* unused harmony reexport glMatrix */
-/* unused harmony reexport mat2 */
-/* unused harmony reexport mat2d */
-/* unused harmony reexport mat3 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__; });
-/* unused harmony reexport vec2 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__ = __webpack_require__(4);
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "glMatrix", function() { return __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2", function() { return __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat2d", function() { return __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat3", function() { return __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "mat4", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "quat", function() { return __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec2", function() { return __WEBPACK_IMPORTED_MODULE_6__gl_matrix_vec2__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec3", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec3__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "vec4", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec4__; });
 /**
  * @fileoverview gl-matrix - High performance matrix and vector operations
  * @author Brandon Jones
@@ -216,40 +206,41 @@ THE SOFTWARE. */
 
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = create;
-/* unused harmony export fromMat4 */
-/* unused harmony export clone */
-/* unused harmony export copy */
-/* unused harmony export fromValues */
-/* unused harmony export set */
-/* unused harmony export identity */
-/* unused harmony export transpose */
-/* unused harmony export invert */
-/* unused harmony export adjoint */
-/* unused harmony export determinant */
-/* unused harmony export multiply */
-/* unused harmony export translate */
-/* unused harmony export rotate */
-/* unused harmony export scale */
-/* unused harmony export fromTranslation */
-/* unused harmony export fromRotation */
-/* unused harmony export fromScaling */
-/* unused harmony export fromMat2d */
-/* unused harmony export fromQuat */
-/* unused harmony export normalFromMat4 */
-/* unused harmony export projection */
-/* unused harmony export str */
-/* unused harmony export frob */
-/* unused harmony export add */
-/* unused harmony export subtract */
-/* unused harmony export multiplyScalar */
-/* unused harmony export multiplyScalarAndAdd */
-/* unused harmony export exactEquals */
-/* unused harmony export equals */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["create"] = create;
+/* harmony export (immutable) */ __webpack_exports__["fromMat4"] = fromMat4;
+/* harmony export (immutable) */ __webpack_exports__["clone"] = clone;
+/* harmony export (immutable) */ __webpack_exports__["copy"] = copy;
+/* harmony export (immutable) */ __webpack_exports__["fromValues"] = fromValues;
+/* harmony export (immutable) */ __webpack_exports__["set"] = set;
+/* harmony export (immutable) */ __webpack_exports__["identity"] = identity;
+/* harmony export (immutable) */ __webpack_exports__["transpose"] = transpose;
+/* harmony export (immutable) */ __webpack_exports__["invert"] = invert;
+/* harmony export (immutable) */ __webpack_exports__["adjoint"] = adjoint;
+/* harmony export (immutable) */ __webpack_exports__["determinant"] = determinant;
+/* harmony export (immutable) */ __webpack_exports__["multiply"] = multiply;
+/* harmony export (immutable) */ __webpack_exports__["translate"] = translate;
+/* harmony export (immutable) */ __webpack_exports__["rotate"] = rotate;
+/* harmony export (immutable) */ __webpack_exports__["scale"] = scale;
+/* harmony export (immutable) */ __webpack_exports__["fromTranslation"] = fromTranslation;
+/* harmony export (immutable) */ __webpack_exports__["fromRotation"] = fromRotation;
+/* harmony export (immutable) */ __webpack_exports__["fromScaling"] = fromScaling;
+/* harmony export (immutable) */ __webpack_exports__["fromMat2d"] = fromMat2d;
+/* harmony export (immutable) */ __webpack_exports__["fromQuat"] = fromQuat;
+/* harmony export (immutable) */ __webpack_exports__["normalFromMat4"] = normalFromMat4;
+/* harmony export (immutable) */ __webpack_exports__["projection"] = projection;
+/* harmony export (immutable) */ __webpack_exports__["str"] = str;
+/* harmony export (immutable) */ __webpack_exports__["frob"] = frob;
+/* harmony export (immutable) */ __webpack_exports__["add"] = add;
+/* harmony export (immutable) */ __webpack_exports__["subtract"] = subtract;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalar"] = multiplyScalar;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalarAndAdd"] = multiplyScalarAndAdd;
+/* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
@@ -284,7 +275,7 @@ THE SOFTWARE. */
  * @returns {mat3} a new 3x3 matrix
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](9);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](9);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -324,7 +315,7 @@ function fromMat4(out, a) {
  * @returns {mat3} a new 3x3 matrix
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](9);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](9);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -372,7 +363,7 @@ function copy(out, a) {
  * @returns {mat3} A new mat3
  */
 function fromValues(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](9);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](9);
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -994,15 +985,15 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7], a8 = a[8];
   let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7], b8 = b[8];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-          Math.abs(a6 - b6) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-          Math.abs(a7 - b7) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
-          Math.abs(a8 - b8) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a8), Math.abs(b8)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+          Math.abs(a6 - b6) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+          Math.abs(a7 - b7) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
+          Math.abs(a8 - b8) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a8), Math.abs(b8)));
 }
 
 /**
@@ -1010,7 +1001,7 @@ function equals(a, b) {
  * @function
  */
 const mul = multiply;
-/* unused harmony export mul */
+/* harmony export (immutable) */ __webpack_exports__["mul"] = mul;
 
 
 /**
@@ -1018,12 +1009,12 @@ const mul = multiply;
  * @function
  */
 const sub = subtract;
-/* unused harmony export sub */
+/* harmony export (immutable) */ __webpack_exports__["sub"] = sub;
 
 
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1101,7 +1092,7 @@ THE SOFTWARE. */
  * @returns {vec3} a new 3D vector
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](3);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](3);
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
@@ -1115,7 +1106,7 @@ function create() {
  * @returns {vec3} a new 3D vector
  */
 function clone(a) {
-  var out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](3);
+  var out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](3);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -1144,7 +1135,7 @@ function length(a) {
  * @returns {vec3} a new 3D vector
  */
 function fromValues(x, y, z) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](3);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](3);
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -1545,8 +1536,8 @@ function bezier(out, a, b, c, d, t) {
 function random(out, scale) {
   scale = scale || 1.0;
 
-  let r = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]() * 2.0 * Math.PI;
-  let z = (__WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]() * 2.0) - 1.0;
+  let r = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]() * 2.0 * Math.PI;
+  let z = (__WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]() * 2.0) - 1.0;
   let zScale = Math.sqrt(1.0-z*z) * scale;
 
   out[0] = Math.cos(r) * zScale;
@@ -1757,9 +1748,9 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1], a2 = a[2];
   let b0 = b[0], b1 = b[1], b2 = b[2];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)));
 }
 
 /**
@@ -1863,7 +1854,7 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1933,7 +1924,7 @@ THE SOFTWARE. */
  * @returns {vec4} a new 4D vector
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
@@ -1948,7 +1939,7 @@ function create() {
  * @returns {vec4} a new 4D vector
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -1966,7 +1957,7 @@ function clone(a) {
  * @returns {vec4} a new 4D vector
  */
 function fromValues(x, y, z, w) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = x;
   out[1] = y;
   out[2] = z;
@@ -2335,10 +2326,10 @@ function random(out, vectorScale) {
   vectorScale = vectorScale || 1.0;
 
   //TODO: This is a pretty awful way of doing this. Find something better.
-  out[0] = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]();
-  out[1] = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]();
-  out[2] = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]();
-  out[3] = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]();
+  out[0] = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]();
+  out[1] = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]();
+  out[2] = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]();
+  out[3] = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]();
   normalize(out, out);
   scale(out, out, vectorScale);
   return out;
@@ -2418,10 +2409,10 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
   let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
 }
 
 /**
@@ -2525,26 +2516,19 @@ const forEach = (function() {
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
-
-/***/ }),
-/* 8 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_Lib_minimal_gltf_loader_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_style_css__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__css_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__css_style_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dat_gui__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_dat_gui__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_style_css__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__css_style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dat_gui__);
 
-
-// require('./lib/minimal-gltf-loader.js');
+// import {MinimalGLTFLoader} from 'Lib/minimal-gltf-loader.js';
+var MinimalGLTFLoader =  __webpack_require__(11);
 
 // import dat from 'dat.gui-mirror';
 
@@ -2552,10 +2536,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // utils
+var Utils = Utils || {};
 (function () {
     'use strict';
 
-    window.getShaderSource = function(id) {
+    Utils.getShaderSource = function(id) {
         return document.getElementById(id).textContent.replace(/^\s+|\s+$/g, '');
     };
 
@@ -2566,7 +2551,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return shader;
     }
 
-    window.createProgram = function(gl, vertexShaderSource, fragmentShaderSource) {
+    Utils.createProgram = function(gl, vertexShaderSource, fragmentShaderSource) {
         var program = gl.createProgram();
         var vshader = createShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
         var fshader = createShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
@@ -2594,16 +2579,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return program;
     };
 
-    window.loadImage = function(url, onload) {
+    var loadImage = Utils.loadImage = function(url, onload) {
         var img = new Image();
+        img.crossOrigin = "Anonymous";
         img.src = url;
-        img.onload = function() {
-            onload(img);
-        };
+        // img.onload = function() {
+        //     onload(img);
+        // };
+        img.onload = onload;
         return img;
     };
 
-    window.loadImages = function(urls, onload) {
+    Utils.loadImages = function(urls, onload) {
         var imgs = [];
         var imgsToLoad = urls.length;
 
@@ -2618,16 +2605,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     };
 
-    window.loadObj = function(url, onload) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.responseType = 'text';
-        xhr.onload = function(e) {
-            var mesh = new OBJ.Mesh(this.response);
-            onload(mesh);
-        };
-        xhr.send();
-    };
 })();
 
 
@@ -2641,16 +2618,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         curSkeleton: {
             name: null,
-            scene: null
-        },  
+            scene: null,
+            sceneID: null
+        },
+
         curAccessories: {
             clothes: {
                 name: null,
-                scene: null
+                scene: null,
+                sceneID: null
             },
             hair: {
                 name: null,
-                scene: null
+                scene: null,
+                sceneID: null
             }
         },
 
@@ -2664,7 +2645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     };
 
-    var gui = new __WEBPACK_IMPORTED_MODULE_3_dat_gui___default.a.GUI();
+    var gui = new __WEBPACK_IMPORTED_MODULE_2_dat_gui___default.a.GUI();
     var glAvatarControl = function() {
 
 
@@ -2673,24 +2654,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             glAvatarSystem.accessories[category][name] = gltf;
             glAvatarSystem.curAccessories[category].name = name;
             glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
+            glAvatarSystem.curAccessories[category].sceneID = scenes.length - 1;
         }
 
         function selectAccessory(category, name, uri) {
-
-            var loadedAccessory = glAvatarSystem.accessories[category][name];
-            if (!loadedAccessory) {
-                // load gltf first
-                console.log('first load ' + uri);
-                glTFLoader.loadGLTF_GL_Avatar_Skin(uri
-                    , skeletonGltfScene.glTF
-                    , function(gltf) {
-                        setupAccessory(category, name, gltf);
-                    }
-                )
-            } else {
-                setupAccessory(category, name, loadedAccessory);
+            if (glAvatarSystem.curAccessories[category].name != name) {
+                var loadedAccessory = glAvatarSystem.accessories[category][name];
+                if (!loadedAccessory) {
+                    // load gltf first
+                    console.log('first load ' + uri);
+                    glTFLoader.loadGLTF_GL_Avatar_Skin(uri
+                        , skeletonGltfScene.glTF
+                        , function(gltf) {
+                            setupAccessory(category, name, gltf);
+                        }
+                    );
+                } else {
+                    setupAccessory(category, name, loadedAccessory);
+                }
             }
+            // else {
+            //     // test
+            //     console.log('no need to change');
+            // }
         }
+
+        // function setupSkeleton(name, gltf) {
+        //     if (skeletonGltfScene) {
+        //         // unload all current skins(accessories)
+
+        //         for (var c in glAvatarSystem.curAccessories) {
+        //             glAvatarSystem.curAccessories[c].name = null;
+        //             glAvatarSystem.curAccessories[c].scene = null;
+        //             scenes[glAvatarSystem.curAccessories[c].sceneID] = null;
+        //             glAvatarSystem.curAccessories[c].sceneID = null;
+        //         }
+        //     }
+
+        //     glAvatarSystem.skeletons[name] = gltf;
+        //     glAvatarSystem.curSkeleton.name = name;
+        //     glAvatarSystem.curSkeleton.scene = skeletonGltfScene = setupScene(gltf, skeletonGltfScene);
+        //     glAvatarSystem.curSkeleton.sceneID = scenes.length - 1;
+        // }
+
+        // function selectSkeleton(name, uri) {
+        //     var loadedSkeleton = glAvatarSystem.skeletons[name];
+        //     if (!loadedSkeleton) {
+        //         console.log('first load ' + uri);
+        //         glTFLoader.loadGLTF(uri
+        //             , function(gltf) {
+        //                 setupSkeleton(name, gltf);
+        //             }
+        //         );
+        //     } else {
+        //         setupSkeleton(name, loadedSkeleton);
+        //     }
+        // }
+
 
         this.VC = function() {
             console.log("load VC");
@@ -2700,76 +2720,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             )
         };
 
+
+        // this.patrick = function() {
+        //     selectSkeleton(
+        //         'patrick'
+        //         , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
+        //     );
+
+        //     // TODO: change dat.gui accessories
+        // };
+
+
+
         this.gltfShirt = function() {
-            // var name = 'gltfShirt';
-
-            // // TODO: 
-
-
-            // console.log("load gltf shirt (handcrafted glAvatar)");
-            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar/gltf-shirt.gltf"
-            // // glTFLoader.loadGLTF_GL_Avatar_Skin("https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/gltf_shirt_glavatar_fix/gltf_shirt.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes[name] = gltf;
-            //         glAvatarSystem.curAccessories.clothes.name = name;
-            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
-            //     }
-            // );
-
             selectAccessory(
                 'clothes'
                 , 'gltfShirt'
-                ,'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
-
+                , 'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
         };
 
         this.batman_armor = function() {
-            // var name = 'batman_armor';
-            // console.log("load batman armor (handcrafted glAvatar)");
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/batman_armor_glavatar/batman_armor.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes[name] = gltf;
-            //         glAvatarSystem.curAccessories.clothes.name = name;
-            //         glAvatarSystem.curAccessories.clothes.scene = setupScene(gltf);
-            //     }
-            // );
-
             selectAccessory(
                 'clothes'
                 , 'batman_armor'
-                ,'models/batman_armor_glavatar/batman_armor.gltf');
+                , 'models/batman_armor_glavatar/batman_armor.gltf');
         };
 
-        this.hair = function() {
-            // console.log("load hair (handcrafted glAvatar)");
-            
-            // glTFLoader.loadGLTF_GL_Avatar_Skin("models/hair_glavatar/hair.gltf"
-            //     , skeletonGltfScene.glTF
-            //     , function(gltf) {
-            //         gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            //         glAvatarSystem.accessories.clothes.redhair = gltf;
-            //         glAvatarSystem.curAccessories.hair.name = 'redhair';
-            //         glAvatarSystem.curAccessories.hair.scene = setupScene(gltf);
-            //         setupScene(gltf);
-            //     }
-            // );
-
+        this.redHair = function() {
             selectAccessory(
                 'hair'
                 , 'red_hair'
-                ,'models/hair_glavatar/hair.gltf');
+                , 'models/hair_glavatar/hair.gltf');
         };
     };
     var avatarControl = new glAvatarControl();
+    
+
     var folderScene = gui.addFolder('scene');
     folderScene.add(avatarControl, 'VC');
+
+
+
+
+    // var folderSkeleton = gui.addFolder('skeletons');
+    // folderSkeleton.add(avatarControl, 'patrick');
+
+    
+
     var folderHair = gui.addFolder('hair');
-    folderHair.add(avatarControl, 'hair');
+    folderHair.add(avatarControl, 'redHair');
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
     folderClothes.add(avatarControl, 'batman_armor');
@@ -2813,12 +2812,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.id = id;
 
         // runtime renderer context
-        this.rootTransform = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+        this.rootTransform = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
         // @temp, assume every node is in current scene
         this.nodeMatrix = new Array(glTF.nodes.length);
         var i, len;
         for(i = 0, len = this.nodeMatrix.length; i < len; i++) {
-            this.nodeMatrix[i] = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+            this.nodeMatrix[i] = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
         }
 
         // TODO: runtime joint matrix
@@ -2858,25 +2857,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         vertexArray: gl.createVertexArray(),
         vertexBuffer: gl.createBuffer(),
 
-        // program: createProgram(gl, require('./shaders/vs-bbox'), require('./shaders/fs-bbox')),
-        program: createProgram(gl, __webpack_require__(21), __webpack_require__(22)),
+        program: Utils.createProgram(gl, __webpack_require__(18), __webpack_require__(19)),
         positionLocation: 0,
         uniformMvpLocation: 0, 
 
         
         draw: (function() {
-            var MVP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+            var MVP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
             return (function(bbox, nodeTransform, V, P) {
-                gl.useProgram(this.program);
+                // gl.useProgram(this.program);
 
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(MVP, nodeTransform, bbox.transform);
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(MVP, V, MVP);
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(MVP, P, MVP);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(MVP, nodeTransform, bbox.transform);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(MVP, V, MVP);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(MVP, P, MVP);
 
                 gl.uniformMatrix4fv(this.uniformMvpLocation, false, MVP);
-                gl.bindVertexArray(this.vertexArray);
+                // gl.bindVertexArray(this.vertexArray);
                 gl.drawArrays(gl.LINES, 0, 24);
-                gl.bindVertexArray(null);
+                // gl.bindVertexArray(null);
             });
         })()
     };
@@ -2888,11 +2886,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     gl.samplerParameteri(defaultSampler, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.samplerParameteri(defaultSampler, gl.TEXTURE_WRAP_S, gl.REPEAT);
     gl.samplerParameteri(defaultSampler, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    // gl.samplerParameteri(defaultSampler, gl.TEXTURE_WRAP_R, gl.REPEAT);
-    // gl.samplerParameterf(defaultSampler, gl.TEXTURE_MIN_LOD, -1000.0);
-    // gl.samplerParameterf(defaultSampler, gl.TEXTURE_MAX_LOD, 1000.0);
-    // gl.samplerParameteri(defaultSampler, gl.TEXTURE_COMPARE_MODE, gl.NONE);
-    // gl.samplerParameteri(defaultSampler, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
 
     BOUNDING_BOX.uniformMvpLocation = gl.getUniformLocation(BOUNDING_BOX.program, "u_MVP");
 
@@ -2906,76 +2899,381 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     gl.bindVertexArray(null);
 
 
+    var BRDF_LUT = {
+        texture: null,
+        textureIndex: 29,
 
-    // // -- Initialize program
+        createTexture: function (img) {
+            this.texture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, this.texture);
+            gl.texImage2D(
+                gl.TEXTURE_2D,  // assumed
+                0,        // Level of details
+                gl.RG16F, // Format
+                gl.RG,
+                // gl.RGBA, // Format
+                // gl.RGBA,
+                // gl.UNSIGNED_BYTE, // Size of each channel
+                gl.FLOAT,
+                img
+            );
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.bindTexture(gl.TEXTURE_2D, null);
+        }
+    }
 
-    var program = createProgram(gl, __webpack_require__(23), __webpack_require__(1));
-    var programBaseColor = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor")
+    // Environment maps
+    var CUBE_MAP = {
+        textureIndex: 31,
+        texture: null,
+
+        // IBL
+        textureIBLDiffuseIndex: 30,
+        textureIBLDiffuse: null,
+
+        // loading asset --------------------
+        // TODO: use webpack to pack these
+        uris: [
+            'textures/environment/px.jpg',
+            'textures/environment/nx.jpg',
+            'textures/environment/py.jpg',
+            'textures/environment/ny.jpg',
+            'textures/environment/pz.jpg',
+            'textures/environment/nz.jpg',
+
+            // ibl diffuse
+            'textures/environment/diffuse/bakedDiffuse_01.jpg',
+            'textures/environment/diffuse/bakedDiffuse_02.jpg',
+            'textures/environment/diffuse/bakedDiffuse_03.jpg',
+            'textures/environment/diffuse/bakedDiffuse_04.jpg',
+            'textures/environment/diffuse/bakedDiffuse_05.jpg',
+            'textures/environment/diffuse/bakedDiffuse_06.jpg',
+
+            // @tmp, ugly, load brdfLUT here
+            'textures/brdfLUT.png'
+        ],
+
+        images: null,
+
+        loadAll: function() {
+            Utils.loadImages(this.uris, this.onloadAll.bind(this));
+        },
+
+        onloadAll: function(imgs) {
+            this.images = imgs;
+            console.log('all cube maps loaded');
+
+            this.texture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.texture);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_COMPARE_MODE, gl.NONE);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
+
+            for (var i = 0; i < 6; i++) {
+                gl.texImage2D(
+                    gl.TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                    0,
+                    gl.RGBA,
+                    gl.RGBA,
+                    gl.UNSIGNED_BYTE,
+                    this.images[i]
+                );
+            }
+            gl.generateMipmap(gl.TEXTURE_CUBE_MAP);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, null);
+
+
+
+            this.textureIBLDiffuse = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.textureIBLDiffuse);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_COMPARE_MODE, gl.NONE);
+            gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
+
+            for (var i = 0; i < 6; i++) {
+                gl.texImage2D(
+                    gl.TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                    0,
+                    gl.RGBA,
+                    gl.RGBA,
+                    gl.UNSIGNED_BYTE,
+                    this.images[i + 6]
+                );
+            }
+
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, null);
+
+
+
+            // @tmp
+            BRDF_LUT.createTexture(this.images[this.images.length - 1]);
+
+            if (this.finishLoadingCallback) {
+                this.finishLoadingCallback();
+            }
+        },
+
+        finishLoadingCallback: null,
+
+
+        // runtime stuffs -------------------------
+        vertexData: new Float32Array([         
+            -1.0,  1.0, -1.0,
+            -1.0, -1.0, -1.0,
+            1.0, -1.0, -1.0,
+            1.0, -1.0, -1.0,
+            1.0,  1.0, -1.0,
+            -1.0,  1.0, -1.0,
+
+            -1.0, -1.0,  1.0,
+            -1.0, -1.0, -1.0,
+            -1.0,  1.0, -1.0,
+            -1.0,  1.0, -1.0,
+            -1.0,  1.0,  1.0,
+            -1.0, -1.0,  1.0,
+
+            1.0, -1.0, -1.0,
+            1.0, -1.0,  1.0,
+            1.0,  1.0,  1.0,
+            1.0,  1.0,  1.0,
+            1.0,  1.0, -1.0,
+            1.0, -1.0, -1.0,
+
+            -1.0, -1.0,  1.0,
+            -1.0,  1.0,  1.0,
+            1.0,  1.0,  1.0,
+            1.0,  1.0,  1.0,
+            1.0, -1.0,  1.0,
+            -1.0, -1.0,  1.0,
+
+            -1.0,  1.0, -1.0,
+            1.0,  1.0, -1.0,
+            1.0,  1.0,  1.0,
+            1.0,  1.0,  1.0,
+            -1.0,  1.0,  1.0,
+            -1.0,  1.0, -1.0,
+
+            -1.0, -1.0, -1.0,
+            -1.0, -1.0,  1.0,
+            1.0, -1.0, -1.0,
+            1.0, -1.0, -1.0,
+            -1.0, -1.0,  1.0,
+            1.0, -1.0,  1.0
+        ]),
+
+        
+        vertexArray: gl.createVertexArray(),
+        vertexBuffer: gl.createBuffer(),
+
+        program: Utils.createProgram(gl, __webpack_require__(20), __webpack_require__(21)),
+        positionLocation: 0,
+        uniformMvpLocation: 0, 
+        uniformEnvironmentLocation: 0,
+
+        
+        draw: (function() {
+            var MVP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+            return (function(V, P) {
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].copy(MVP, V);
+                MVP[12] = 0.0;
+                MVP[13] = 0.0;
+                MVP[14] = 0.0;
+                MVP[15] = 1.0;
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(MVP, P, MVP);
+
+                gl.useProgram(this.program);
+                gl.activeTexture(gl.TEXTURE0 + this.textureIndex);
+                gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.texture);
+                gl.uniformMatrix4fv(this.uniformMvpLocation, false, MVP);
+                gl.uniform1i(this.uniformEnvironmentLocation, this.textureIndex);
+                gl.bindVertexArray(this.vertexArray);
+                gl.drawArrays(gl.TRIANGLES, 0, 36);
+                gl.bindVertexArray(null);
+            });
+        })()
     };
 
-    program = createProgram(gl, __webpack_require__(7), __webpack_require__(2));
-    var programBaseTexture = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBaseColorTextureLocation: gl.getUniformLocation(program, "u_baseColorTexture")
+    CUBE_MAP.uniformMvpLocation = gl.getUniformLocation(CUBE_MAP.program, "u_MVP");
+    CUBE_MAP.uniformEnvironmentLocation = gl.getUniformLocation(CUBE_MAP.program, "u_environment");
+
+    gl.bindVertexArray(CUBE_MAP.vertexArray);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, CUBE_MAP.vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, CUBE_MAP.vertexData, gl.STATIC_DRAW);
+    gl.vertexAttribPointer(CUBE_MAP.positionLocation, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(CUBE_MAP.positionLocation);
+
+    gl.bindVertexArray(null);
+
+
+    var Shader_Static = {
+        shaderVersionLine: '#version 300 es\n',
+        
+        bitMasks: {
+            // vertex shader
+            HAS_SKIN: 1,
+            SKIN_VEC8: 2,
+
+            // fragment shader
+            HAS_BASECOLORMAP: 4,
+            HAS_NORMALMAP: 8,
+            HAS_METALROUGHNESSMAP: 16,
+            HAS_OCCLUSIONMAP: 32,
+            HAS_EMISSIVEMAP: 64
+        },
+
+        vsMasterCode: __webpack_require__(22),
+        fsMasterCode: __webpack_require__(23),
+
+        programObjects: {}    // < flags, Shader Object >
     };
 
-    // @temp test
-    program = createProgram(gl, __webpack_require__(7), __webpack_require__(24));
-    var programBaseTextureNormalMap = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBaseColorTextureLocation: gl.getUniformLocation(program, "u_baseColorTexture"),
-        // uniformNormalTextureScaleLocation: gl.getUniformLocation(program, "u_normalTextureScale"),
-        uniformNormalTextureLocation: gl.getUniformLocation(program, "u_normalTexture")
+    var Shader = function() {
+        this.flags = 0;
+        this.programObject = null;
     };
 
-    program = createProgram(gl, __webpack_require__(25), __webpack_require__(1));
-    var programSkinBaseColor = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
+    Shader.prototype.hasSkin = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_SKIN;
+    };
+    Shader.prototype.hasBaseColorMap = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_BASECOLORMAP;
+    };
+    Shader.prototype.hasNormalMap = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_NORMALMAP;
+    };
+    Shader.prototype.hasMetalRoughnessMap = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_METALROUGHNESSMAP;
+    };
+    Shader.prototype.hasOcclusionMap = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_OCCLUSIONMAP;
+    };
+    Shader.prototype.hasEmissiveMap = function() {
+        return this.flags & Shader_Static.bitMasks.HAS_EMISSIVEMAP;
     };
 
-    program = createProgram(gl, __webpack_require__(26), __webpack_require__(1));
-    var programSkinBaseColorVec8 = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
+
+    Shader.prototype.defineMacro = function(macro) {
+        if (Shader_Static.bitMasks[macro] !== undefined) {
+            this.flags = Shader_Static.bitMasks[macro] | this.flags;
+        } else {
+            console.log('WARNING: ' + macro + ' is not a valid macro');
+        }
     };
 
-    // temp
-    program = createProgram(gl, __webpack_require__(27), __webpack_require__(2));
-    var programSkinBaseTexture = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBaseColorTextureLocation: gl.getUniformLocation(program, "u_baseColorTexture"),
-        uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
+    Shader.prototype.compile = function() {
+        var existingProgramObject = Shader_Static.programObjects[this.flags];
+        if (existingProgramObject) {
+            this.programObject = existingProgramObject;
+            return;
+        }
+
+
+        // new program
+
+        var vsDefine = '';
+        var fsDefine = '';
+
+        // define macros
+
+        if (this.flags & Shader_Static.bitMasks.HAS_SKIN) {
+            vsDefine += '#define HAS_SKIN\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.SKIN_VEC8) {
+            vsDefine += '#define SKIN_VEC8\n';
+        }
+
+        if (this.flags & Shader_Static.bitMasks.HAS_BASECOLORMAP) {
+            fsDefine += '#define HAS_BASECOLORMAP\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_NORMALMAP) {
+            fsDefine += '#define HAS_NORMALMAP\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_METALROUGHNESSMAP) {
+            fsDefine += '#define HAS_METALROUGHNESSMAP\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_OCCLUSIONMAP) {
+            fsDefine += '#define HAS_OCCLUSIONMAP\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_EMISSIVEMAP) {
+            fsDefine += '#define HAS_EMISSIVEMAP\n';
+        }
+
+
+        // concat
+        var vertexShaderSource = 
+            Shader_Static.shaderVersionLine +
+            vsDefine +
+            Shader_Static.vsMasterCode;
+        
+        var fragmentShaderSource = 
+            Shader_Static.shaderVersionLine +
+            fsDefine +
+            Shader_Static.fsMasterCode;
+
+        // compile
+        var program = Utils.createProgram(gl, vertexShaderSource, fragmentShaderSource);
+        this.programObject = {
+            program: program,
+    
+            uniformLocations: {},
+
+            uniformBlockIndices: {}
+        };
+
+        // uniform block id
+        if (this.flags & Shader_Static.bitMasks.HAS_SKIN) {
+            this.programObject.uniformBlockIndices.JointMatrix = gl.getUniformBlockIndex(program, "JointMatrix");
+        }
+
+        // uniform locations
+        var us = this.programObject.uniformLocations;
+
+        us.MVP = gl.getUniformLocation(program, 'u_MVP');
+        us.MVNormal = gl.getUniformLocation(program, 'u_MVNormal');
+        us.MV = gl.getUniformLocation(program, 'u_MV');
+        us.baseColorFactor = gl.getUniformLocation(program, 'u_baseColorFactor');
+        us.metallicFactor = gl.getUniformLocation(program, 'u_metallicFactor');
+        us.roughnessFactor = gl.getUniformLocation(program, 'u_roughnessFactor');
+
+        if (this.flags & Shader_Static.bitMasks.HAS_BASECOLORMAP) {
+            us.baseColorTexture = gl.getUniformLocation(program, 'u_baseColorTexture');
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_NORMALMAP) {
+            us.normalTexture = gl.getUniformLocation(program, 'u_normalTexture');
+            us.normalTextureScale = gl.getUniformLocation(program, 'u_normalTextureScale');
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_METALROUGHNESSMAP) {
+            us.metallicRoughnessTexture = gl.getUniformLocation(program, 'u_metallicRoughnessTexture');
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_OCCLUSIONMAP) {
+            us.occlusionTexture = gl.getUniformLocation(program, 'u_occlusionTexture');
+            us.occlusionStrength = gl.getUniformLocation(program, 'u_occlusionStrength');
+        }
+        if (this.flags & Shader_Static.bitMasks.HAS_EMISSIVEMAP) {
+            us.emissiveTexture = gl.getUniformLocation(program, 'u_emissiveTexture');
+            us.emissiveFactor = gl.getUniformLocation(program, 'u_emissiveFactor');
+        }
+
+        us.diffuseEnvSampler = gl.getUniformLocation(program, 'u_DiffuseEnvSampler');
+        us.specularEnvSampler = gl.getUniformLocation(program, 'u_SpecularEnvSampler');
+        us.brdfLUT = gl.getUniformLocation(program, 'u_brdfLUT');
+
+        // set static uniform values in cubemap
+        gl.useProgram(program);
+        gl.uniform1i(us.brdfLUT, BRDF_LUT.textureIndex);
+        gl.uniform1i(us.specularEnvSampler, CUBE_MAP.textureIndex);
+        gl.uniform1i(us.diffuseEnvSampler, CUBE_MAP.textureIBLDiffuseIndex);
+        gl.useProgram(null);
+
+        Shader_Static.programObjects[this.flags] = this.programObject;
     };
 
-    program = createProgram(gl, __webpack_require__(28), __webpack_require__(2));
-    var programSkinBaseTextureVec8 = {
-        program: program,
-        uniformMvpLocation: gl.getUniformLocation(program, "u_MVP"),
-        uniformMvNormalLocation: gl.getUniformLocation(program, "u_MVNormal"),
-        uniformBaseColorFactorLocation: gl.getUniformLocation(program, "u_baseColorFactor"),
-        uniformBaseColorTextureLocation: gl.getUniformLocation(program, "u_baseColorTexture"),
-        uniformBlockIndexJointMatrix: gl.getUniformBlockIndex(program, "JointMatrix")
-    };
+
+
 
     // -- Initialize vertex array
     var POSITION_LOCATION = 0; // set with GLSL layout qualifier
@@ -2993,14 +3291,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var eulerY = 0;
     // var s = 1;
     // var t = -100;
-    var translate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
+    var translate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
     // var t = -5;
-    var modelMatrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+    var modelMatrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
     var mouseDown = false;
     var mouseButtonId = 0;
     var lastMouseY = 0;
     var lastMouseX = 0;
-    var identityQ = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* quat */].create();
+    var identityQ = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["quat"].create();
     window.onmousedown = function(event) {
         mouseDown = true;
         mouseButtonId = event.which;
@@ -3048,38 +3346,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // translate[2] *= 1 + (-event.deltaY * 0.01);
     };
 
-    
-    // 2.0
-    // var gltfUrl = '../glTFs/glTF_version_2/Duck/glTF/Duck.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/2CylinderEngine/glTF/2CylinderEngine.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/GearboxAssy/glTF/GearboxAssy.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/Buggy/glTF/Buggy.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/DamagedHelmet/glTF/DamagedHelmet.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/Avocado/glTF/Avocado.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/BoomBox/glTF/BoomBox.gltf';
 
-    // var gltfUrl = '../glTFs/glTF_version_2/BoxAnimated/glTF/BoxAnimated.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/CesiumMilkTruck/glTF/CesiumMilkTruck.gltf';
-
-    // var gltfUrl = '../glTFs/glTF_version_2/RiggedSimple/glTF/RiggedSimple.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/RiggedFigure/glTF/RiggedFigure.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/BrainStem/glTF/BrainStem.gltf';
-    // var gltfUrl = '../glTFs/glTF_version_2/CesiumMan/glTF/CesiumMan.gltf';
-
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Monster/glTF/Monster.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/mrdoob/rome-gltf/master/files/models/black_soup/quadruped_wolf.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Buggy/glTF/Buggy.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TextureSettingsTest/glTF/TextureSettingsTest.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/TwoSidedPlane/glTF/TwoSidedPlane.gltf';
-    // var gltfUrl = 'https://raw.githubusercontent.com/pjcozzi/pjcozzi.github.io/master/img/models/patrick.gltf';
-    
-    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
-    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
-    // var gltfUrl = 'models/girl16/scene.gltf';
-
-    var glTFLoader = new __WEBPACK_IMPORTED_MODULE_1_Lib_minimal_gltf_loader_js__["a" /* MinimalGLTFLoader */].glTFLoader(gl);
+    var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
 
     var glTFModelCount = 1;
     var scenes = [];
@@ -3096,8 +3364,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         
         var curGltfScene = glTF.scenes[glTF.defaultScene];
 
-        var sceneDeltaTranslate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
-        var tmpVec3Translate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
+        var sceneDeltaTranslate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(curGltfScene.boundingBox.transform[0] * 1.2, 0, 0);
+        var tmpVec3Translate = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
 
         var newGltfRuntimeScene;
         if (!replaceScene) {
@@ -3117,11 +3385,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         
         if (scenes.length === 1) {
             // first model, adjust camera
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].identity(modelMatrix);
             
             // center
             s = 1.0 / Math.max( curGltfScene.boundingBox.transform[0], Math.max(curGltfScene.boundingBox.transform[5], curGltfScene.boundingBox.transform[10]) );
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].getTranslation(translate, curGltfScene.boundingBox.transform);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(translate, translate, -1);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].getTranslation(translate, curGltfScene.boundingBox.transform);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(translate, translate, -1);
             translate[0] += - 0.5 * curGltfScene.boundingBox.transform[0];
             translate[1] += - 0.5 * curGltfScene.boundingBox.transform[5];
             translate[2] += - 0.5 * curGltfScene.boundingBox.transform[10];
@@ -3131,9 +3400,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             modelMatrix[0] = s;
             modelMatrix[5] = s;
             modelMatrix[10] = s;
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].translate(modelMatrix, modelMatrix, translate);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].translate(modelMatrix, modelMatrix, translate);
     
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].set(translate, 0, 0, -1.5);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].set(translate, 0, 0, -1.5);
             s = 1;
         }
         
@@ -3158,21 +3427,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var animation, animationSampler, channel;
 
         var skin;
-
-        // var curScene;   // runtime scene object (not gltf scene object)
-
-        program = programBaseColor;
-
-
-
-        // // animations typed array
-        // for (i = 0, len = glTF.animations.length; i < len; i++) {
-        //     animation = glTF.animations[i];
-
-            
-        // }
-
-        
+        var material;
 
 
         // create buffers
@@ -3234,16 +3489,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     gl.bindBuffer(bufferView.target, bufferView.buffer);
                 }
                 accessor.prepareVertexAttrib(location, gl);
+                return true;
             }
+            return false;
         }
 
-        // create vaos
+        // create vaoss & materials shader source setup
         for (mid = 0, lenMeshes = glTF.meshes.length; mid < lenMeshes; mid++) {
             mesh = glTF.meshes[mid];
-            // vertexArrayMaps[mid] = [];
 
             for (i = 0, len = mesh.primitives.length; i < len; ++i) {
                 primitive = mesh.primitives[i];
+                primitive.shader = new Shader();
                 // WebGL2: create vertexArray
                 primitive.vertexArray = vertexArray = gl.createVertexArray();
                 gl.bindVertexArray(vertexArray);
@@ -3256,11 +3513,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 setupAttribuite(primitive.attributes.TEXCOORD_0, TEXCOORD_0_LOCATION);
                 
 
-                setupAttribuite(primitive.attributes.JOINTS_0, JOINTS_0_LOCATION);
-                setupAttribuite(primitive.attributes.WEIGHTS_0, WEIGHTS_0_LOCATION);
+                if (
+                    setupAttribuite(primitive.attributes.JOINTS_0, JOINTS_0_LOCATION) &&
+                    setupAttribuite(primitive.attributes.WEIGHTS_0, WEIGHTS_0_LOCATION)
+                ) {
+                    // assume these two attributes always appear together
+                    primitive.shader.defineMacro('HAS_SKIN');
+                }
+                
 
-                setupAttribuite(primitive.attributes.JOINTS_1, JOINTS_1_LOCATION);
-                setupAttribuite(primitive.attributes.WEIGHTS_1, WEIGHTS_1_LOCATION);
+                if (
+                    setupAttribuite(primitive.attributes.JOINTS_1, JOINTS_1_LOCATION) &&
+                    setupAttribuite(primitive.attributes.WEIGHTS_1, WEIGHTS_1_LOCATION)
+                ) {
+                    // assume these two attributes always appear together
+                    primitive.shader.defineMacro('SKIN_VEC8');
+                }
 
                 
 
@@ -3283,6 +3551,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, null);
                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+
+                // material shader setup
+                material = primitive.material;
+                if (material) {
+                    if (material.pbrMetallicRoughness.baseColorTexture) {
+                        primitive.shader.defineMacro('HAS_BASECOLORMAP');
+                    }
+                    if (material.pbrMetallicRoughness.metallicRoughnessTexture) {
+                        primitive.shader.defineMacro('HAS_METALROUGHNESSMAP');
+                    }
+                    if (material.normalTexture) {
+                        primitive.shader.defineMacro('HAS_NORMALMAP');
+                    }
+                    if (material.occlusionTexture) {
+                        primitive.shader.defineMacro('HAS_OCCLUSIONMAP');
+                    }
+                    if (material.emissiveTexture) {
+                        primitive.shader.defineMacro('HAS_EMISSIVEMAP');
+                    }
+                }
+
+                primitive.shader.compile();
             }
             
         }
@@ -3305,50 +3595,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     (function() {
         'use strict';
 
-
-    
-    
-
-        var scale = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
+        var scale = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
         
         var r = 0.0;
         // var rotationSpeedY= 0.01;
         var rotationSpeedY= 0.0;
 
-        var perspective = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].perspective(perspective, 0.785, canvas.width / canvas.height, 0.01, 100);
+        var perspective = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].perspective(perspective, 0.785, canvas.width / canvas.height, 0.01, 100);
 
-        var modelView = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+        var modelView = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
 
-        var localMV = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        var localMVP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        var localMVNormal = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+        var localMV = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+        var localMVP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+        var localMVNormal = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
 
-        var VP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+        var VP = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
 
         var hasIndices = true;
 
         var hasSkin = false;
         var uniformBlockID;     // same for uniform block binding id
 
-
         var curScene;
+        var program = null;
 
+        function activeAndBindTexture(uniformLocation, textureInfo) {
+            gl.uniform1i(uniformLocation, textureInfo.index);
+            gl.activeTexture(gl.TEXTURE0 + textureInfo.index);
+            var texture = curScene.glTF.textures[ textureInfo.index ];
+            gl.bindTexture(gl.TEXTURE_2D, texture.texture);
+            var sampler;
+            if (texture.sampler) {
+                sampler = texture.sampler.sampler;
+            } else {
+                sampler = defaultSampler;
+            }
 
-
+            gl.bindSampler(textureInfo.index, sampler);
+        }
         
 
         var defaultColor = [1.0, 1.0, 1.0, 1.0];
         var drawPrimitive = Renderer.drawPrimitive = function(primitive, matrix) {
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].multiply(localMV, modelView, matrix);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].multiply(localMVP, perspective, localMV);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].multiply(localMV, modelView, matrix);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].multiply(localMVP, perspective, localMV);
             // mat4.multiply(localMVP, VP, matrix);
 
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].invert(localMVNormal, localMV);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].transpose(localMVNormal, localMVNormal);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].invert(localMVNormal, localMV);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].transpose(localMVNormal, localMVNormal);
 
+            var texture, sampler;
+            var baseColor = defaultColor;
 
-            if (primitive.material !== null) {
+            var shader = primitive.shader;
+            var material = primitive.material;
+
+            if (material !== null) {
+                var pbrMetallicRoughness = material.pbrMetallicRoughness;
+                baseColor = pbrMetallicRoughness.baseColorFactor;
+                
                 if (primitive.material.doubleSided === isFaceCulling) {
                     isFaceCulling = !primitive.material.doubleSided;
                     if (isFaceCulling) {
@@ -3360,137 +3666,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             
 
-            // @tmp: program choice
-            // super ugly code
-
-            var texture, sampler;
-            var baseColor = defaultColor;
-            // hasSkin = false;
-            if (hasSkin) {
-                if (primitive.material !== null) {
-
-                    if (primitive.material.pbrMetallicRoughness !== null) {
-                        
-
-                        if ( primitive.material.pbrMetallicRoughness.baseColorTexture ) {
-
-                            if (primitive.attributes.JOINTS_1 === undefined) {
-                                if (program != programSkinBaseTexture) {
-                                    gl.useProgram(programSkinBaseTexture.program);
-                                    program = programSkinBaseTexture;
-                                }
-                            } else {
-                                if (program != programSkinBaseTextureVec8) {
-                                    gl.useProgram(programSkinBaseTextureVec8.program);
-                                    program = programSkinBaseTextureVec8;
-                                }
-                            }
-
-                            gl.uniform1i(program.uniformBaseColorTextureLocation, primitive.material.pbrMetallicRoughness.baseColorTexture.index);
-                            gl.activeTexture(gl.TEXTURE0 + primitive.material.pbrMetallicRoughness.baseColorTexture.index);
-                            // gl.activeTexture(gl.TEXTURE1);
-                            texture = curScene.glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
-                            gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-                            if (texture.sampler) {
-                                sampler = texture.sampler.sampler;
-                            } else {
-                                sampler = defaultSampler;
-                            }
-
-                            gl.bindSampler(primitive.material.pbrMetallicRoughness.baseColorTexture.index, sampler);
-
-                            if (primitive.material.pbrMetallicRoughness.baseColorFactor) {
-                                baseColor = primitive.material.pbrMetallicRoughness.baseColorFactor;
-                            }
-                        } else if ( primitive.material.pbrMetallicRoughness.baseColorFactor ) {
-                            baseColor = primitive.material.pbrMetallicRoughness.baseColorFactor;
-
-                            if (primitive.attributes.JOINTS_1 === undefined) {
-                                if (program != programSkinBaseColor) {
-                                    gl.useProgram(programSkinBaseColor.program);
-                                    program = programSkinBaseColor;
-                                }
-                            } else {
-                                if (program != programSkinBaseColorVec8) {
-                                    gl.useProgram(programSkinBaseColorVec8.program);
-                                    program = programSkinBaseColorVec8;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                gl.uniformBlockBinding(program.program, program.uniformBlockIndexJointMatrix, uniformBlockID);
-            } else {
-
-                if (primitive.material !== null) {
-                    if (primitive.material.pbrMetallicRoughness !== null) {
-                        if ( primitive.material.pbrMetallicRoughness.baseColorFactor ) {
-                            baseColor = primitive.material.pbrMetallicRoughness.baseColorFactor;
-                            if (program != programBaseColor) {
-                                gl.useProgram(programBaseColor.program);
-                                program = programBaseColor;
-                            }
-                        }
-
-                        if ( primitive.material.pbrMetallicRoughness.baseColorTexture ) {
-                            if (primitive.material.normalTexture) {
-                                if (program != programBaseTextureNormalMap) {
-                                    gl.useProgram(programBaseTextureNormalMap.program);
-                                    program = programBaseTextureNormalMap;
-                                }
-
-                                gl.uniform1i(program.uniformNormalTextureLocation, primitive.material.normalTexture.index);
-
-                                gl.activeTexture(gl.TEXTURE0 + primitive.material.normalTexture.index);
-                                texture = curScene.glTF.textures[ primitive.material.normalTexture.index ];
-                                gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-                                if (texture.sampler) {
-                                    sampler = texture.sampler.sampler;
-                                } else {
-                                    sampler = defaultSampler;
-                                }
-
-                                gl.bindSampler(primitive.material.normalTexture.index, sampler);
-                            } else {
-                                if (program != programBaseTexture) {
-                                    gl.useProgram(programBaseTexture.program);
-                                    program = programBaseTexture;
-                                }
-                            }
-
-
-                            gl.uniform1i(program.uniformBaseColorTextureLocation, primitive.material.pbrMetallicRoughness.baseColorTexture.index);
-                            gl.activeTexture(gl.TEXTURE0 + primitive.material.pbrMetallicRoughness.baseColorTexture.index);
-                            // gl.activeTexture(gl.TEXTURE1);
-                            texture = curScene.glTF.textures[ primitive.material.pbrMetallicRoughness.baseColorTexture.index ];
-                            gl.bindTexture(gl.TEXTURE_2D, texture.texture);
-                            if (texture.sampler) {
-                                sampler = texture.sampler.sampler;
-                            } else {
-                                sampler = defaultSampler;
-                            }
-
-                            gl.bindSampler(primitive.material.pbrMetallicRoughness.baseColorTexture.index, sampler);
-                        }
-
-                        
-
-                    }
-                }
-
+            if (program != primitive.shader.programObject) {
+                program = primitive.shader.programObject;
+                gl.useProgram(program.program);
             }
 
-            gl.uniform4fv(program.uniformBaseColorFactorLocation, baseColor);
+            if (material) {
+                // base color texture
+                if (shader.hasBaseColorMap()) {
+                    activeAndBindTexture(program.uniformLocations.baseColorTexture, pbrMetallicRoughness.baseColorTexture);
+                }
 
-            gl.uniformMatrix4fv(program.uniformMvpLocation, false, localMVP);
-            gl.uniformMatrix4fv(program.uniformMvNormalLocation, false, localMVNormal);
+                // normal texture
+                if (shader.hasNormalMap()) {
+                    activeAndBindTexture(program.uniformLocations.normalTexture, material.normalTexture);
+                    gl.uniform1f(program.uniformLocations.normalTextureScale, material.normalTexture.scale);
+                }
+
+                // metallic roughness texture
+                if (shader.hasMetalRoughnessMap()) {
+                    activeAndBindTexture(program.uniformLocations.metallicRoughnessTexture, pbrMetallicRoughness.metallicRoughnessTexture);
+                }
+                
+                gl.uniform1f(program.uniformLocations.metallicFactor, pbrMetallicRoughness.metallicFactor);
+                gl.uniform1f(program.uniformLocations.roughnessFactor, pbrMetallicRoughness.roughnessFactor);
+
+                // occlusion texture
+                if (shader.hasOcclusionMap()) {
+                    activeAndBindTexture(program.uniformLocations.occlusionTexture, material.occlusionTexture);
+                    gl.uniform1f(program.uniformLocations.occlusionStrength, material.occlusionTexture.strength);
+                }
+
+                // emissive texture
+                if (shader.hasEmissiveMap()) {
+                    activeAndBindTexture(program.uniformLocations.emissiveTexture, material.emissiveTexture);
+                    gl.uniform3fv(program.uniformLocations.emissiveFactor, material.emissiveFactor);
+                }
+            }
+            
+            
+            // TODO: skin JointMatrix uniform block
+            if (shader.hasSkin()) {
+                gl.uniformBlockBinding(program.program, program.uniformBlockIndices.JointMatrix, uniformBlockID);
+            }
+
+
+            gl.activeTexture(gl.TEXTURE0 + BRDF_LUT.textureIndex);
+            gl.bindTexture(gl.TEXTURE_2D, BRDF_LUT.texture);
+
+            gl.activeTexture(gl.TEXTURE0 + CUBE_MAP.textureIndex);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, CUBE_MAP.texture);
+
+            gl.activeTexture(gl.TEXTURE0 + CUBE_MAP.textureIBLDiffuseIndex);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, CUBE_MAP.textureIBLDiffuse);
+            
+
+            gl.uniform4fv(program.uniformLocations.baseColorFactor, baseColor);
+            
+            gl.uniformMatrix4fv(program.uniformLocations.MV, false, localMV);
+            gl.uniformMatrix4fv(program.uniformLocations.MVP, false, localMVP);
+            gl.uniformMatrix4fv(program.uniformLocations.MVNormal, false, localMVNormal);
 
             gl.bindVertexArray(primitive.vertexArray);
 
-            // TODO: when no indices, do drawArrays
-            gl.drawElements(primitive.mode, primitive.indicesLength, primitive.indicesComponentType, primitive.indicesOffset);
-            // gl.drawElements(primitive.mode, 3, primitive.indicesComponentType, primitive.indicesOffset);
+            if (primitive.indices !== null) {
+                gl.drawElements(primitive.mode, primitive.indicesLength, primitive.indicesComponentType, primitive.indicesOffset);
+            } else {
+                gl.drawArrays(primitive.mode, primitive.drawArraysOffset, primitive.drawArraysCount);
+            }
 
             gl.bindVertexArray(null);
 
@@ -3498,10 +3741,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // function drawMesh(mesh, matrix) {
         // }
-        var tmpMat4 = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        var inverseTransformMat4 = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        // var inverseSkeletonRootMat4 = mat4.create();
-        var inverseSkeletonRootMat4 = null;
+        var tmpMat4 = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+        var inverseTransformMat4 = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
         
         // @todo: 
         // in a real engine, it is better to simply parse the node tree stucture
@@ -3512,10 +3753,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var matrix = nodeMatrix[nodeID];
             
             if (parentModelMatrix !== undefined) {
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(matrix, parentModelMatrix, node.matrix);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(matrix, parentModelMatrix, node.matrix);
             } else {
                 // from scene root, parent is identity
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].copy(matrix, node.matrix);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].copy(matrix, node.matrix);
             }
             // mat4.mul(matrix, parentModelMatrix, node.matrix);
 
@@ -3528,7 +3769,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var joints = node.skin.joints;
                 var jointNode;
 
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].invert(inverseTransformMat4, matrix);
+                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].invert(inverseTransformMat4, matrix);
 
 
                 // @tmp: assume joint nodes are always in the front of the scene node list
@@ -3537,32 +3778,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     jointNode = joints[i];
                     if (skin.isLink) {
                         // gl_avatar
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
                     } else {
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
                     }
                     
                     
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, inverseTransformMat4, tmpMat4);
-
-                    // if (skin.skeleton !== null) {
-                    //     mat4.mul(tmpMat4, inverseSkeletonRootMat4, tmpMat4);
-                    // }
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(tmpMat4, inverseTransformMat4, tmpMat4);
 
                     skin.jointMatrixUnidormBufferData.set(tmpMat4, i * 16);
                 }
 
                 gl.bindBuffer(gl.UNIFORM_BUFFER, skin.jointMatrixUniformBuffer);
-                // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, skin.jointMatrixUnidormBufferData);
                 gl.bufferSubData(gl.UNIFORM_BUFFER, 0, skin.jointMatrixUnidormBufferData, 0, skin.jointMatrixUnidormBufferData.length);
-
-                // if (program != programSkinBaseColor) {
-                //     gl.useProgram(programSkinBaseColor.program);
-                //     program = programSkinBaseColor;
-
-                //     // @todo: uniform bind
-                //     gl.uniformBlockBinding(program.program, program.uniformBlockIndexJointMatrix, 0);
-                // }
                 
             }
 
@@ -3624,30 +3852,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                         switch (channel.target.path) {
                             case 'rotation':
-                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].copy(node.rotation, animationSampler.curValue);
+                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].copy(node.rotation, animationSampler.curValue);
                             break;
 
                             case 'translation':
-                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].copy(node.translation, animationSampler.curValue);
+                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].copy(node.translation, animationSampler.curValue);
                             break;
 
                             case 'scale':
-                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].copy(node.scale, animationSampler.curValue);
+                            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].copy(node.scale, animationSampler.curValue);
                             break;
                         }
-                        // switch (channel.target.path) {
-                        //     case 'rotation':
-                        //     vec4.copy(node.rotation, animationSampler.curValue);
-                        //     break;
-
-                        //     case 'translation':
-                        //     vec3.copy(node.translation, animationSampler.curValue);
-                        //     break;
-
-                        //     case 'scale':
-                        //     vec3.copy(node.scale, animationSampler.curValue);
-                        //     break;
-                        // }
 
                         node.updateMatrixFromTRS();
                         
@@ -3671,8 +3886,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 if (bboxType == 'bvh') {
                     // bvh
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, scene.rootTransform, node.bvh.transform);
-                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, VP, localMVP);
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, scene.rootTransform, node.bvh.transform);
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, VP, localMVP);
                     gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
                     gl.drawArrays(gl.LINES, 0, 24);
                 }
@@ -3682,12 +3897,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     if (bboxType == 'aabb') {
                         // aabb
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, scene.rootTransform, node.aabb.transform);
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, VP, localMVP);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, scene.rootTransform, node.aabb.transform);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, VP, localMVP);
                     } else {
                         // obb (assume object node is static)
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, scene.nodeMatrix[i], mesh.boundingBox.transform);
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, VP, localMVP);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, scene.nodeMatrix[i], mesh.boundingBox.transform);
+                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(localMVP, VP, localMVP);
                     }
 
                     gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
@@ -3697,23 +3912,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }   
             }
 
-            // scene bounding box
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, scene.rootTransform, scene.glTFScene.boundingBox.transform);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(localMVP, VP, localMVP);
-            gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
-            gl.drawArrays(gl.LINES, 0, 24);
+            // // scene bounding box
+            // mat4.mul(localMVP, scene.rootTransform, scene.glTFScene.boundingBox.transform);
+            // mat4.mul(localMVP, VP, localMVP);
+            // gl.uniformMatrix4fv(BOUNDING_BOX.uniformMvpLocation, false, localMVP);
+            // gl.drawArrays(gl.LINES, 0, 24);
         }
         
 
+        var timeStampZero = performance.now();
         var timeParameter = 0;
-
-
-
-
 
         // -- Render loop
         // function render() {
-        var render = Renderer.render = function() {
+        var render = Renderer.render = function(timestamp) {
             var i, len;
             var j, lenj;
             var node;
@@ -3722,34 +3934,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             gl.clearColor(0.0, 0.0, 0.0, 1.0);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].set(scale, s, s, s);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].set(scale, s, s, s);
             // mat4.identity(modelView);
             // mat4.translate(modelView, modelView, translate);
             // mat4.scale(modelView, modelView, scale);
             // mat4.fromRotationTranslationScale(modelView, identityQ, translate, scale);
             // mat4.mul(modelView, modelView, modelMatrix);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].identity(modelView);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].translate(modelView, modelView, translate);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].identity(modelView);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].translate(modelView, modelView, translate);
             if (isDisplayRotation) {
                 r += rotationSpeedY;
             }
             
             
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].rotateX(modelView, modelView, eulerX);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].rotateY(modelView, modelView, r);
-            
-            
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].scale(modelView, modelView, scale);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].rotateX(modelView, modelView, eulerX);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].rotateY(modelView, modelView, r);    
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].scale(modelView, modelView, scale);
 
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(modelView, modelView, modelMatrix);
 
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(modelView, modelView, modelMatrix);
-
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].rotateY(modelView, modelView, eulerY); 
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].rotateY(modelView, modelView, eulerY); 
             
 
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(VP, perspective, modelView);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(VP, perspective, modelView);
 
-            gl.useProgram(program.program);
+            
 
             for (i = 0, len = scenes.length; i < len; i++) {
                 curScene = scenes[i];
@@ -3767,61 +3976,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
                 gl.bindVertexArray(null);
-                gl.useProgram(program.program);
             }
 
+            // cube map
+
+            CUBE_MAP.draw(modelView, perspective);
+            
+            program = null;
+
+            timeParameter = (timestamp - timeStampZero) * 0.001;
             requestAnimationFrame(render);
-            timeParameter += 0.01;
         }
 
     })();
 
 
 
+    // 2.0
+    
+    // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
+    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
+    // var gltfUrl = 'models/girl16/scene.gltf';
 
 
-    glTFLoader.loadGLTF(gltfUrl, function(glTF) {
+    CUBE_MAP.finishLoadingCallback = function() {
+        glTFLoader.loadGLTF(gltfUrl, function(glTF) {
+            glAvatarSystem.curSkeleton.name = 'patrick';
+            skeletonGltfScene = glAvatarSystem.curSkeleton.scene = setupScene(glTF);
+            
+            Renderer.render();
+        });
+    };
 
-        skeletonGltfScene = setupScene(glTF);
-        
+    CUBE_MAP.loadAll();
 
-        // render();
-        Renderer.render();
-        
 
-    });
 })();
 
 
 /***/ }),
-/* 9 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export create */
-/* unused harmony export clone */
-/* unused harmony export copy */
-/* unused harmony export identity */
-/* unused harmony export fromValues */
-/* unused harmony export set */
-/* unused harmony export transpose */
-/* unused harmony export invert */
-/* unused harmony export adjoint */
-/* unused harmony export determinant */
-/* unused harmony export multiply */
-/* unused harmony export rotate */
-/* unused harmony export scale */
-/* unused harmony export fromRotation */
-/* unused harmony export fromScaling */
-/* unused harmony export str */
-/* unused harmony export frob */
-/* unused harmony export LDU */
-/* unused harmony export add */
-/* unused harmony export subtract */
-/* unused harmony export exactEquals */
-/* unused harmony export equals */
-/* unused harmony export multiplyScalar */
-/* unused harmony export multiplyScalarAndAdd */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["create"] = create;
+/* harmony export (immutable) */ __webpack_exports__["clone"] = clone;
+/* harmony export (immutable) */ __webpack_exports__["copy"] = copy;
+/* harmony export (immutable) */ __webpack_exports__["identity"] = identity;
+/* harmony export (immutable) */ __webpack_exports__["fromValues"] = fromValues;
+/* harmony export (immutable) */ __webpack_exports__["set"] = set;
+/* harmony export (immutable) */ __webpack_exports__["transpose"] = transpose;
+/* harmony export (immutable) */ __webpack_exports__["invert"] = invert;
+/* harmony export (immutable) */ __webpack_exports__["adjoint"] = adjoint;
+/* harmony export (immutable) */ __webpack_exports__["determinant"] = determinant;
+/* harmony export (immutable) */ __webpack_exports__["multiply"] = multiply;
+/* harmony export (immutable) */ __webpack_exports__["rotate"] = rotate;
+/* harmony export (immutable) */ __webpack_exports__["scale"] = scale;
+/* harmony export (immutable) */ __webpack_exports__["fromRotation"] = fromRotation;
+/* harmony export (immutable) */ __webpack_exports__["fromScaling"] = fromScaling;
+/* harmony export (immutable) */ __webpack_exports__["str"] = str;
+/* harmony export (immutable) */ __webpack_exports__["frob"] = frob;
+/* harmony export (immutable) */ __webpack_exports__["LDU"] = LDU;
+/* harmony export (immutable) */ __webpack_exports__["add"] = add;
+/* harmony export (immutable) */ __webpack_exports__["subtract"] = subtract;
+/* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalar"] = multiplyScalar;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalarAndAdd"] = multiplyScalarAndAdd;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
@@ -3856,7 +4078,7 @@ THE SOFTWARE. */
  * @returns {mat2} a new 2x2 matrix
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -3871,7 +4093,7 @@ function create() {
  * @returns {mat2} a new 2x2 matrix
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -3918,7 +4140,7 @@ function identity(out) {
  * @returns {mat2} out A new 2x2 matrix
  */
 function fromValues(m00, m01, m10, m11) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = m00;
   out[1] = m01;
   out[2] = m10;
@@ -4206,10 +4428,10 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
   let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)));
 }
 
 /**
@@ -4250,7 +4472,7 @@ function multiplyScalarAndAdd(out, a, b, scale) {
  * @function
  */
 const mul = multiply;
-/* unused harmony export mul */
+/* harmony export (immutable) */ __webpack_exports__["mul"] = mul;
 
 
 /**
@@ -4258,38 +4480,39 @@ const mul = multiply;
  * @function
  */
 const sub = subtract;
-/* unused harmony export sub */
+/* harmony export (immutable) */ __webpack_exports__["sub"] = sub;
 
 
 
 /***/ }),
-/* 10 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export create */
-/* unused harmony export clone */
-/* unused harmony export copy */
-/* unused harmony export identity */
-/* unused harmony export fromValues */
-/* unused harmony export set */
-/* unused harmony export invert */
-/* unused harmony export determinant */
-/* unused harmony export multiply */
-/* unused harmony export rotate */
-/* unused harmony export scale */
-/* unused harmony export translate */
-/* unused harmony export fromRotation */
-/* unused harmony export fromScaling */
-/* unused harmony export fromTranslation */
-/* unused harmony export str */
-/* unused harmony export frob */
-/* unused harmony export add */
-/* unused harmony export subtract */
-/* unused harmony export multiplyScalar */
-/* unused harmony export multiplyScalarAndAdd */
-/* unused harmony export exactEquals */
-/* unused harmony export equals */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["create"] = create;
+/* harmony export (immutable) */ __webpack_exports__["clone"] = clone;
+/* harmony export (immutable) */ __webpack_exports__["copy"] = copy;
+/* harmony export (immutable) */ __webpack_exports__["identity"] = identity;
+/* harmony export (immutable) */ __webpack_exports__["fromValues"] = fromValues;
+/* harmony export (immutable) */ __webpack_exports__["set"] = set;
+/* harmony export (immutable) */ __webpack_exports__["invert"] = invert;
+/* harmony export (immutable) */ __webpack_exports__["determinant"] = determinant;
+/* harmony export (immutable) */ __webpack_exports__["multiply"] = multiply;
+/* harmony export (immutable) */ __webpack_exports__["rotate"] = rotate;
+/* harmony export (immutable) */ __webpack_exports__["scale"] = scale;
+/* harmony export (immutable) */ __webpack_exports__["translate"] = translate;
+/* harmony export (immutable) */ __webpack_exports__["fromRotation"] = fromRotation;
+/* harmony export (immutable) */ __webpack_exports__["fromScaling"] = fromScaling;
+/* harmony export (immutable) */ __webpack_exports__["fromTranslation"] = fromTranslation;
+/* harmony export (immutable) */ __webpack_exports__["str"] = str;
+/* harmony export (immutable) */ __webpack_exports__["frob"] = frob;
+/* harmony export (immutable) */ __webpack_exports__["add"] = add;
+/* harmony export (immutable) */ __webpack_exports__["subtract"] = subtract;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalar"] = multiplyScalar;
+/* harmony export (immutable) */ __webpack_exports__["multiplyScalarAndAdd"] = multiplyScalarAndAdd;
+/* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
@@ -4338,7 +4561,7 @@ THE SOFTWARE. */
  * @returns {mat2d} a new 2x3 matrix
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](6);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](6);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -4355,7 +4578,7 @@ function create() {
  * @returns {mat2d} a new 2x3 matrix
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](6);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](6);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -4410,7 +4633,7 @@ function identity(out) {
  * @returns {mat2d} A new mat2d
  */
 function fromValues(a, b, c, d, tx, ty) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](6);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](6);
   out[0] = a;
   out[1] = b;
   out[2] = c;
@@ -4738,12 +4961,12 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
   let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a5), Math.abs(b5)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)));
 }
 
 /**
@@ -4751,7 +4974,7 @@ function equals(a, b) {
  * @function
  */
 const mul = multiply;
-/* unused harmony export mul */
+/* harmony export (immutable) */ __webpack_exports__["mul"] = mul;
 
 
 /**
@@ -4759,12 +4982,12 @@ const mul = multiply;
  * @function
  */
 const sub = subtract;
-/* unused harmony export sub */
+/* harmony export (immutable) */ __webpack_exports__["sub"] = sub;
 
 
 
 /***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4847,7 +5070,7 @@ THE SOFTWARE. */
  * @returns {mat4} a new 4x4 matrix
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](16);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](16);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -4874,7 +5097,7 @@ function create() {
  * @returns {mat4} a new 4x4 matrix
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](16);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](16);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -4943,7 +5166,7 @@ function copy(out, a) {
  * @returns {mat4} A new mat4
  */
 function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](16);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](16);
   out[0] = m00;
   out[1] = m01;
   out[2] = m02;
@@ -5323,7 +5546,7 @@ function rotate(out, a, rad, axis) {
   let b10, b11, b12;
   let b20, b21, b22;
 
-  if (Math.abs(len) < __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]) { return null; }
+  if (Math.abs(len) < __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]) { return null; }
 
   len = 1 / len;
   x *= len;
@@ -5574,7 +5797,7 @@ function fromRotation(out, rad, axis) {
   let len = Math.sqrt(x * x + y * y + z * z);
   let s, c, t;
 
-  if (Math.abs(len) < __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]) { return null; }
+  if (Math.abs(len) < __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]) { return null; }
 
   len = 1 / len;
   x *= len;
@@ -6180,9 +6403,9 @@ function lookAt(out, eye, center, up) {
   let centery = center[1];
   let centerz = center[2];
 
-  if (Math.abs(eyex - centerx) < __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */] &&
-      Math.abs(eyey - centery) < __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */] &&
-      Math.abs(eyez - centerz) < __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]) {
+  if (Math.abs(eyex - centerx) < __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"] &&
+      Math.abs(eyey - centery) < __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"] &&
+      Math.abs(eyez - centerz) < __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]) {
     return mat4.identity(out);
   }
 
@@ -6466,22 +6689,22 @@ function equals(a, b) {
   let b8  = b[8],  b9  = b[9],  b10 = b[10], b11 = b[11];
   let b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
 
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
-          Math.abs(a6 - b6) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
-          Math.abs(a7 - b7) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
-          Math.abs(a8 - b8) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a8), Math.abs(b8)) &&
-          Math.abs(a9 - b9) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a9), Math.abs(b9)) &&
-          Math.abs(a10 - b10) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a10), Math.abs(b10)) &&
-          Math.abs(a11 - b11) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a11), Math.abs(b11)) &&
-          Math.abs(a12 - b12) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a12), Math.abs(b12)) &&
-          Math.abs(a13 - b13) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a13), Math.abs(b13)) &&
-          Math.abs(a14 - b14) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a14), Math.abs(b14)) &&
-          Math.abs(a15 - b15) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a15), Math.abs(b15)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
+          Math.abs(a2 - b2) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
+          Math.abs(a3 - b3) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
+          Math.abs(a4 - b4) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
+          Math.abs(a5 - b5) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a5), Math.abs(b5)) &&
+          Math.abs(a6 - b6) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a6), Math.abs(b6)) &&
+          Math.abs(a7 - b7) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a7), Math.abs(b7)) &&
+          Math.abs(a8 - b8) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a8), Math.abs(b8)) &&
+          Math.abs(a9 - b9) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a9), Math.abs(b9)) &&
+          Math.abs(a10 - b10) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a10), Math.abs(b10)) &&
+          Math.abs(a11 - b11) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a11), Math.abs(b11)) &&
+          Math.abs(a12 - b12) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a12), Math.abs(b12)) &&
+          Math.abs(a13 - b13) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a13), Math.abs(b13)) &&
+          Math.abs(a14 - b14) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a14), Math.abs(b14)) &&
+          Math.abs(a15 - b15) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a15), Math.abs(b15)));
 }
 
 /**
@@ -6502,7 +6725,7 @@ const sub = subtract;
 
 
 /***/ }),
-/* 12 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6523,9 +6746,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["fromEuler"] = fromEuler;
 /* harmony export (immutable) */ __webpack_exports__["str"] = str;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4__ = __webpack_require__(4);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -6562,7 +6785,7 @@ THE SOFTWARE. */
  * @returns {quat} a new quaternion
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](4);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](4);
   out[0] = 0;
   out[1] = 0;
   out[2] = 0;
@@ -7170,7 +7393,7 @@ const sqlerp = (function () {
  * @returns {quat} out
  */
 const setAxes = (function() {
-  let matr = __WEBPACK_IMPORTED_MODULE_1__mat3__["a" /* create */]();
+  let matr = __WEBPACK_IMPORTED_MODULE_1__mat3__["create"]();
 
   return function(out, view, right, up) {
     matr[0] = right[0];
@@ -7193,44 +7416,45 @@ const setAxes = (function() {
 
 
 /***/ }),
-/* 13 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export create */
-/* unused harmony export clone */
-/* unused harmony export fromValues */
-/* unused harmony export copy */
-/* unused harmony export set */
-/* unused harmony export add */
-/* unused harmony export subtract */
-/* unused harmony export multiply */
-/* unused harmony export divide */
-/* unused harmony export ceil */
-/* unused harmony export floor */
-/* unused harmony export min */
-/* unused harmony export max */
-/* unused harmony export round */
-/* unused harmony export scale */
-/* unused harmony export scaleAndAdd */
-/* unused harmony export distance */
-/* unused harmony export squaredDistance */
-/* unused harmony export length */
-/* unused harmony export squaredLength */
-/* unused harmony export negate */
-/* unused harmony export inverse */
-/* unused harmony export normalize */
-/* unused harmony export dot */
-/* unused harmony export cross */
-/* unused harmony export lerp */
-/* unused harmony export random */
-/* unused harmony export transformMat2 */
-/* unused harmony export transformMat2d */
-/* unused harmony export transformMat3 */
-/* unused harmony export transformMat4 */
-/* unused harmony export str */
-/* unused harmony export exactEquals */
-/* unused harmony export equals */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["create"] = create;
+/* harmony export (immutable) */ __webpack_exports__["clone"] = clone;
+/* harmony export (immutable) */ __webpack_exports__["fromValues"] = fromValues;
+/* harmony export (immutable) */ __webpack_exports__["copy"] = copy;
+/* harmony export (immutable) */ __webpack_exports__["set"] = set;
+/* harmony export (immutable) */ __webpack_exports__["add"] = add;
+/* harmony export (immutable) */ __webpack_exports__["subtract"] = subtract;
+/* harmony export (immutable) */ __webpack_exports__["multiply"] = multiply;
+/* harmony export (immutable) */ __webpack_exports__["divide"] = divide;
+/* harmony export (immutable) */ __webpack_exports__["ceil"] = ceil;
+/* harmony export (immutable) */ __webpack_exports__["floor"] = floor;
+/* harmony export (immutable) */ __webpack_exports__["min"] = min;
+/* harmony export (immutable) */ __webpack_exports__["max"] = max;
+/* harmony export (immutable) */ __webpack_exports__["round"] = round;
+/* harmony export (immutable) */ __webpack_exports__["scale"] = scale;
+/* harmony export (immutable) */ __webpack_exports__["scaleAndAdd"] = scaleAndAdd;
+/* harmony export (immutable) */ __webpack_exports__["distance"] = distance;
+/* harmony export (immutable) */ __webpack_exports__["squaredDistance"] = squaredDistance;
+/* harmony export (immutable) */ __webpack_exports__["length"] = length;
+/* harmony export (immutable) */ __webpack_exports__["squaredLength"] = squaredLength;
+/* harmony export (immutable) */ __webpack_exports__["negate"] = negate;
+/* harmony export (immutable) */ __webpack_exports__["inverse"] = inverse;
+/* harmony export (immutable) */ __webpack_exports__["normalize"] = normalize;
+/* harmony export (immutable) */ __webpack_exports__["dot"] = dot;
+/* harmony export (immutable) */ __webpack_exports__["cross"] = cross;
+/* harmony export (immutable) */ __webpack_exports__["lerp"] = lerp;
+/* harmony export (immutable) */ __webpack_exports__["random"] = random;
+/* harmony export (immutable) */ __webpack_exports__["transformMat2"] = transformMat2;
+/* harmony export (immutable) */ __webpack_exports__["transformMat2d"] = transformMat2d;
+/* harmony export (immutable) */ __webpack_exports__["transformMat3"] = transformMat3;
+/* harmony export (immutable) */ __webpack_exports__["transformMat4"] = transformMat4;
+/* harmony export (immutable) */ __webpack_exports__["str"] = str;
+/* harmony export (immutable) */ __webpack_exports__["exactEquals"] = exactEquals;
+/* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common__ = __webpack_require__(0);
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
@@ -7265,7 +7489,7 @@ THE SOFTWARE. */
  * @returns {vec2} a new 2D vector
  */
 function create() {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](2);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](2);
   out[0] = 0;
   out[1] = 0;
   return out;
@@ -7278,7 +7502,7 @@ function create() {
  * @returns {vec2} a new 2D vector
  */
 function clone(a) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](2);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](2);
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -7292,7 +7516,7 @@ function clone(a) {
  * @returns {vec2} a new 2D vector
  */
 function fromValues(x, y) {
-  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["a" /* ARRAY_TYPE */](2);
+  let out = new __WEBPACK_IMPORTED_MODULE_0__common__["ARRAY_TYPE"](2);
   out[0] = x;
   out[1] = y;
   return out;
@@ -7626,7 +7850,7 @@ function lerp(out, a, b, t) {
  */
 function random(out, scale) {
   scale = scale || 1.0;
-  var r = __WEBPACK_IMPORTED_MODULE_0__common__["c" /* RANDOM */]() * 2.0 * Math.PI;
+  var r = __WEBPACK_IMPORTED_MODULE_0__common__["RANDOM"]() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
   out[1] = Math.sin(r) * scale;
   return out;
@@ -7730,8 +7954,8 @@ function exactEquals(a, b) {
 function equals(a, b) {
   let a0 = a[0], a1 = a[1];
   let b0 = b[0], b1 = b[1];
-  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["b" /* EPSILON */]*Math.max(1.0, Math.abs(a1), Math.abs(b1)));
+  return (Math.abs(a0 - b0) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
+          Math.abs(a1 - b1) <= __WEBPACK_IMPORTED_MODULE_0__common__["EPSILON"]*Math.max(1.0, Math.abs(a1), Math.abs(b1)));
 }
 
 /**
@@ -7739,7 +7963,7 @@ function equals(a, b) {
  * @function
  */
 const len = length;
-/* unused harmony export len */
+/* harmony export (immutable) */ __webpack_exports__["len"] = len;
 
 
 /**
@@ -7747,7 +7971,7 @@ const len = length;
  * @function
  */
 const sub = subtract;
-/* unused harmony export sub */
+/* harmony export (immutable) */ __webpack_exports__["sub"] = sub;
 
 
 /**
@@ -7755,7 +7979,7 @@ const sub = subtract;
  * @function
  */
 const mul = multiply;
-/* unused harmony export mul */
+/* harmony export (immutable) */ __webpack_exports__["mul"] = mul;
 
 
 /**
@@ -7763,7 +7987,7 @@ const mul = multiply;
  * @function
  */
 const div = divide;
-/* unused harmony export div */
+/* harmony export (immutable) */ __webpack_exports__["div"] = div;
 
 
 /**
@@ -7771,7 +7995,7 @@ const div = divide;
  * @function
  */
 const dist = distance;
-/* unused harmony export dist */
+/* harmony export (immutable) */ __webpack_exports__["dist"] = dist;
 
 
 /**
@@ -7779,7 +8003,7 @@ const dist = distance;
  * @function
  */
 const sqrDist = squaredDistance;
-/* unused harmony export sqrDist */
+/* harmony export (immutable) */ __webpack_exports__["sqrDist"] = sqrDist;
 
 
 /**
@@ -7787,7 +8011,7 @@ const sqrDist = squaredDistance;
  * @function
  */
 const sqrLen = squaredLength;
-/* unused harmony export sqrLen */
+/* harmony export (immutable) */ __webpack_exports__["sqrLen"] = sqrLen;
 
 
 /**
@@ -7830,1339 +8054,1316 @@ const forEach = (function() {
     return a;
   };
 })();
-/* unused harmony export forEach */
+/* harmony export (immutable) */ __webpack_exports__["forEach"] = forEach;
 
 
 
 /***/ }),
-/* 14 */
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(true)
+		module.exports = factory(__webpack_require__(1));
+	else if(typeof define === 'function' && define.amd)
+		define(["gl-matrix"], factory);
+	else if(typeof exports === 'object')
+		exports["MinimalGLTFLoader"] = factory(require("gl-matrix"));
+	else
+		root["MinimalGLTFLoader"] = factory(root[undefined]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MinimalGLTFLoader; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(3);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "glTFLoader", function() { return glTFLoader; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__);
 
 
 var MinimalGLTFLoader = MinimalGLTFLoader || {};
-(function() {
-    'use strict';
 
-    var globalUniformBlockID = 0;
-
-    // var curGltfModel = null;
-    var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
-
-    // Data classes
-    var Scene = MinimalGLTFLoader.Scene = function (gltf, s) {
-        this.name = s.name !== undefined ? s.name : null;
-        this.nodes = new Array(s.nodes.length);    // root node object of this scene
-        for (var i = 0, len = s.nodes.length; i < len; i++) {
-            this.nodes[i] = gltf.nodes[s.nodes[i]];
-        }
-
-        this.boundingBox = null;
-    };
-
-    /**
-     * 
-     * @param {vec3} min
-     * @param {vec3} max
-     */
-    var BoundingBox = MinimalGLTFLoader.BoundingBox = function (min, max, isClone) {
-        // this.min = min;
-        // this.max = max;
-        min = min || __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
-        max = max || __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY);
-
-        if (isClone === undefined || isClone === true) {
-            this.min = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].clone(min);
-            this.max = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].clone(max);
-        } else {
-            this.min = min;
-            this.max = max;
-        }
-        
-
-        this.transform = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-    };
-
-    BoundingBox.prototype.updateBoundingBox = function (bbox) {
-        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].min(this.min, this.min, bbox.min);
-        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].max(this.max, this.max, bbox.max);
-    };
-
-    BoundingBox.prototype.calculateTransform = function () {
-        // transform from a unit cube whose min = (0, 0, 0) and max = (1, 1, 1)
-
-        // scale
-        this.transform[0] = this.max[0] - this.min[0];
-        this.transform[5] = this.max[1] - this.min[1];
-        this.transform[10] = this.max[2] - this.min[2];
-        // translate
-        this.transform[12] = this.min[0];
-        this.transform[13] = this.min[1];
-        this.transform[14] = this.min[2];
-    };
-
-    BoundingBox.getAABBFromOBB = (function() {
-        var transformRight = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
-        var transformUp = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
-        var transformBackward = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
-
-        var tmpVec3a = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
-        var tmpVec3b = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].create();
-
-        return (function (obb, matrix) {
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].set(transformRight, matrix[0], matrix[1], matrix[2]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].set(transformUp, matrix[4], matrix[5], matrix[6]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].set(transformBackward, matrix[8], matrix[9], matrix[10]);
-
-            var min = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(matrix[12], matrix[13], matrix[14]);  // init with matrix translation
-            var max = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].clone(min);
-
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3a, transformRight, obb.min[0]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3b, transformRight, obb.max[0]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].min(transformRight, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(min, min, transformRight);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].max(transformRight, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(max, max, transformRight);
-
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3a, transformUp, obb.min[1]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3b, transformUp, obb.max[1]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].min(transformUp, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(min, min, transformUp);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].max(transformUp, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(max, max, transformUp);
-
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3a, transformBackward, obb.min[2]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].scale(tmpVec3b, transformBackward, obb.max[2]);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].min(transformBackward, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(min, min, transformBackward);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].max(transformBackward, tmpVec3a, tmpVec3b);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].add(max, max, transformBackward);
-
-            var bbox = new BoundingBox(min, max, false);
-            bbox.calculateTransform();
-            return bbox;
-        });
-    })();
-
-
-
-    var Accessor = MinimalGLTFLoader.Accessor = function (a, bufferViewObject) {
-        this.bufferView = bufferViewObject;
-        this.componentType = a.componentType;   // required
-        this.byteOffset = a.byteOffset !== undefined ? a.byteOffset : 0;
-        this.byteStride = bufferViewObject.byteStride;
-        this.normalized = a.normalized !== undefined ? a.normalized : false;
-        this.count = a.count;   // required
-        this.type = a.type;     // required
-        this.size = Type2NumOfComponent[this.type];
-
-        this.min = a.min;   // @tmp assume required for now (for bbox)
-        this.max = a.max;   // @tmp assume required for now (for bbox)
-    };
-
-    Accessor.prototype.prepareVertexAttrib = function(location, gl) {
-        gl.vertexAttribPointer(
-            location,
-            this.size,
-            this.componentType,
-            this.normalized,
-            this.byteStride,
-            this.byteOffset
-            );
-        gl.enableVertexAttribArray(location);
-    };
-
-    var BufferView = MinimalGLTFLoader.BufferView = function(bf, bufferData) {
-        this.byteLength = bf.byteLength;    //required
-        this.byteOffset = bf.byteOffset !== undefined ? bf.byteOffset : 0;
-        this.byteStride = bf.byteStride !== undefined ? bf.byteStride : 0;
-        this.target = bf.target !== undefined ? bf.target : null;
-
-        this.data = bufferData.slice(this.byteOffset, this.byteOffset + this.byteLength);
-
-        // runtime stuffs -------------
-        this.buffer = null;     // gl buffer
-    };
-
-    BufferView.prototype.createBuffer = function(gl) {
-        this.buffer = gl.createBuffer();
-    };
-
-    BufferView.prototype.bindData = function(gl) {
-        if (this.target) {
-            gl.bindBuffer(this.target, this.buffer);
-            gl.bufferData(this.target, this.data, gl.STATIC_DRAW);
-            gl.bindBuffer(this.target, null);
-            return true;
-        }
-        return false;
-    };
-
-
-
-    var Node = MinimalGLTFLoader.Node = function (n, nodeID) {
-        this.name = n.name !== undefined ? n.name : null;
-        this.nodeID = nodeID;
-        // TODO: camera
-        this.camera = n.camera !== undefined ? n.camera : null;
-
-        this.matrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        if (n.hasOwnProperty('matrix')) {
-            for(var i = 0; i < 16; ++i) {
-                this.matrix[i] = n.matrix[i];
-            }
-        } else {
-            // this.translation = null;
-            // this.rotation = null;
-            // this.scale = null;
-            this.getTransformMatrixFromTRS(n.translation, n.rotation, n.scale);
-        }
-        
-        
-        
-
-        this.children = n.children || [];  // init as id, then hook up to node object later
-        this.mesh = n.mesh !== undefined ? curLoader.glTF.meshes[n.mesh] : null;
-
-        this.skin = n.skin !== undefined ? n.skin : null;   // init as id, then hook up to skin object later
-
-        if (n.extensions !== undefined) {
-            if (n.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
-                var linkedSkinID = curLoader.skeletonGltf.json.extensions.gl_avatar.skins[ n.extensions.gl_avatar.skin.name ];
-                var linkedSkin = curLoader.skeletonGltf.skins[linkedSkinID];
-                this.skin = new SkinLink(curLoader.glTF, linkedSkin, n.extensions.gl_avatar.skin.inverseBindMatrices);
-            }
-        }
-        
-
-
-        // TODO: morph targets weights
-        this.weights = n.weights !== undefined ? n.weights : null;
-
-
-        // runtime stuffs--------------
-
-        this.aabb = null;   // axis aligned bounding box, not need to apply node transform to aabb
-
-        // this.bvh = null;    // bbox of all children, used for (occlusion culling)
-        this.bvh = new BoundingBox();
-    };
-
-    Node.prototype.traverse = function(parent, executeFunc) {
-        executeFunc(this, parent);
-        for (var i = 0, len = this.children.length; i < len; i++) {
-            this.children[i].traverse(this, executeFunc);
-        }
-    };
-
-    Node.prototype.traversePostOrder = function(parent, executeFunc) {
-        for (var i = 0, len = this.children.length; i < len; i++) {
-            this.children[i].traversePostOrder(this, executeFunc);
-        }
-        executeFunc(this, parent);
-    };
-
-    Node.prototype.traverseTwoExecFun = function(parent, execFunPre, execFunPos) {
-        execFunPre(this, parent);
-        for (var i = 0, len = this.children.length; i < len; i++) {
-            this.children[i].traverseTwoExecFun(this, execFunPre, execFunPos);
-        }
-        execFunPos(this, parent);
-    };
-
-
-    // var translationVec3 = vec3.create();
-    // var rotationQuat = quat.create();
-    // var scaleVec3 = vec3.create();
-    var TRSMatrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-
-    Node.prototype.getTransformMatrixFromTRS = function(translation, rotation, scale) {
-
-        // this.translation = translation !== undefined ? translation : [0, 0, 0];
-        // this.rotation = rotation !== undefined ? rotation : [0, 0, 0, 1];
-        // this.scale = scale !== undefined ? scale : [1, 1, 1];
-        this.translation = translation !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(translation[0], translation[1], translation[2]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0);
-        this.rotation = rotation !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(rotation[0], rotation[1], rotation[2], rotation[3]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(0, 0, 0, 1);
-        this.scale = scale !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(scale[0], scale[1], scale[2]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(1, 1, 1);
-
-        // vec3.set(translationVec3, this.translation[0], this.translation[1], this.translation[2]);
-        // quat.set(rotationQuat, this.rotation[0], this.rotation[1], this.rotation[2], this.rotation[3]);
-        // vec3.set(scaleVec3, this.scale[0], this.scale[1], this.scale[2]);
-        // mat4.fromRotationTranslation(TRSMatrix, rotationQuat, translationVec3);
-        // mat4.scale(this.matrix, TRSMatrix, scaleVec3);
-
-        this.updateMatrixFromTRS();
-    };
-
-    Node.prototype.updateMatrixFromTRS = function() {
-        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].fromRotationTranslation(TRSMatrix, this.rotation, this.translation);
-        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].scale(this.matrix, TRSMatrix, this.scale);
-    };
-
-
-
-    var Mesh = MinimalGLTFLoader.Mesh = function (m, meshID) {
-        this.meshID = meshID;
-        this.name = m.name !== undefined ? m.name : null;
-
-        this.primitives = [];   // required
-        
-
-
-        // bounding box (runtime stuff)
-        this.boundingBox = null;
-
-        var p, primitive, accessor;
-
-        for (var i = 0, len = m.primitives.length; i < len; ++i) {
-            p = m.primitives[i];
-            primitive = new Primitive(curLoader.glTF, p);
-            this.primitives.push(primitive);
-
-            // bounding box related
-            if (primitive.boundingBox) {
-                if (!this.boundingBox) {
-                    this.boundingBox = new BoundingBox();
-                }
-                this.boundingBox.updateBoundingBox(primitive.boundingBox);
-            }
-        }
-
-        if (this.boundingBox) {
-            this.boundingBox.calculateTransform();
-        }
-
-
-        // TODO: weights for morph targets
-        this.weights = m.weights !== undefined ? m.weights : null;
-
-
-        
-    };
-
-    var Primitive = MinimalGLTFLoader.Primitive = function (gltf, p) {
-        // <attribute name, accessor id>, required
-        // get hook up with accessor object in _postprocessing
-        this.attributes = p.attributes;
-        this.indices = p.indices !== undefined ? p.indices : null;  // accessor id
-
-        var attname;
-        if (p.extensions !== undefined) {
-            if (p.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
-                if (p.extensions.gl_avatar.attributes) {
-                    for ( attname in p.extensions.gl_avatar.attributes ) {
-                        this.attributes[attname] = p.extensions.gl_avatar.attributes[attname];
-                    }
-                }
-            }
-        }
-
-        // hook up accessor object
-        for ( attname in this.attributes ) {
-            this.attributes[attname] = gltf.accessors[ this.attributes[attname] ];
-        }
-
-        // @temp
-        if (this.indices !== null) {
-            this.indicesComponentType = gltf.json.accessors[this.indices].componentType;
-            this.indicesLength = gltf.json.accessors[this.indices].count;
-            this.indicesOffset = (gltf.json.accessors[this.indices].byteOffset || 0);
-        } else {
-            // assume 'POSITION' is there
-            this.drawArraysCount = gltf.json.accessors[this.attributes.POSITION].count;
-            this.drawArraysOffset = (gltf.json.accessors[this.attributes.POSITION].byteOffset || 0);
-        }
-
-        
-        
-
-
-        this.material = p.material !== undefined ? gltf.materials[p.material] : null;
-
-
-        this.mode = p.mode !== undefined ? p.mode : 4; // default: gl.TRIANGLES
-
-        
-
-        // morph related
-        this.targets = p.targets;
-
-
-        // ----gl run time related
-        this.vertexArray = null;    //vao
-        
-        this.vertexBuffer = null;
-        this.indexBuffer = null;
-
-
-        this.boundingBox = null;
-        if (this.attributes.POSITION !== undefined) {
-            var accessor = this.attributes.POSITION;
-            if (accessor.max) {
-                // @todo: handle cases where no min max are provided
-
-                // assume vec3
-                if (accessor.type === 'VEC3') {
-                    this.boundingBox = new BoundingBox(
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
-                        false
-                    );
-                    this.boundingBox.calculateTransform();
-                    
-
-                    
-                }
-                
-            }
-        }
-    };
-
-
-    var Texture = MinimalGLTFLoader.Texture = function (t) {
-        this.name = t.name !== undefined ? t.name : null;
-        this.sampler = t.sampler !== undefined ? curLoader.glTF.samplers[t.sampler] : null;
-        this.source = t.source !== undefined ? curLoader.glTF.images[t.source] : null;
-
-        // runtime
-        this.texture = null;
-    };
-
-    Texture.prototype.createTexture = function(gl) {
-        this.texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.texImage2D(
-            gl.TEXTURE_2D,  // assumed
-            0,        // Level of details
-            // gl.RGB, // Format
-            // gl.RGB,
-            gl.RGBA, // Format
-            gl.RGBA,
-            gl.UNSIGNED_BYTE, // Size of each channel
-            this.source
-        );
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.bindTexture(gl.TEXTURE_2D, null);
-    };
-
-    var Sampler = MinimalGLTFLoader.Sampler = function (s) {
-        this.name = s.name !== undefined ? s.name : null;
-        this.magFilter = s.magFilter !== undefined ? s.magFilter : null;
-        this.minFilter = s.minFilter !== undefined ? s.minFilter : null;
-        this.wrapS = s.wrapS !== undefined ? s.wrapS : 10497;
-        this.wrapT = s.wrapT !== undefined ? s.wrapT : 10497;
-
-        this.sampler = null;
-    };
-
-    Sampler.prototype.createSampler = function(gl) {
-        this.sampler = gl.createSampler();
-        if (this.minFilter) {
-            gl.samplerParameteri(this.sampler, gl.TEXTURE_MIN_FILTER, this.minFilter);
-        } else {
-            gl.samplerParameteri(this.sampler, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR);
-        }
-        if (this.magFilter) {
-            gl.samplerParameteri(this.sampler, gl.TEXTURE_MAG_FILTER, this.magFilter);
-        } else {
-            gl.samplerParameteri(this.sampler, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        }
-        gl.samplerParameteri(this.sampler, gl.TEXTURE_WRAP_S, this.wrapS);
-        gl.samplerParameteri(this.sampler, gl.TEXTURE_WRAP_T, this.wrapT);
-    };
-
-    // Sampler.prototype.bindSampler = function(i, gl) {
-    //     gl.bindSampler(i, this.sampler);
-    // }
-
-    var TextureInfo = MinimalGLTFLoader.TextureInfo = function (json) {
-        this.index = json.index;
-        this.texCoord = json.texCoord !== undefined ? json.texCoord : 0 ;
-    };
-
-    var PbrMetallicRoughness = MinimalGLTFLoader.PbrMetallicRoughness = function (json) {
-        this.baseColorFactor = json.baseColorFactor !== undefined ? json.baseColorFactor : [1, 1, 1, 1];
-        this.baseColorTexture = json.baseColorTexture !== undefined ? new TextureInfo(json.baseColorTexture): null;
-        this.metallicFactor = json.metallicFactor !== undefined ? json.metallicFactor : 1 ;
-        this.roughnessFactor = json.roughnessFactor !== undefined ? json.roughnessFactor : 1 ;
-        this.metallicRoughnessTexture = json.metallicRoughnessTexture !== undefined ? new TextureInfo(json.metallicRoughnessTexture): null;
-
-    };
-
-    var NormalTextureInfo = MinimalGLTFLoader.NormalTextureInfo = function (json) {
-        this.index = json.index;
-        this.texCoord = json.texCoord !== undefined ? json.texCoord : 0 ;
-        this.scale = json.scale !== undefined ? json.scale : 1 ;
-    };
-
-    var Material = MinimalGLTFLoader.Material = function (m) {
-        this.name = m.name !== undefined ? m.name : null;
-        
-        this.pbrMetallicRoughness = m.pbrMetallicRoughness !== undefined ? m.pbrMetallicRoughness : {
-            baseColorFactor: [1, 1, 1, 1],
-            metallicFactor: 1,
-            metallicRoughnessTexture: 1
-        };
-        // this.normalTexture = m.normalTexture !== undefined ? m.normalTexture : null;
-        this.normalTexture = m.normalTexture !== undefined ? new NormalTextureInfo(m.normalTexture) : null;
-        this.occlusionTexture = m.occlusionTexture !== undefined ? m.occlusionTexture : null;
-        this.emissiveTexture = m.emissiveTexture !== undefined ? m.emissiveTexture : null;
-
-        this.emissiveFactor = m.emissiveFactor !== undefined ? m.emissiveFactor : [0, 0, 0];
-        this.alphaMode = m.alphaMode !== undefined ? m.alphaMode : "OPAQUE";
-        this.alphaCutoff = m.alphaCutoff !== undefined ? m.alphaCutoff : 0.5;
-        this.doubleSided = m.doubleSided || false;
-    };
-
+var globalUniformBlockID = 0;
+
+var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
+
+// Data classes
+var Scene = MinimalGLTFLoader.Scene = function (gltf, s) {
+    this.name = s.name !== undefined ? s.name : null;
+    this.nodes = new Array(s.nodes.length);    // root node object of this scene
+    for (var i = 0, len = s.nodes.length; i < len; i++) {
+        this.nodes[i] = gltf.nodes[s.nodes[i]];
+    }
+
+    this.boundingBox = null;
+};
+
+/**
+ * 
+ * @param {vec3} min
+ * @param {vec3} max
+ */
+var BoundingBox = MinimalGLTFLoader.BoundingBox = function (min, max, isClone) {
+    // this.min = min;
+    // this.max = max;
+    min = min || __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+    max = max || __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY);
+
+    if (isClone === undefined || isClone === true) {
+        this.min = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].clone(min);
+        this.max = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].clone(max);
+    } else {
+        this.min = min;
+        this.max = max;
+    }
     
-    var Skin = MinimalGLTFLoader.Skin = function (gltf, s, skinID) {
-        this.name = s.name !== undefined ? s.name : null;
-        this.skinID = skinID;
 
-        this.joints = new Array(s.joints.length);   // required
-        var i, len;
-        for (i = 0, len = this.joints.length; i < len; i++) {
-            this.joints[i] = gltf.nodes[s.joints[i]];
-        }
-
-        this.skeleton = s.skeleton !== undefined ? gltf.nodes[s.skeleton] : null;
-        this.inverseBindMatrices = s.inverseBindMatrices !== undefined ? gltf.accessors[s.inverseBindMatrices] : null;
-
-        // @tmp: runtime stuff should be taken care of renderer
-        // since glTF model should only store info
-        // runtime can have multiple instances of this glTF models
-        this.uniformBlockID = globalUniformBlockID++;
-
-        if (this.inverseBindMatrices) {
-            // should be a mat4
-            this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
-            // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
-
-            this.inverseBindMatrix = [];  // for calculation
-            this.jointMatrixUniformBuffer = null;
-            // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
-            //     this.inverseBindMatricesData, 
-            //     0, 
-            //     this.inverseBindMatricesData.length, 
-            //     this.inverseBindMatrices.componentType
-            // );      // for copy to UBO
-
-            // @tmp: fixed length to coordinate with shader, for copy to UBO
-            this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
-
-            for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
-                this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].fromValues(
-                    this.inverseBindMatricesData[i],
-                    this.inverseBindMatricesData[i + 1],
-                    this.inverseBindMatricesData[i + 2],
-                    this.inverseBindMatricesData[i + 3],
-                    this.inverseBindMatricesData[i + 4],
-                    this.inverseBindMatricesData[i + 5],
-                    this.inverseBindMatricesData[i + 6],
-                    this.inverseBindMatricesData[i + 7],
-                    this.inverseBindMatricesData[i + 8],
-                    this.inverseBindMatricesData[i + 9],
-                    this.inverseBindMatricesData[i + 10],
-                    this.inverseBindMatricesData[i + 11],
-                    this.inverseBindMatricesData[i + 12],
-                    this.inverseBindMatricesData[i + 13],
-                    this.inverseBindMatricesData[i + 14],
-                    this.inverseBindMatricesData[i + 15]
-                ));
-            }
-        }
-
-    };
-
-    var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseBindMatricesAccessorID) {
-        this.isLink = true;
-
-        if (!gltf.skins) {
-            gltf.skins = [];
-        }
-        gltf.skins.push(this);
-
-        this.name = linkedSkin.name;
-        // this.skinID = linkedSkin.skinID;   // use this for uniformblock id
-        // this.skinID = gltf.skins.length - 1;
-        // this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
-        this.skinID = gltf.skins.length - 1;
-
-        this.joints = linkedSkin.joints;
-
-        this.skeleton = linkedSkin.skeleton;
-        this.inverseBindMatrices = inverseBindMatricesAccessorID !== undefined ? gltf.accessors[inverseBindMatricesAccessorID] : null;
-
-        // @tmp: runtime stuff should be taken care of renderer
-        // since glTF model should only store info
-        // runtime can have multiple instances of this glTF models
-        this.uniformBlockID = globalUniformBlockID++;
-        if (this.inverseBindMatrices) {
-            // should be a mat4
-            this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
-            // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
-
-            this.inverseBindMatrix = [];  // for calculation
-            this.jointMatrixUniformBuffer = null;
-            // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
-            //     this.inverseBindMatricesData, 
-            //     0, 
-            //     this.inverseBindMatricesData.length, 
-            //     this.inverseBindMatrices.componentType
-            // );      // for copy to UBO
-
-            // @tmp: fixed length to coordinate with shader, for copy to UBO
-            this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
-
-            for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
-                this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].fromValues(
-                    this.inverseBindMatricesData[i],
-                    this.inverseBindMatricesData[i + 1],
-                    this.inverseBindMatricesData[i + 2],
-                    this.inverseBindMatricesData[i + 3],
-                    this.inverseBindMatricesData[i + 4],
-                    this.inverseBindMatricesData[i + 5],
-                    this.inverseBindMatricesData[i + 6],
-                    this.inverseBindMatricesData[i + 7],
-                    this.inverseBindMatricesData[i + 8],
-                    this.inverseBindMatricesData[i + 9],
-                    this.inverseBindMatricesData[i + 10],
-                    this.inverseBindMatricesData[i + 11],
-                    this.inverseBindMatricesData[i + 12],
-                    this.inverseBindMatricesData[i + 13],
-                    this.inverseBindMatricesData[i + 14],
-                    this.inverseBindMatricesData[i + 15]
-                ));
-            }
-        }
-
-        
-
-    };
-
-
-
-
-    // animation has no potential plan for progressive rendering I guess
-    // so everything happens after all buffers are loaded
-
-    var Target = MinimalGLTFLoader.Target = function (t) {
-        this.nodeID = t.node !== undefined ? t.node : null ;  //id, to be hooked up to object later
-        this.path = t.path;     //required, string
-    };
-
-    var Channel = MinimalGLTFLoader.Channel = function (c, animation) {
-        this.sampler = animation.samplers[c.sampler];   //required
-        this.target = new Target(c.target);     //required
-    };
-
-    var AnimationSampler = MinimalGLTFLoader.AnimationSampler = function (gltf, s) {
-        this.input = gltf.accessors[s.input];   //required, accessor object
-        this.output = gltf.accessors[s.output]; //required, accessor object
-
-        this.inputTypedArray = _getAccessorData(this.input);
-        this.outputTypedArray = _getAccessorData(this.output);
-
-
-        // "LINEAR"
-        // "STEP"
-        // "CATMULLROMSPLINE"
-        // "CUBICSPLINE"
-        this.interpolation = s.interpolation !== undefined ? s.interpolation : 'LINEAR' ;
-        
-        // ------- extra runtime info -----------
-        // runtime status thing
-        this.curIdx = 0;
-        // this.curValue = 0;
-        this.curValue = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].create();
-        this.inputMax = this.inputTypedArray[this.inputTypedArray.length - 1];
-
-        this.loopOffset = 0;
-    };
-
-    var animationOutputValueVec4a = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].create();
-    var animationOutputValueVec4b = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].create();
-
-    AnimationSampler.prototype.getValue = function (t) {
-        t -= this.loopOffset;
-        var len = this.inputTypedArray.length;
-        while (this.curIdx <= len - 2 && t >= this.inputTypedArray[this.curIdx + 1]) {
-            this.curIdx++;
-        }
-
-
-        if (this.curIdx >= len - 1) {
-            // loop
-            
-            this.loopOffset += this.inputMax;
-            t -= this.inputMax;
-            this.curIdx = 0;
-        }
-
-        // @tmp: assume no stride
-        var count = Type2NumOfComponent[this.output.type];
-        
-        var v4lerp = count === 4 ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* quat */].slerp: __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].lerp;
-
-        var i = this.curIdx;
-        var o = i * count;
-        var on = o + count;
-
-        var u = Math.max( 0, t - this.inputTypedArray[i] ) / (this.inputTypedArray[i+1] - this.inputTypedArray[i]);
-
-        for (var j = 0; j < count; j++ ) {
-            animationOutputValueVec4a[j] = this.outputTypedArray[o + j];
-            animationOutputValueVec4b[j] = this.outputTypedArray[on + j];
-        }
-
-        switch(this.interpolation) {
-            case 'LINEAR': 
-            // v4lerp(this.curValue, animationOutputValueVec4a, animationOutputValueVec4b, t - this.loopOffset - this.inputTypedArray[i]);
-            v4lerp(this.curValue, animationOutputValueVec4a, animationOutputValueVec4b, u);
-            break;
-
-            default:
-            break;
-        }
-    };
-
-
-
-    var Animation = MinimalGLTFLoader.Animation = function (gltf, a) {
-        this.name = a.name !== undefined ? a.name : null;
-
-        var i, len;
-
-        
-
-        this.samplers = []; // required, array of animation sampler
-        
-        for (i = 0, len = a.samplers.length; i < len; i++) {
-            this.samplers[i] = new AnimationSampler(gltf, a.samplers[i]);
-        }
-
-        this.channels = [];     //required, array of channel
-        
-        for (i = 0, len = a.channels.length; i < len; i++) {
-            this.channels[i] = new Channel(a.channels[i], this);
-        }
-    };
-
-
-    /**
-     * 
-     */
-    var glTFModel = MinimalGLTFLoader.glTFModel = function (gltf) {
-        this.json = gltf;
-        this.defaultScene = gltf.scene !== undefined ? gltf.scene : 0;
-
-        this.version = Number(gltf.asset.version);
-
-        if (gltf.accessors) {
-            this.accessors = new Array(gltf.accessors.length);
-        }
-
-        if (gltf.bufferViews) {
-            this.bufferViews = new Array(gltf.bufferViews.length);
-        }
-
-        if (gltf.scenes) {
-            this.scenes = new Array(gltf.scenes.length);   // store Scene object
-        }
-
-        if (gltf.nodes) {
-            this.nodes = new Array(gltf.nodes.length);    // store Node object
-        }
-
-        if (gltf.meshes) {
-            this.meshes = new Array(gltf.meshes.length);    // store mesh object
-        }
-
-        if (gltf.materials) {
-            this.materials = new Array(gltf.materials.length);  // store material object
-        }
-
-        // this.shaders = {};      //glTF 1.0, deprecated in 2.0 core
-        // this.programs = {};     //glTF 1.0, deprecated in 2.0 core
-
-        if (gltf.textures) {
-            this.textures = new Array(gltf.textures.length);
-        }
-
-        if (gltf.samplers) {
-            this.samplers = new Array(gltf.samplers.length);
-        }
-
-        if (gltf.images) {
-            this.images = new Array(gltf.images.length);
-        }
-
-
-        if (gltf.skins) {
-            this.skins = new Array(gltf.skins.length);
-        }
-
-        if (gltf.animations) {
-            this.animations = new Array(gltf.animations.length);
-        }
-
-    };
-
-
-
-    var gl;
-
-    var glTFLoader = MinimalGLTFLoader.glTFLoader = function (glContext) {
-        gl = glContext !== undefined ? glContext : null;
-        this._init();
-        this.glTF = null;
-
-        this.enableGLAvatar = false;
-        this.linkSkeletonGltf = null;
-    };
-
-    glTFLoader.prototype._init = function() {
-        this._loadDone = false;
-
-        this._bufferRequested = 0;
-        this._bufferLoaded = 0;
-        // this._buffers = {};
-        this._buffers = [];
-        this._bufferTasks = {};
-
-
-
-        this._shaderRequested = 0;
-        this._shaderLoaded = 0;
-
-        this._imageRequested = 0;
-        this._imageLoaded = 0;
-
-        this._pendingTasks = 0;
-        this._finishedPendingTasks = 0;
-
-        this.onload = null;
-
-        curLoader = this;
-    };
-
-
-    glTFLoader.prototype._checkComplete = function () {
-        if (this._bufferRequested == this._bufferLoaded && 
-            // this._shaderRequested == this._shaderLoaded && 
-            this._imageRequested == this._imageLoaded 
-            // && other resources finish loading
-            ) {
-            this._loadDone = true;
-        }
-
-        if (this._loadDone && this._pendingTasks == this._finishedPendingTasks) {
-
-            this._postprocess();
-
-            this.onload(this.glTF);
-        }
-    };
-
-    glTFLoader.prototype.loadGLTF_GL_Avatar_Skin = function (uri, skeletonGltf, callback) {
-        this.enableGLAvatar = true;
-        this.skeletonGltf = skeletonGltf;
-
-        this.loadGLTF(uri, callback);
-    };
-
-    /**
-     * load a glTF model
-     * 
-     * @param {String} uri uri of the .glTF file. Other resources (bins, images) are assumed to be in the same base path
-     * @param {Function} callback the onload callback function
-     */
-    glTFLoader.prototype.loadGLTF = function (uri, callback) {
-
-        this._init();
-
-        this.onload = callback || function(glTF) {
-            console.log('glTF model loaded.');
-            console.log(glTF);
-        };
-
-        
-        
-
-        this.baseUri = _getBaseUri(uri);
-
-        var loader = this;
-
-        _loadJSON(uri, function (response) {
-            // Parse JSON string into object
-            var json = JSON.parse(response);
-
-            // curGltfModel = loader.glTF = new glTFModel(json);
-            loader.glTF = new glTFModel(json);
-
-            var bid;
-
-            var loadArrayBufferCallback = function (resource) {
-                
-                loader._buffers[bid] = resource;
-                loader._bufferLoaded++;
-                if (loader._bufferTasks[bid]) {
-                    var i,len;
-                    for (i = 0, len = loader._bufferTasks[bid].length; i < len; ++i) {
-                        (loader._bufferTasks[bid][i])(resource);
-                    }
-                }
-                loader._checkComplete();
-
-            };
-
-            // Launch loading resources task: buffers, etc.
-            if (json.buffers) {
-                for (bid in json.buffers) {
-
-                    loader._bufferRequested++;
-
-                    _loadArrayBuffer(loader.baseUri + json.buffers[bid].uri, loadArrayBufferCallback);
-
-                }
-            }
-
-            // load images
-            
-
-            var loadImageCallback = function (img, iid) {
-                loader._imageLoaded++;
-                loader.glTF.images[iid] = img;
-                loader._checkComplete();
-            };
-
-            var iid;
-
-            if (json.images) {
-                for (iid in json.images) {
-                    loader._imageRequested++;
-                    _loadImage(loader.baseUri + json.images[iid].uri, iid, loadImageCallback);
-                }
-            }
-
-
-            // // load shaders
-            // var pid;
-            // var newProgram;
-
-            // var loadVertexShaderFileCallback = function (resource) {
-            //     loader._shaderLoaded++;
-            //     newProgram.vertexShader = resource;
-            //     if (newProgram.fragmentShader) {
-            //         // create Program
-            //         newProgram.program = _createProgram(gl, newProgram.vertexShader, newProgram.fragmentShader);
-            //         loader._checkComplete();
-            //     }
-            // };
-            // var loadFragmentShaderFileCallback = function (resource) {
-            //     loader._shaderLoaded++;
-            //     newProgram.fragmentShader = resource;
-            //     if (newProgram.vertexShader) {
-            //         // create Program
-            //         newProgram.program = _createProgram(gl, newProgram.vertexShader, newProgram.fragmentShader);
-            //         loader._checkComplete();
-            //     }
-            // };
-
-            // if (json.programs) {
-            //     for (pid in json.programs) {
-            //         newProgram = loader.glTF.programs[pid] = {
-            //             vertexShader: null,
-            //             fragmentShader: null,
-            //             program: null
-            //         };
-            //         var program = json.programs[pid];
-            //         loader._shaderRequested += 2;
-
-            //         _loadShaderFile(loader.baseUri + json.shaders[program.vertexShader].uri, loadVertexShaderFileCallback);
-            //         _loadShaderFile(loader.baseUri + json.shaders[program.fragmentShader].uri, loadFragmentShaderFileCallback);
-            //     }
-            // }
-
-
-
-
-            // // start glTF scene parsing
-            // loader._parseGLTF(json);
-            loader._checkComplete();
-        });
-    };
-
-
-    glTFLoader.prototype._postprocess = function () {
-        // if there's no plan for progressive loading (streaming)
-        // than simply everything should be placed here
-        
-        console.log('finish loading all assets, do a second pass postprocess');
-        
-        curLoader = this;
-
-        
-        // @todo: ?? hook up pointers, get scene bounding box, etc.
-        var i, leni, j, lenj;
-
-        var scene, s;
-        var node;
-        var mesh, primitive, accessor;
-
-        // bufferviews
-        if (this.glTF.bufferViews) {
-            for (i = 0, leni = this.glTF.bufferViews.length; i < leni; i++) {
-                this.glTF.bufferViews[i] = new BufferView(this.glTF.json.bufferViews[i], this._buffers[ this.glTF.json.bufferViews[i].buffer ]);
-            }
-        }
-
-        // accessors
-        if (this.glTF.accessors) {
-            for (i = 0, leni = this.glTF.accessors.length; i < leni; i++) {
-                this.glTF.accessors[i] = new Accessor(this.glTF.json.accessors[i], this.glTF.bufferViews[ this.glTF.json.accessors[i].bufferView ]);
-            }
-        }
-
-        // load all materials
-        if (this.glTF.materials) {
-            for (i = 0, leni = this.glTF.materials.length; i < leni; i++) {
-                this.glTF.materials[i] = new Material(this.glTF.json.materials[i]);
-            }
-        }
-
-        // load all samplers 
-        if (this.glTF.samplers) {
-            for (i = 0, leni = this.glTF.samplers.length; i < leni; i++) {
-                this.glTF.samplers[i] = new Sampler(this.glTF.json.samplers[i]);
-            } 
-        }
-
-        // load all textures
-        if (this.glTF.textures) {
-            for (i = 0, leni = this.glTF.textures.length; i < leni; i++) {
-                this.glTF.textures[i] = new Texture(this.glTF.json.textures[i]);
-            }
-        }
-
-        // mesh
-        for (i = 0, leni = this.glTF.meshes.length; i < leni; i++) {
-            this.glTF.meshes[i] = new Mesh(this.glTF.json.meshes[i], i);
-        }
-
-        // node
-        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
-            this.glTF.nodes[i] = new Node(this.glTF.json.nodes[i], i);
-        }
-
-        // node: hook up children
-        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
-            node = this.glTF.nodes[i];
-            for (j = 0, lenj = node.children.length; j < lenj; j++) {
-                node.children[j] = this.glTF.nodes[ node.children[j] ];
-            }
-        }
-
-        // scene Bounding box
-        var nodeMatrix = new Array(this.glTF.nodes.length);
-        for(i = 0, leni = nodeMatrix.length; i < leni; i++) {
-            nodeMatrix[i] = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-        }
-
-        function execUpdateTransform(n, parent) {
-            var tmpMat4 = nodeMatrix[n.nodeID];
-
-            if (parent !== null) {
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].mul(tmpMat4, nodeMatrix[parent.nodeID], n.matrix);
-            } else {
-                __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].copy(tmpMat4, n.matrix);
-            }
-        }
-
-        function execUpdateBBox(n, parent){
-            var tmpMat4 = nodeMatrix[n.nodeID];
-            var parentBVH;
-
-            if (parent !== null) {
-                parentBVH = parent.bvh;
-            } else {
-                parentBVH = scene.boundingBox;
-            }
-
-            if (n.mesh) {
-                mesh = n.mesh;
-                if (mesh.boundingBox) {
-
-                    n.aabb = BoundingBox.getAABBFromOBB(mesh.boundingBox, tmpMat4);
-
-                    // vec3.min(scene.boundingBox.min, scene.boundingBox.min, n.aabb.min);
-                    // vec3.max(scene.boundingBox.max, scene.boundingBox.max, n.aabb.max);
-                    
-                    // vec3.min(parentBVH.min, parentBVH.min, n.aabb.min);
-                    // vec3.max(parentBVH.max, parentBVH.max, n.aabb.max);
-
-                    if (n.children.length === 0) {
-                        // n.bvh = n.aabb;
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].copy(n.bvh.min, n.aabb.min);
-                        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].copy(n.bvh.max, n.aabb.max);
-                    }
-                }
-            }
-
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].min(parentBVH.min, parentBVH.min, n.bvh.min);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].max(parentBVH.max, parentBVH.max, n.bvh.max);
-        }
-
-
-        for (i = 0, leni = this.glTF.scenes.length; i < leni; i++) {
-            scene = this.glTF.scenes[i] = new Scene(this.glTF, this.glTF.json.scenes[i]);
-
-            scene.boundingBox = new BoundingBox();
-
-
-            for (j = 0, lenj = scene.nodes.length; j < lenj; j++) {
-                node = scene.nodes[j];
-                // node.traverse(null, execUpdateBBox);
-                node.traverseTwoExecFun(null, execUpdateTransform, execUpdateBBox);
-            }
-
-            scene.boundingBox.calculateTransform();
-        }
-
-
-        for (j = 0, lenj = this.glTF.nodes.length; j < lenj; j++) {
-            node = this.glTF.nodes[j];
-            if (node.bvh !== null) {
-                node.bvh.calculateTransform();
-            }
-        }
-
-
-
-        // load animations (when all accessors are loaded correctly)
-        if (this.glTF.animations) {
-            for (i = 0, leni = this.glTF.animations.length; i < leni; i++) {
-                this.glTF.animations[i] = new Animation(this.glTF, this.glTF.json.animations[i]);
-            }
-        }
-
-        var joints;
-        // if (this.glTF.skins) {
-        if (this.glTF.json.skins) {
-            for (i = 0, leni = this.glTF.skins.length; i < leni; i++) {
-                this.glTF.skins[i] = new Skin(this.glTF, this.glTF.json.skins[i], i);
-                
-
-                joints = this.glTF.skins[i].joints;
-                for (j = 0, lenj = joints.length; j < lenj; j++) {
-                    // this.glTF.nodes[ joints[j] ].jointID = j;
-                    joints[j].jointID = j;
-                }
-            } 
-        }
-
-        for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
-            node = this.glTF.nodes[i];
-            if (node.skin !== null) {
-                if (typeof node.skin == 'number') {
-                    // usual skin, hook up
-                    node.skin = this.glTF.skins[ node.skin ];
-                } else {
-                    // assume gl_avatar is in use
-                    // do nothing
-                }
-                
-            }
-        } 
-        
-
-    };
-
-
-
-
-
-   
-    // TODO: get from gl context
-    var ComponentType2ByteSize = {
-        5120: 1, // BYTE
-        5121: 1, // UNSIGNED_BYTE
-        5122: 2, // SHORT
-        5123: 2, // UNSIGNED_SHORT
-        5126: 4  // FLOAT
-    };
-
-    var Type2NumOfComponent = {
-        'SCALAR': 1,
-        'VEC2': 2,
-        'VEC3': 3,
-        'VEC4': 4,
-        'MAT2': 4,
-        'MAT3': 9,
-        'MAT4': 16
-    };
-
-    // MinimalGLTFLoader.Attributes = [
-    //     'POSITION',
-    //     'NORMAL', 
-    //     'TEXCOORD', 
-    //     'COLOR', 
-    //     'JOINT', 
-    //     'WEIGHT'
-    // ];
-
-    // MinimalGLTFLoader.UniformFunctionsBind = {
-    //     35676: gl.uniformMatrix4fv      // FLOAT_MAT4 
-    // };
-
-
-    // ------ Scope limited private util functions---------------
-
-
-    // for animation use
-    function _arrayBuffer2TypedArray(buffer, byteOffset, countOfComponentType, componentType) {
-        switch(componentType) {
-            // @todo: finish
-            case 5122: return new Int16Array(buffer, byteOffset, countOfComponentType);
-            case 5123: return new Uint16Array(buffer, byteOffset, countOfComponentType);
-            case 5124: return new Int32Array(buffer, byteOffset, countOfComponentType);
-            case 5125: return new Uint32Array(buffer, byteOffset, countOfComponentType);
-            case 5126: return new Float32Array(buffer, byteOffset, countOfComponentType);
-            default: return null; 
-        }
-    }
-
-    function _getAccessorData(accessor) {
-        return _arrayBuffer2TypedArray(
-            accessor.bufferView.data, 
-            accessor.byteOffset, 
-            accessor.count * Type2NumOfComponent[accessor.type],
-            accessor.componentType
-            );
-    }
-
-    function _getBaseUri(uri) {
-        
-        // https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/getBaseUri.js
-        
-        var basePath = '';
-        var i = uri.lastIndexOf('/');
-        if(i !== -1) {
-            basePath = uri.substring(0, i + 1);
-        }
-        
-        return basePath;
-    }
-
-    function _loadJSON(src, callback) {
-
-        // native json loading technique from @KryptoniteDove:
-        // http://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
-
-        var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open('GET', src, true);
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && // Request finished, response ready
-                xobj.status == "200") { // Status OK
-                callback(xobj.responseText, this);
-            }
-        };
-        xobj.send(null);
-    }
-
-    function _loadArrayBuffer(url, callback) {
-        var xobj = new XMLHttpRequest();
-        xobj.responseType = 'arraybuffer';
-        xobj.open('GET', url, true);
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && // Request finished, response ready
-                xobj.status == "200") { // Status OK
-                var arrayBuffer = xobj.response;
-                if (arrayBuffer && callback) {
-                    callback(arrayBuffer);
-                }
-            }
-        };
-        xobj.send(null);
-    }
-
-    // function _loadShaderFile(url, callback) {
-    //     var xobj = new XMLHttpRequest();
-    //     xobj.responseType = 'text';
-    //     xobj.open('GET', url, true);
-    //     xobj.onreadystatechange = function () {
-    //         if (xobj.readyState == 4 && // Request finished, response ready
-    //             xobj.status == "200") { // Status OK
-    //             var file = xobj.response;
-    //             if (file && callback) {
-    //                 callback(file);
-    //             }
-    //         }
-    //     };
-    //     xobj.send(null);
-    // }
-
-    function _loadImage(url, iid, onload) {
-        var img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.src = url;
-        img.onload = function() {
-            onload(img, iid);
-        };
-    }
-
-
-    // function _createShader(gl, source, type) {
-    //     var shader = gl.createShader(type);
-    //     gl.shaderSource(shader, source);
-    //     gl.compileShader(shader);
-    //     return shader;
-    // }
-
-    // function _createProgram(gl, vertexShaderSource, fragmentShaderSource) {
-    //     var program = gl.createProgram();
-    //     var vshader = _createShader(gl, vertexShaderSource, gl.VERTEX_SHADER);
-    //     var fshader = _createShader(gl, fragmentShaderSource, gl.FRAGMENT_SHADER);
-    //     gl.attachShader(program, vshader);
-    //     gl.deleteShader(vshader);
-    //     gl.attachShader(program, fshader);
-    //     gl.deleteShader(fshader);
-    //     gl.linkProgram(program);
-
-    //     var log = gl.getProgramInfoLog(program);
-    //     if (log) {
-    //         console.log(log);
-    //     }
-
-    //     log = gl.getShaderInfoLog(vshader);
-    //     if (log) {
-    //         console.log(log);
-    //     }
-
-    //     log = gl.getShaderInfoLog(fshader);
-    //     if (log) {
-    //         console.log(log);
-    //     }
-
-    //     return program;
-    // }
-
+    this.transform = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+};
+
+BoundingBox.prototype.updateBoundingBox = function (bbox) {
+    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].min(this.min, this.min, bbox.min);
+    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].max(this.max, this.max, bbox.max);
+};
+
+BoundingBox.prototype.calculateTransform = function () {
+    // transform from a unit cube whose min = (0, 0, 0) and max = (1, 1, 1)
+
+    // scale
+    this.transform[0] = this.max[0] - this.min[0];
+    this.transform[5] = this.max[1] - this.min[1];
+    this.transform[10] = this.max[2] - this.min[2];
+    // translate
+    this.transform[12] = this.min[0];
+    this.transform[13] = this.min[1];
+    this.transform[14] = this.min[2];
+};
+
+BoundingBox.getAABBFromOBB = (function() {
+    var transformRight = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
+    var transformUp = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
+    var transformBackward = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
+
+    var tmpVec3a = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
+    var tmpVec3b = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].create();
+
+    return (function (obb, matrix) {
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].set(transformRight, matrix[0], matrix[1], matrix[2]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].set(transformUp, matrix[4], matrix[5], matrix[6]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].set(transformBackward, matrix[8], matrix[9], matrix[10]);
+
+        var min = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(matrix[12], matrix[13], matrix[14]);  // init with matrix translation
+        var max = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].clone(min);
+
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3a, transformRight, obb.min[0]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3b, transformRight, obb.max[0]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].min(transformRight, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(min, min, transformRight);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].max(transformRight, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(max, max, transformRight);
+
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3a, transformUp, obb.min[1]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3b, transformUp, obb.max[1]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].min(transformUp, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(min, min, transformUp);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].max(transformUp, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(max, max, transformUp);
+
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3a, transformBackward, obb.min[2]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].scale(tmpVec3b, transformBackward, obb.max[2]);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].min(transformBackward, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(min, min, transformBackward);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].max(transformBackward, tmpVec3a, tmpVec3b);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].add(max, max, transformBackward);
+
+        var bbox = new BoundingBox(min, max, false);
+        bbox.calculateTransform();
+        return bbox;
+    });
 })();
 
 
 
+var Accessor = MinimalGLTFLoader.Accessor = function (a, bufferViewObject) {
+    this.bufferView = bufferViewObject;
+    this.componentType = a.componentType;   // required
+    this.byteOffset = a.byteOffset !== undefined ? a.byteOffset : 0;
+    this.byteStride = bufferViewObject.byteStride;
+    this.normalized = a.normalized !== undefined ? a.normalized : false;
+    this.count = a.count;   // required
+    this.type = a.type;     // required
+    this.size = Type2NumOfComponent[this.type];
+
+    this.min = a.min;   // @tmp assume required for now (for bbox)
+    this.max = a.max;   // @tmp assume required for now (for bbox)
+};
+
+Accessor.prototype.prepareVertexAttrib = function(location, gl) {
+    gl.vertexAttribPointer(
+        location,
+        this.size,
+        this.componentType,
+        this.normalized,
+        this.byteStride,
+        this.byteOffset
+        );
+    gl.enableVertexAttribArray(location);
+};
+
+var BufferView = MinimalGLTFLoader.BufferView = function(bf, bufferData) {
+    this.byteLength = bf.byteLength;    //required
+    this.byteOffset = bf.byteOffset !== undefined ? bf.byteOffset : 0;
+    this.byteStride = bf.byteStride !== undefined ? bf.byteStride : 0;
+    this.target = bf.target !== undefined ? bf.target : null;
+
+    this.data = bufferData.slice(this.byteOffset, this.byteOffset + this.byteLength);
+
+    // runtime stuffs -------------
+    this.buffer = null;     // gl buffer
+};
+
+BufferView.prototype.createBuffer = function(gl) {
+    this.buffer = gl.createBuffer();
+};
+
+BufferView.prototype.bindData = function(gl) {
+    if (this.target) {
+        gl.bindBuffer(this.target, this.buffer);
+        gl.bufferData(this.target, this.data, gl.STATIC_DRAW);
+        gl.bindBuffer(this.target, null);
+        return true;
+    }
+    return false;
+};
+
+
+var Camera = MinimalGLTFLoader.Camera = function(c) {
+    this.name = c.name !== undefined ? c.name : null;
+    this.type = c.type; // required
+
+    this.othographic = c.othographic === undefined ? null : c.othographic;  // every attribute inside is required (excluding extensions)
+    this.perspective = c.perspective === undefined ? null : {
+        yfov: c.perspective.yfov,
+        znear: c.perspective.znear,
+        zfar: c.perspective.zfar !== undefined ? c.perspective.zfar : null,
+        aspectRatio: c.perspective.aspectRatio !== undefined ? c.perspective.aspectRatio : null
+    };
+};
+
+
+
+var Node = MinimalGLTFLoader.Node = function (n, nodeID) {
+    this.name = n.name !== undefined ? n.name : null;
+    this.nodeID = nodeID;
+    // TODO: camera
+    this.camera = n.camera !== undefined ? n.camera : null;
+
+    this.matrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+    if (n.hasOwnProperty('matrix')) {
+        for(var i = 0; i < 16; ++i) {
+            this.matrix[i] = n.matrix[i];
+        }
+    } else {
+        // this.translation = null;
+        // this.rotation = null;
+        // this.scale = null;
+        this.getTransformMatrixFromTRS(n.translation, n.rotation, n.scale);
+    }
+    
+    
+    
+
+    this.children = n.children || [];  // init as id, then hook up to node object later
+    this.mesh = n.mesh !== undefined ? curLoader.glTF.meshes[n.mesh] : null;
+
+    this.skin = n.skin !== undefined ? n.skin : null;   // init as id, then hook up to skin object later
+
+    if (n.extensions !== undefined) {
+        if (n.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+            var linkedSkinID = curLoader.skeletonGltf.json.extensions.gl_avatar.skins[ n.extensions.gl_avatar.skin.name ];
+            var linkedSkin = curLoader.skeletonGltf.skins[linkedSkinID];
+            this.skin = new SkinLink(curLoader.glTF, linkedSkin, n.extensions.gl_avatar.skin.inverseBindMatrices);
+        }
+    }
+    
+
+
+    // TODO: morph targets weights
+    this.weights = n.weights !== undefined ? n.weights : null;
+
+
+    // runtime stuffs--------------
+
+    this.aabb = null;   // axis aligned bounding box, not need to apply node transform to aabb
+    this.bvh = new BoundingBox();
+};
+
+Node.prototype.traverse = function(parent, executeFunc) {
+    executeFunc(this, parent);
+    for (var i = 0, len = this.children.length; i < len; i++) {
+        this.children[i].traverse(this, executeFunc);
+    }
+};
+
+Node.prototype.traversePostOrder = function(parent, executeFunc) {
+    for (var i = 0, len = this.children.length; i < len; i++) {
+        this.children[i].traversePostOrder(this, executeFunc);
+    }
+    executeFunc(this, parent);
+};
+
+Node.prototype.traverseTwoExecFun = function(parent, execFunPre, execFunPos) {
+    execFunPre(this, parent);
+    for (var i = 0, len = this.children.length; i < len; i++) {
+        this.children[i].traverseTwoExecFun(this, execFunPre, execFunPos);
+    }
+    execFunPos(this, parent);
+};
+
+var TRSMatrix = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+
+Node.prototype.getTransformMatrixFromTRS = function(translation, rotation, scale) {
+
+    this.translation = translation !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(translation[0], translation[1], translation[2]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(0, 0, 0);
+    this.rotation = rotation !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].fromValues(rotation[0], rotation[1], rotation[2], rotation[3]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].fromValues(0, 0, 0, 1);
+    this.scale = scale !== undefined ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(scale[0], scale[1], scale[2]) : __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(1, 1, 1);
+
+    this.updateMatrixFromTRS();
+};
+
+Node.prototype.updateMatrixFromTRS = function() {
+    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromRotationTranslation(TRSMatrix, this.rotation, this.translation);
+    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].scale(this.matrix, TRSMatrix, this.scale);
+};
+
+
+
+var Mesh = MinimalGLTFLoader.Mesh = function (m, meshID) {
+    this.meshID = meshID;
+    this.name = m.name !== undefined ? m.name : null;
+
+    this.primitives = [];   // required
+    
+
+
+    // bounding box (runtime stuff)
+    this.boundingBox = null;
+
+    var p, primitive, accessor;
+
+    for (var i = 0, len = m.primitives.length; i < len; ++i) {
+        p = m.primitives[i];
+        primitive = new Primitive(curLoader.glTF, p);
+        this.primitives.push(primitive);
+
+        // bounding box related
+        if (primitive.boundingBox) {
+            if (!this.boundingBox) {
+                this.boundingBox = new BoundingBox();
+            }
+            this.boundingBox.updateBoundingBox(primitive.boundingBox);
+        }
+    }
+
+    if (this.boundingBox) {
+        this.boundingBox.calculateTransform();
+    }
+
+
+    // TODO: weights for morph targets
+    this.weights = m.weights !== undefined ? m.weights : null;
+
+
+    
+};
+
+var Primitive = MinimalGLTFLoader.Primitive = function (gltf, p) {
+    // <attribute name, accessor id>, required
+    // get hook up with accessor object in _postprocessing
+    this.attributes = p.attributes;
+    this.indices = p.indices !== undefined ? p.indices : null;  // accessor id
+
+    var attname;
+    if (p.extensions !== undefined) {
+        if (p.extensions.gl_avatar !== undefined && curLoader.enableGLAvatar === true) {
+            if (p.extensions.gl_avatar.attributes) {
+                for ( attname in p.extensions.gl_avatar.attributes ) {
+                    this.attributes[attname] = p.extensions.gl_avatar.attributes[attname];
+                }
+            }
+        }
+    }
+
+    
+    if (this.indices !== null) {
+        this.indicesComponentType = gltf.json.accessors[this.indices].componentType;
+        this.indicesLength = gltf.json.accessors[this.indices].count;
+        this.indicesOffset = (gltf.json.accessors[this.indices].byteOffset || 0);
+    } else {
+        // assume 'POSITION' is there
+        this.drawArraysCount = gltf.json.accessors[this.attributes.POSITION].count;
+        this.drawArraysOffset = (gltf.json.accessors[this.attributes.POSITION].byteOffset || 0);
+    }
+
+    
+    // hook up accessor object
+    for ( attname in this.attributes ) {
+        this.attributes[attname] = gltf.accessors[ this.attributes[attname] ];
+    }
+
+
+    this.material = p.material !== undefined ? gltf.materials[p.material] : null;
+
+
+    this.mode = p.mode !== undefined ? p.mode : 4; // default: gl.TRIANGLES
+
+    
+
+    // morph related
+    this.targets = p.targets;
+
+
+    // ----gl run time related
+    this.vertexArray = null;    //vao
+    
+    this.vertexBuffer = null;
+    this.indexBuffer = null;
+
+
+    this.shader = null;
+
+
+    this.boundingBox = null;
+    if (this.attributes.POSITION !== undefined) {
+        var accessor = this.attributes.POSITION;
+        if (accessor.max) {
+            // @todo: handle cases where no min max are provided
+
+            // assume vec3
+            if (accessor.type === 'VEC3') {
+                this.boundingBox = new BoundingBox(
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(accessor.min[0], accessor.min[1], accessor.min[2]),
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].fromValues(accessor.max[0], accessor.max[1], accessor.max[2]),
+                    false
+                );
+                this.boundingBox.calculateTransform();
+                
+
+                
+            }
+            
+        }
+    }
+};
+
+
+var Texture = MinimalGLTFLoader.Texture = function (t) {
+    this.name = t.name !== undefined ? t.name : null;
+    this.sampler = t.sampler !== undefined ? curLoader.glTF.samplers[t.sampler] : null;
+    this.source = t.source !== undefined ? curLoader.glTF.images[t.source] : null;
+
+    // runtime
+    this.texture = null;
+};
+
+Texture.prototype.createTexture = function(gl) {
+    this.texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, this.texture);
+    gl.texImage2D(
+        gl.TEXTURE_2D,  // assumed
+        0,        // Level of details
+        // gl.RGB, // Format
+        // gl.RGB,
+        gl.RGBA, // Format
+        gl.RGBA,
+        gl.UNSIGNED_BYTE, // Size of each channel
+        this.source
+    );
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+};
+
+var Sampler = MinimalGLTFLoader.Sampler = function (s) {
+    this.name = s.name !== undefined ? s.name : null;
+    this.magFilter = s.magFilter !== undefined ? s.magFilter : null;
+    this.minFilter = s.minFilter !== undefined ? s.minFilter : null;
+    this.wrapS = s.wrapS !== undefined ? s.wrapS : 10497;
+    this.wrapT = s.wrapT !== undefined ? s.wrapT : 10497;
+
+    this.sampler = null;
+};
+
+Sampler.prototype.createSampler = function(gl) {
+    this.sampler = gl.createSampler();
+    if (this.minFilter) {
+        gl.samplerParameteri(this.sampler, gl.TEXTURE_MIN_FILTER, this.minFilter);
+    } else {
+        gl.samplerParameteri(this.sampler, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR);
+    }
+    if (this.magFilter) {
+        gl.samplerParameteri(this.sampler, gl.TEXTURE_MAG_FILTER, this.magFilter);
+    } else {
+        gl.samplerParameteri(this.sampler, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    }
+    gl.samplerParameteri(this.sampler, gl.TEXTURE_WRAP_S, this.wrapS);
+    gl.samplerParameteri(this.sampler, gl.TEXTURE_WRAP_T, this.wrapT);
+};
+
+// Sampler.prototype.bindSampler = function(i, gl) {
+//     gl.bindSampler(i, this.sampler);
+// }
+
+var TextureInfo = MinimalGLTFLoader.TextureInfo = function (json) {
+    this.index = json.index;
+    this.texCoord = json.texCoord !== undefined ? json.texCoord : 0 ;
+};
+
+var PbrMetallicRoughness = MinimalGLTFLoader.PbrMetallicRoughness = function (json) {
+    this.baseColorFactor = json.baseColorFactor !== undefined ? json.baseColorFactor : [1, 1, 1, 1];
+    this.baseColorTexture = json.baseColorTexture !== undefined ? new TextureInfo(json.baseColorTexture): null;
+    this.metallicFactor = json.metallicFactor !== undefined ? json.metallicFactor : 1 ;
+    this.roughnessFactor = json.roughnessFactor !== undefined ? json.roughnessFactor : 1 ;
+    this.metallicRoughnessTexture = json.metallicRoughnessTexture !== undefined ? new TextureInfo(json.metallicRoughnessTexture): null;
+};
+
+var NormalTextureInfo = MinimalGLTFLoader.NormalTextureInfo = function (json) {
+    this.index = json.index;
+    this.texCoord = json.texCoord !== undefined ? json.texCoord : 0 ;
+    this.scale = json.scale !== undefined ? json.scale : 1 ;
+};
+
+var OcclusionTextureInfo = MinimalGLTFLoader.OcclusionTextureInfo = function (json) {
+    this.index = json.index;
+    this.texCoord = json.texCoord !== undefined ? json.texCoord : 0 ;
+    this.strength = json.strength !== undefined ? json.strength : 1 ;
+};
+
+var Material = MinimalGLTFLoader.Material = function (m) {
+    this.name = m.name !== undefined ? m.name : null;
+    
+    this.pbrMetallicRoughness = m.pbrMetallicRoughness !== undefined ? new PbrMetallicRoughness( m.pbrMetallicRoughness ) : new PbrMetallicRoughness({
+        baseColorFactor: [1, 1, 1, 1],
+        metallicFactor: 1,
+        metallicRoughnessTexture: 1
+    });
+    // this.normalTexture = m.normalTexture !== undefined ? m.normalTexture : null;
+    this.normalTexture = m.normalTexture !== undefined ? new NormalTextureInfo(m.normalTexture) : null;
+    this.occlusionTexture = m.occlusionTexture !== undefined ? new OcclusionTextureInfo(m.occlusionTexture) : null;
+    this.emissiveTexture = m.emissiveTexture !== undefined ? new TextureInfo(m.emissiveTexture) : null;
+
+    this.emissiveFactor = m.emissiveFactor !== undefined ? m.emissiveFactor : [0, 0, 0];
+    this.alphaMode = m.alphaMode !== undefined ? m.alphaMode : "OPAQUE";
+    this.alphaCutoff = m.alphaCutoff !== undefined ? m.alphaCutoff : 0.5;
+    this.doubleSided = m.doubleSided || false;
+};
+
+
+var Skin = MinimalGLTFLoader.Skin = function (gltf, s, skinID) {
+    this.name = s.name !== undefined ? s.name : null;
+    this.skinID = skinID;
+
+    this.joints = new Array(s.joints.length);   // required
+    var i, len;
+    for (i = 0, len = this.joints.length; i < len; i++) {
+        this.joints[i] = gltf.nodes[s.joints[i]];
+    }
+
+    this.skeleton = s.skeleton !== undefined ? gltf.nodes[s.skeleton] : null;
+    this.inverseBindMatrices = s.inverseBindMatrices !== undefined ? gltf.accessors[s.inverseBindMatrices] : null;
+
+    // @tmp: runtime stuff should be taken care of renderer
+    // since glTF model should only store info
+    // runtime can have multiple instances of this glTF models
+    this.uniformBlockID = globalUniformBlockID++;
+
+    if (this.inverseBindMatrices) {
+        // should be a mat4
+        this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
+        // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
+
+        this.inverseBindMatrix = [];  // for calculation
+        this.jointMatrixUniformBuffer = null;
+        // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
+        //     this.inverseBindMatricesData, 
+        //     0, 
+        //     this.inverseBindMatricesData.length, 
+        //     this.inverseBindMatrices.componentType
+        // );      // for copy to UBO
+
+        // @tmp: fixed length to coordinate with shader, for copy to UBO
+        this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+
+        for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
+            this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
+                this.inverseBindMatricesData[i],
+                this.inverseBindMatricesData[i + 1],
+                this.inverseBindMatricesData[i + 2],
+                this.inverseBindMatricesData[i + 3],
+                this.inverseBindMatricesData[i + 4],
+                this.inverseBindMatricesData[i + 5],
+                this.inverseBindMatricesData[i + 6],
+                this.inverseBindMatricesData[i + 7],
+                this.inverseBindMatricesData[i + 8],
+                this.inverseBindMatricesData[i + 9],
+                this.inverseBindMatricesData[i + 10],
+                this.inverseBindMatricesData[i + 11],
+                this.inverseBindMatricesData[i + 12],
+                this.inverseBindMatricesData[i + 13],
+                this.inverseBindMatricesData[i + 14],
+                this.inverseBindMatricesData[i + 15]
+            ));
+        }
+    }
+
+};
+
+var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseBindMatricesAccessorID) {
+    this.isLink = true;
+
+    if (!gltf.skins) {
+        gltf.skins = [];
+    }
+    gltf.skins.push(this);
+
+    this.name = linkedSkin.name;
+    // this.skinID = linkedSkin.skinID;   // use this for uniformblock id
+    // this.skinID = gltf.skins.length - 1;
+    // this.skinID = curLoader.skeletonGltf.skins.length + gltf.skins.length - 1;
+    this.skinID = gltf.skins.length - 1;
+
+    this.joints = linkedSkin.joints;
+
+    this.skeleton = linkedSkin.skeleton;
+    this.inverseBindMatrices = inverseBindMatricesAccessorID !== undefined ? gltf.accessors[inverseBindMatricesAccessorID] : null;
+
+    // @tmp: runtime stuff should be taken care of renderer
+    // since glTF model should only store info
+    // runtime can have multiple instances of this glTF models
+    this.uniformBlockID = globalUniformBlockID++;
+    if (this.inverseBindMatrices) {
+        // should be a mat4
+        this.inverseBindMatricesData = _getAccessorData(this.inverseBindMatrices);
+        // this.inverseBindMatricesMat4 = mat4.fromValues(this.inverseBindMatricesData);
+
+        this.inverseBindMatrix = [];  // for calculation
+        this.jointMatrixUniformBuffer = null;
+        // this.jointMatrixUnidormBufferData = _arrayBuffer2TypedArray(
+        //     this.inverseBindMatricesData, 
+        //     0, 
+        //     this.inverseBindMatricesData.length, 
+        //     this.inverseBindMatrices.componentType
+        // );      // for copy to UBO
+
+        // @tmp: fixed length to coordinate with shader, for copy to UBO
+        this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+
+        for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
+            this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
+                this.inverseBindMatricesData[i],
+                this.inverseBindMatricesData[i + 1],
+                this.inverseBindMatricesData[i + 2],
+                this.inverseBindMatricesData[i + 3],
+                this.inverseBindMatricesData[i + 4],
+                this.inverseBindMatricesData[i + 5],
+                this.inverseBindMatricesData[i + 6],
+                this.inverseBindMatricesData[i + 7],
+                this.inverseBindMatricesData[i + 8],
+                this.inverseBindMatricesData[i + 9],
+                this.inverseBindMatricesData[i + 10],
+                this.inverseBindMatricesData[i + 11],
+                this.inverseBindMatricesData[i + 12],
+                this.inverseBindMatricesData[i + 13],
+                this.inverseBindMatricesData[i + 14],
+                this.inverseBindMatricesData[i + 15]
+            ));
+        }
+    }
+
+    
+
+};
+
+
+
+
+// animation has no potential plan for progressive rendering I guess
+// so everything happens after all buffers are loaded
+
+var Target = MinimalGLTFLoader.Target = function (t) {
+    this.nodeID = t.node !== undefined ? t.node : null ;  //id, to be hooked up to object later
+    this.path = t.path;     //required, string
+};
+
+var Channel = MinimalGLTFLoader.Channel = function (c, animation) {
+    this.sampler = animation.samplers[c.sampler];   //required
+    this.target = new Target(c.target);     //required
+};
+
+var AnimationSampler = MinimalGLTFLoader.AnimationSampler = function (gltf, s) {
+    this.input = gltf.accessors[s.input];   //required, accessor object
+    this.output = gltf.accessors[s.output]; //required, accessor object
+
+    this.inputTypedArray = _getAccessorData(this.input);
+    this.outputTypedArray = _getAccessorData(this.output);
+
+
+    // "LINEAR"
+    // "STEP"
+    // "CATMULLROMSPLINE"
+    // "CUBICSPLINE"
+    this.interpolation = s.interpolation !== undefined ? s.interpolation : 'LINEAR' ;
+    
+    // ------- extra runtime info -----------
+    // runtime status thing
+    this.curIdx = 0;
+    // this.curValue = 0;
+    this.curValue = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].create();
+    this.inputMax = this.inputTypedArray[this.inputTypedArray.length - 1];
+
+    this.loopOffset = 0;
+};
+
+var animationOutputValueVec4a = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].create();
+var animationOutputValueVec4b = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].create();
+
+AnimationSampler.prototype.getValue = function (t) {
+    t -= this.loopOffset;
+    var len = this.inputTypedArray.length;
+    while (this.curIdx <= len - 2 && t >= this.inputTypedArray[this.curIdx + 1]) {
+        this.curIdx++;
+    }
+
+
+    if (this.curIdx >= len - 1) {
+        // loop
+        
+        this.loopOffset += this.inputMax;
+        t -= this.inputMax;
+        this.curIdx = 0;
+    }
+
+    // @tmp: assume no stride
+    var count = Type2NumOfComponent[this.output.type];
+    
+    var v4lerp = count === 4 ? __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["quat"].slerp: __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].lerp;
+
+    var i = this.curIdx;
+    var o = i * count;
+    var on = o + count;
+
+    var u = Math.max( 0, t - this.inputTypedArray[i] ) / (this.inputTypedArray[i+1] - this.inputTypedArray[i]);
+
+    for (var j = 0; j < count; j++ ) {
+        animationOutputValueVec4a[j] = this.outputTypedArray[o + j];
+        animationOutputValueVec4b[j] = this.outputTypedArray[on + j];
+    }
+
+    switch(this.interpolation) {
+        case 'LINEAR': 
+        // v4lerp(this.curValue, animationOutputValueVec4a, animationOutputValueVec4b, t - this.loopOffset - this.inputTypedArray[i]);
+        v4lerp(this.curValue, animationOutputValueVec4a, animationOutputValueVec4b, u);
+        break;
+
+        default:
+        break;
+    }
+};
+
+
+
+var Animation = MinimalGLTFLoader.Animation = function (gltf, a) {
+    this.name = a.name !== undefined ? a.name : null;
+
+    var i, len;
+
+    
+
+    this.samplers = []; // required, array of animation sampler
+    
+    for (i = 0, len = a.samplers.length; i < len; i++) {
+        this.samplers[i] = new AnimationSampler(gltf, a.samplers[i]);
+    }
+
+    this.channels = [];     //required, array of channel
+    
+    for (i = 0, len = a.channels.length; i < len; i++) {
+        this.channels[i] = new Channel(a.channels[i], this);
+    }
+};
+
+
+/**
+ * 
+ */
+var glTFModel = MinimalGLTFLoader.glTFModel = function (gltf) {
+    this.json = gltf;
+    this.defaultScene = gltf.scene !== undefined ? gltf.scene : 0;
+
+    this.version = Number(gltf.asset.version);
+
+    if (gltf.accessors) {
+        this.accessors = new Array(gltf.accessors.length);
+    }
+
+    if (gltf.bufferViews) {
+        this.bufferViews = new Array(gltf.bufferViews.length);
+    }
+
+    if (gltf.scenes) {
+        this.scenes = new Array(gltf.scenes.length);   // store Scene object
+    }
+
+    if (gltf.nodes) {
+        this.nodes = new Array(gltf.nodes.length);    // store Node object
+    }
+
+    if (gltf.meshes) {
+        this.meshes = new Array(gltf.meshes.length);    // store mesh object
+    }
+
+    if (gltf.materials) {
+        this.materials = new Array(gltf.materials.length);  // store material object
+    }
+
+    if (gltf.textures) {
+        this.textures = new Array(gltf.textures.length);
+    }
+
+    if (gltf.samplers) {
+        this.samplers = new Array(gltf.samplers.length);
+    }
+
+    if (gltf.images) {
+        this.images = new Array(gltf.images.length);
+    }
+
+
+    if (gltf.skins) {
+        this.skins = new Array(gltf.skins.length);
+    }
+
+    if (gltf.animations) {
+        this.animations = new Array(gltf.animations.length);
+    }
+
+    if (gltf.cameras) {
+        this.cameras = new Array(gltf.cameras.length);
+    }
+
+};
+
+
+
+var gl;
+
+var glTFLoader = MinimalGLTFLoader.glTFLoader = function (glContext) {
+    gl = glContext !== undefined ? glContext : null;
+    this._init();
+    this.glTF = null;
+
+    this.enableGLAvatar = false;
+    this.linkSkeletonGltf = null;
+};
+
+glTFLoader.prototype._init = function() {
+    this._loadDone = false;
+
+    this._bufferRequested = 0;
+    this._bufferLoaded = 0;
+    this._buffers = [];
+    this._bufferTasks = {};
+
+    this._shaderRequested = 0;
+    this._shaderLoaded = 0;
+
+    this._imageRequested = 0;
+    this._imageLoaded = 0;
+
+    this._pendingTasks = 0;
+    this._finishedPendingTasks = 0;
+
+    this.onload = null;
+
+    curLoader = this;
+};
+
+
+glTFLoader.prototype._checkComplete = function () {
+    if (this._bufferRequested == this._bufferLoaded && 
+        // this._shaderRequested == this._shaderLoaded && 
+        this._imageRequested == this._imageLoaded 
+        // && other resources finish loading
+        ) {
+        this._loadDone = true;
+    }
+
+    if (this._loadDone && this._pendingTasks == this._finishedPendingTasks) {
+
+        this._postprocess();
+
+        this.onload(this.glTF);
+    }
+};
+
+glTFLoader.prototype.loadGLTF_GL_Avatar_Skin = function (uri, skeletonGltf, callback) {
+    this.enableGLAvatar = true;
+    this.skeletonGltf = skeletonGltf;
+
+    this.loadGLTF(uri, callback);
+};
+
+/**
+ * load a glTF model
+ * 
+ * @param {String} uri uri of the .glTF file. Other resources (bins, images) are assumed to be in the same base path
+ * @param {Function} callback the onload callback function
+ */
+glTFLoader.prototype.loadGLTF = function (uri, callback) {
+
+    this._init();
+
+    this.onload = callback || function(glTF) {
+        console.log('glTF model loaded.');
+        console.log(glTF);
+    };
+    
+
+    this.baseUri = _getBaseUri(uri);
+
+    var loader = this;
+
+    _loadJSON(uri, function (response) {
+        // Parse JSON string into object
+        var json = JSON.parse(response);
+
+        loader.glTF = new glTFModel(json);
+
+        var bid;
+
+        var loadArrayBufferCallback = function (resource) {
+            
+            loader._buffers[bid] = resource;
+            loader._bufferLoaded++;
+            if (loader._bufferTasks[bid]) {
+                var i,len;
+                for (i = 0, len = loader._bufferTasks[bid].length; i < len; ++i) {
+                    (loader._bufferTasks[bid][i])(resource);
+                }
+            }
+            loader._checkComplete();
+
+        };
+
+        // Launch loading resources task: buffers, etc.
+        if (json.buffers) {
+            for (bid in json.buffers) {
+
+                loader._bufferRequested++;
+
+                _loadArrayBuffer(loader.baseUri + json.buffers[bid].uri, loadArrayBufferCallback);
+
+            }
+        }
+
+        // load images
+        var loadImageCallback = function (img, iid) {
+            loader._imageLoaded++;
+            loader.glTF.images[iid] = img;
+            loader._checkComplete();
+        };
+
+        var iid;
+
+        if (json.images) {
+            for (iid in json.images) {
+                loader._imageRequested++;
+                _loadImage(loader.baseUri + json.images[iid].uri, iid, loadImageCallback);
+            }
+        }
+
+        loader._checkComplete();
+    });
+};
+
+
+glTFLoader.prototype._postprocess = function () {
+    // if there's no plan for progressive loading (streaming)
+    // than simply everything should be placed here
+    
+    console.log('finish loading all assets, do a second pass postprocess');
+    
+    curLoader = this;
+
+    var i, leni, j, lenj;
+
+    var scene, s;
+    var node;
+    var mesh, primitive, accessor;
+
+    // cameras
+    if (this.glTF.cameras) {
+        for (i = 0, leni = this.glTF.cameras.length; i < leni; i++) {
+            this.glTF.cameras[i] = new Camera(this.glTF.json.cameras[i]);
+        }
+    }
+
+    // bufferviews
+    if (this.glTF.bufferViews) {
+        for (i = 0, leni = this.glTF.bufferViews.length; i < leni; i++) {
+            this.glTF.bufferViews[i] = new BufferView(this.glTF.json.bufferViews[i], this._buffers[ this.glTF.json.bufferViews[i].buffer ]);
+        }
+    }
+
+    // accessors
+    if (this.glTF.accessors) {
+        for (i = 0, leni = this.glTF.accessors.length; i < leni; i++) {
+            this.glTF.accessors[i] = new Accessor(this.glTF.json.accessors[i], this.glTF.bufferViews[ this.glTF.json.accessors[i].bufferView ]);
+        }
+    }
+
+    // load all materials
+    if (this.glTF.materials) {
+        for (i = 0, leni = this.glTF.materials.length; i < leni; i++) {
+            this.glTF.materials[i] = new Material(this.glTF.json.materials[i]);
+        }
+    }
+
+    // load all samplers 
+    if (this.glTF.samplers) {
+        for (i = 0, leni = this.glTF.samplers.length; i < leni; i++) {
+            this.glTF.samplers[i] = new Sampler(this.glTF.json.samplers[i]);
+        } 
+    }
+
+    // load all textures
+    if (this.glTF.textures) {
+        for (i = 0, leni = this.glTF.textures.length; i < leni; i++) {
+            this.glTF.textures[i] = new Texture(this.glTF.json.textures[i]);
+        }
+    }
+
+    // mesh
+    for (i = 0, leni = this.glTF.meshes.length; i < leni; i++) {
+        this.glTF.meshes[i] = new Mesh(this.glTF.json.meshes[i], i);
+    }
+
+    // node
+    for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+        this.glTF.nodes[i] = new Node(this.glTF.json.nodes[i], i);
+    }
+
+    // node: hook up children
+    for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+        node = this.glTF.nodes[i];
+        for (j = 0, lenj = node.children.length; j < lenj; j++) {
+            node.children[j] = this.glTF.nodes[ node.children[j] ];
+        }
+    }
+
+    // scene Bounding box
+    var nodeMatrix = new Array(this.glTF.nodes.length);
+    for(i = 0, leni = nodeMatrix.length; i < leni; i++) {
+        nodeMatrix[i] = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].create();
+    }
+
+    function execUpdateTransform(n, parent) {
+        var tmpMat4 = nodeMatrix[n.nodeID];
+
+        if (parent !== null) {
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].mul(tmpMat4, nodeMatrix[parent.nodeID], n.matrix);
+        } else {
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].copy(tmpMat4, n.matrix);
+        }
+    }
+
+    function execUpdateBBox(n, parent){
+        var tmpMat4 = nodeMatrix[n.nodeID];
+        var parentBVH;
+
+        if (parent !== null) {
+            parentBVH = parent.bvh;
+        } else {
+            parentBVH = scene.boundingBox;
+        }
+
+        if (n.mesh) {
+            mesh = n.mesh;
+            if (mesh.boundingBox) {
+
+                n.aabb = BoundingBox.getAABBFromOBB(mesh.boundingBox, tmpMat4);
+
+                // vec3.min(scene.boundingBox.min, scene.boundingBox.min, n.aabb.min);
+                // vec3.max(scene.boundingBox.max, scene.boundingBox.max, n.aabb.max);
+                
+                // vec3.min(parentBVH.min, parentBVH.min, n.aabb.min);
+                // vec3.max(parentBVH.max, parentBVH.max, n.aabb.max);
+
+                if (n.children.length === 0) {
+                    // n.bvh = n.aabb;
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].copy(n.bvh.min, n.aabb.min);
+                    __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].copy(n.bvh.max, n.aabb.max);
+                }
+            }
+        }
+
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].min(parentBVH.min, parentBVH.min, n.bvh.min);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec3"].max(parentBVH.max, parentBVH.max, n.bvh.max);
+    }
+
+
+    for (i = 0, leni = this.glTF.scenes.length; i < leni; i++) {
+        scene = this.glTF.scenes[i] = new Scene(this.glTF, this.glTF.json.scenes[i]);
+
+        scene.boundingBox = new BoundingBox();
+
+
+        for (j = 0, lenj = scene.nodes.length; j < lenj; j++) {
+            node = scene.nodes[j];
+            // node.traverse(null, execUpdateBBox);
+            node.traverseTwoExecFun(null, execUpdateTransform, execUpdateBBox);
+        }
+
+        scene.boundingBox.calculateTransform();
+    }
+
+
+    for (j = 0, lenj = this.glTF.nodes.length; j < lenj; j++) {
+        node = this.glTF.nodes[j];
+        if (node.bvh !== null) {
+            node.bvh.calculateTransform();
+        }
+    }
+
+
+
+    // load animations (when all accessors are loaded correctly)
+    if (this.glTF.animations) {
+        for (i = 0, leni = this.glTF.animations.length; i < leni; i++) {
+            this.glTF.animations[i] = new Animation(this.glTF, this.glTF.json.animations[i]);
+        }
+    }
+
+    var joints;
+    // if (this.glTF.skins) {
+    if (this.glTF.json.skins) {
+        for (i = 0, leni = this.glTF.skins.length; i < leni; i++) {
+            this.glTF.skins[i] = new Skin(this.glTF, this.glTF.json.skins[i], i);
+            
+
+            joints = this.glTF.skins[i].joints;
+            for (j = 0, lenj = joints.length; j < lenj; j++) {
+                // this.glTF.nodes[ joints[j] ].jointID = j;
+                joints[j].jointID = j;
+            }
+        } 
+    }
+
+    for (i = 0, leni = this.glTF.nodes.length; i < leni; i++) {
+        node = this.glTF.nodes[i];
+        if (node.skin !== null) {
+            if (typeof node.skin == 'number') {
+                // usual skin, hook up
+                node.skin = this.glTF.skins[ node.skin ];
+            } else {
+                // assume gl_avatar is in use
+                // do nothing
+            }
+            
+        }
+    } 
+    
+
+};
+
+
+// TODO: get from gl context
+var ComponentType2ByteSize = {
+    5120: 1, // BYTE
+    5121: 1, // UNSIGNED_BYTE
+    5122: 2, // SHORT
+    5123: 2, // UNSIGNED_SHORT
+    5126: 4  // FLOAT
+};
+
+var Type2NumOfComponent = {
+    'SCALAR': 1,
+    'VEC2': 2,
+    'VEC3': 3,
+    'VEC4': 4,
+    'MAT2': 4,
+    'MAT3': 9,
+    'MAT4': 16
+};
+
+
+// ------ Scope limited private util functions---------------
+
+
+// for animation use
+function _arrayBuffer2TypedArray(buffer, byteOffset, countOfComponentType, componentType) {
+    switch(componentType) {
+        // @todo: finish
+        case 5122: return new Int16Array(buffer, byteOffset, countOfComponentType);
+        case 5123: return new Uint16Array(buffer, byteOffset, countOfComponentType);
+        case 5124: return new Int32Array(buffer, byteOffset, countOfComponentType);
+        case 5125: return new Uint32Array(buffer, byteOffset, countOfComponentType);
+        case 5126: return new Float32Array(buffer, byteOffset, countOfComponentType);
+        default: return null; 
+    }
+}
+
+function _getAccessorData(accessor) {
+    return _arrayBuffer2TypedArray(
+        accessor.bufferView.data, 
+        accessor.byteOffset, 
+        accessor.count * Type2NumOfComponent[accessor.type],
+        accessor.componentType
+        );
+}
+
+function _getBaseUri(uri) {
+    
+    // https://github.com/AnalyticalGraphicsInc/cesium/blob/master/Source/Core/getBaseUri.js
+    
+    var basePath = '';
+    var i = uri.lastIndexOf('/');
+    if(i !== -1) {
+        basePath = uri.substring(0, i + 1);
+    }
+    
+    return basePath;
+}
+
+function _loadJSON(src, callback) {
+
+    // native json loading technique from @KryptoniteDove:
+    // http://codepen.io/KryptoniteDove/post/load-json-file-locally-using-pure-javascript
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', src, true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && // Request finished, response ready
+            xobj.status == "200") { // Status OK
+            callback(xobj.responseText, this);
+        }
+    };
+    xobj.send(null);
+}
+
+function _loadArrayBuffer(url, callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.responseType = 'arraybuffer';
+    xobj.open('GET', url, true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && // Request finished, response ready
+            xobj.status == "200") { // Status OK
+            var arrayBuffer = xobj.response;
+            if (arrayBuffer && callback) {
+                callback(arrayBuffer);
+            }
+        }
+    };
+    xobj.send(null);
+}
+
+function _loadImage(url, iid, onload) {
+    var img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    img.onload = function() {
+        onload(img, iid);
+    };
+}
+
+// export { MinimalGLTFLoader };
+
+
 /***/ }),
-/* 15 */
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ })
+/******/ ]);
+});
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(16);
+var content = __webpack_require__(13);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -9170,7 +9371,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(18)(content, options);
+var update = __webpack_require__(15)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -9187,21 +9388,21 @@ if(false) {
 }
 
 /***/ }),
-/* 16 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(17)(undefined);
+exports = module.exports = __webpack_require__(14)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "body {\n    color: #cccccc;\n    font-family: Monospace;\n    font-size: 13px;\n    text-align: center;\n    background-color: #050505;\n    margin: 0px;\n    overflow: hidden;\n}\n\n#info {\n    position: absolute;\n    top: 0px;\n    width: 100%;\n    padding: 5px;\n}\n\n#description {\n    position: absolute;\n    top: 20px;\n    width: 100%;\n    padding: 5px;\n}\n\n.float {\n    float: left;\n    top: 10px;\n}\n\na {\n    color: #0080ff;\n}\n", ""]);
+exports.push([module.i, "body {\r\n    color: #cccccc;\r\n    font-family: Monospace;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    background-color: #050505;\r\n    margin: 0px;\r\n    overflow: hidden;\r\n}\r\n\r\n#info {\r\n    position: absolute;\r\n    top: 0px;\r\n    width: 100%;\r\n    padding: 5px;\r\n}\r\n\r\n#description {\r\n    position: absolute;\r\n    top: 20px;\r\n    width: 100%;\r\n    padding: 5px;\r\n}\r\n\r\n.float {\r\n    float: left;\r\n    top: 10px;\r\n}\r\n\r\na {\r\n    color: #0080ff;\r\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 17 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /*
@@ -9283,7 +9484,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 18 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -9329,7 +9530,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(19);
+var	fixUrls = __webpack_require__(16);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -9642,7 +9843,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 19 */
+/* 16 */
 /***/ (function(module, exports) {
 
 
@@ -9737,59 +9938,47 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 20 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):"object"==typeof exports?exports.dat=t():e.dat=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var i=n[o]={exports:{},id:o,loaded:!1};return e[o].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";e.exports=n(1)},function(e,t,n){"use strict";e.exports={color:{Color:n(2),math:n(6),interpret:n(3)},controllers:{Controller:n(7),BooleanController:n(8),OptionController:n(10),StringController:n(11),NumberController:n(12),NumberControllerBox:n(13),NumberControllerSlider:n(14),FunctionController:n(20),ColorController:n(21)},dom:{dom:n(9)},gui:{GUI:n(22)},GUI:n(22)}},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t,n){Object.defineProperty(e,t,{get:function(){return"RGB"===this.__state.space?this.__state[t]:(_.recalculateRGB(this,t,n),this.__state[t])},set:function(e){"RGB"!==this.__state.space&&(_.recalculateRGB(this,t,n),this.__state.space="RGB"),this.__state[t]=e}})}function a(e,t){Object.defineProperty(e,t,{get:function(){return"HSV"===this.__state.space?this.__state[t]:(_.recalculateHSV(this),this.__state[t])},set:function(e){"HSV"!==this.__state.space&&(_.recalculateHSV(this),this.__state.space="HSV"),this.__state[t]=e}})}t.__esModule=!0;var s=n(3),l=o(s),u=n(6),d=o(u),c=n(4),f=o(c),h=n(5),p=o(h),_=function(){function e(){if(i(this,e),this.__state=l["default"].apply(this,arguments),this.__state===!1)throw"Failed to interpret color arguments";this.__state.a=this.__state.a||1}return e.prototype.toString=function(){return f["default"](this)},e.prototype.toOriginal=function(){return this.__state.conversion.write(this)},e}();_.recalculateRGB=function(e,t,n){if("HEX"===e.__state.space)e.__state[t]=d["default"].component_from_hex(e.__state.hex,n);else{if("HSV"!==e.__state.space)throw"Corrupted color state";p["default"].extend(e.__state,d["default"].hsv_to_rgb(e.__state.h,e.__state.s,e.__state.v))}},_.recalculateHSV=function(e){var t=d["default"].rgb_to_hsv(e.r,e.g,e.b);p["default"].extend(e.__state,{s:t.s,v:t.v}),p["default"].isNaN(t.h)?p["default"].isUndefined(e.__state.h)&&(e.__state.h=0):e.__state.h=t.h},_.COMPONENTS=["r","g","b","h","s","v","hex","a"],r(_.prototype,"r",2),r(_.prototype,"g",1),r(_.prototype,"b",0),a(_.prototype,"h"),a(_.prototype,"s"),a(_.prototype,"v"),Object.defineProperty(_.prototype,"a",{get:function(){return this.__state.a},set:function(e){this.__state.a=e}}),Object.defineProperty(_.prototype,"hex",{get:function(){return"HEX"!==!this.__state.space&&(this.__state.hex=d["default"].rgb_to_hex(this.r,this.g,this.b)),this.__state.hex},set:function(e){this.__state.space="HEX",this.__state.hex=e}}),t["default"]=_,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}t.__esModule=!0;var i=n(4),r=o(i),a=n(5),s=o(a),l=[{litmus:s["default"].isString,conversions:{THREE_CHAR_HEX:{read:function(e){var t=e.match(/^#([A-F0-9])([A-F0-9])([A-F0-9])$/i);return null===t?!1:{space:"HEX",hex:parseInt("0x"+t[1].toString()+t[1].toString()+t[2].toString()+t[2].toString()+t[3].toString()+t[3].toString(),0)}},write:r["default"]},SIX_CHAR_HEX:{read:function(e){var t=e.match(/^#([A-F0-9]{6})$/i);return null===t?!1:{space:"HEX",hex:parseInt("0x"+t[1].toString(),0)}},write:r["default"]},CSS_RGB:{read:function(e){var t=e.match(/^rgb\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);return null===t?!1:{space:"RGB",r:parseFloat(t[1]),g:parseFloat(t[2]),b:parseFloat(t[3])}},write:r["default"]},CSS_RGBA:{read:function(e){var t=e.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\,\s*(.+)\s*\)/);return null===t?!1:{space:"RGB",r:parseFloat(t[1]),g:parseFloat(t[2]),b:parseFloat(t[3]),a:parseFloat(t[4])}},write:r["default"]}}},{litmus:s["default"].isNumber,conversions:{HEX:{read:function(e){return{space:"HEX",hex:e,conversionName:"HEX"}},write:function(e){return e.hex}}}},{litmus:s["default"].isArray,conversions:{RGB_ARRAY:{read:function(e){return 3!==e.length?!1:{space:"RGB",r:e[0],g:e[1],b:e[2]}},write:function(e){return[e.r,e.g,e.b]}},RGBA_ARRAY:{read:function(e){return 4!==e.length?!1:{space:"RGB",r:e[0],g:e[1],b:e[2],a:e[3]}},write:function(e){return[e.r,e.g,e.b,e.a]}}}},{litmus:s["default"].isObject,conversions:{RGBA_OBJ:{read:function(e){return s["default"].isNumber(e.r)&&s["default"].isNumber(e.g)&&s["default"].isNumber(e.b)&&s["default"].isNumber(e.a)?{space:"RGB",r:e.r,g:e.g,b:e.b,a:e.a}:!1},write:function(e){return{r:e.r,g:e.g,b:e.b,a:e.a}}},RGB_OBJ:{read:function(e){return s["default"].isNumber(e.r)&&s["default"].isNumber(e.g)&&s["default"].isNumber(e.b)?{space:"RGB",r:e.r,g:e.g,b:e.b}:!1},write:function(e){return{r:e.r,g:e.g,b:e.b}}},HSVA_OBJ:{read:function(e){return s["default"].isNumber(e.h)&&s["default"].isNumber(e.s)&&s["default"].isNumber(e.v)&&s["default"].isNumber(e.a)?{space:"HSV",h:e.h,s:e.s,v:e.v,a:e.a}:!1},write:function(e){return{h:e.h,s:e.s,v:e.v,a:e.a}}},HSV_OBJ:{read:function(e){return s["default"].isNumber(e.h)&&s["default"].isNumber(e.s)&&s["default"].isNumber(e.v)?{space:"HSV",h:e.h,s:e.s,v:e.v}:!1},write:function(e){return{h:e.h,s:e.s,v:e.v}}}}}],u=void 0,d=void 0,c=function(){d=!1;var e=arguments.length>1?s["default"].toArray(arguments):arguments[0];return s["default"].each(l,function(t){return t.litmus(e)?(s["default"].each(t.conversions,function(t,n){return u=t.read(e),d===!1&&u!==!1?(d=u,u.conversionName=n,u.conversion=t,s["default"].BREAK):void 0}),s["default"].BREAK):void 0}),d};t["default"]=c,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}t.__esModule=!0;var i=n(5),r=o(i);t["default"]=function(e){if(1===e.a||r["default"].isUndefined(e.a)){for(var t=e.hex.toString(16);t.length<6;)t="0"+t;return"#"+t}return"rgba("+Math.round(e.r)+","+Math.round(e.g)+","+Math.round(e.b)+","+e.a+")"},e.exports=t["default"]},function(e,t){"use strict";t.__esModule=!0;var n=Array.prototype.forEach,o=Array.prototype.slice,i={BREAK:{},extend:function(e){return this.each(o.call(arguments,1),function(t){for(var n in t)this.isUndefined(t[n])||(e[n]=t[n])},this),e},defaults:function(e){return this.each(o.call(arguments,1),function(t){for(var n in t)this.isUndefined(e[n])&&(e[n]=t[n])},this),e},compose:function(){var e=o.call(arguments);return function(){for(var t=o.call(arguments),n=e.length-1;n>=0;n--)t=[e[n].apply(this,t)];return t[0]}},each:function(e,t,o){if(e)if(n&&e.forEach&&e.forEach===n)e.forEach(t,o);else if(e.length===e.length+0){var i=void 0,r=void 0;for(i=0,r=e.length;r>i;i++)if(i in e&&t.call(o,e[i],i)===this.BREAK)return}else for(var i in e)if(t.call(o,e[i],i)===this.BREAK)return},defer:function(e){setTimeout(e,0)},toArray:function(e){return e.toArray?e.toArray():o.call(e)},isUndefined:function(e){return void 0===e},isNull:function(e){return null===e},isNaN:function(e){function t(t){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(e){return isNaN(e)}),isArray:Array.isArray||function(e){return e.constructor===Array},isObject:function(e){return e===Object(e)},isNumber:function(e){return e===e+0},isString:function(e){return e===e+""},isBoolean:function(e){return e===!1||e===!0},isFunction:function(e){return"[object Function]"===Object.prototype.toString.call(e)}};t["default"]=i,e.exports=t["default"]},function(e,t){"use strict";t.__esModule=!0;var n,o={hsv_to_rgb:function(e,t,n){var o=Math.floor(e/60)%6,i=e/60-Math.floor(e/60),r=n*(1-t),a=n*(1-i*t),s=n*(1-(1-i)*t),l=[[n,s,r],[a,n,r],[r,n,s],[r,a,n],[s,r,n],[n,r,a]][o];return{r:255*l[0],g:255*l[1],b:255*l[2]}},rgb_to_hsv:function(e,t,n){var o,i,r=Math.min(e,t,n),a=Math.max(e,t,n),s=a-r;return 0==a?{h:NaN,s:0,v:0}:(i=s/a,o=e==a?(t-n)/s:t==a?2+(n-e)/s:4+(e-t)/s,o/=6,0>o&&(o+=1),{h:360*o,s:i,v:a/255})},rgb_to_hex:function(e,t,n){var o=this.hex_with_component(0,2,e);return o=this.hex_with_component(o,1,t),o=this.hex_with_component(o,0,n)},component_from_hex:function(e,t){return e>>8*t&255},hex_with_component:function(e,t,o){return o<<(n=8*t)|e&~(255<<n)}};t["default"]=o,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}t.__esModule=!0;var r=n(5),a=(o(r),function(){function e(t,n){i(this,e),this.initialValue=t[n],this.domElement=document.createElement("div"),this.object=t,this.property=n,this.__onChange=void 0,this.__onFinishChange=void 0}return e.prototype.onChange=function(e){return this.__onChange=e,this},e.prototype.onFinishChange=function(e){return this.__onFinishChange=e,this},e.prototype.setValue=function(e){return this.object[this.property]=e,this.__onChange&&this.__onChange.call(this,e),this.updateDisplay(),this},e.prototype.getValue=function(){return this.object[this.property]},e.prototype.updateDisplay=function(){return this},e.prototype.isModified=function(){return this.initialValue!==this.getValue()},e}());t["default"]=a,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}t.__esModule=!0;var a=n(7),s=o(a),l=n(9),u=o(l),d=n(5),c=(o(d),function(e){function t(n,o){function r(){a.setValue(!a.__prev)}i(this,t),e.call(this,n,o);var a=this;this.__prev=this.getValue(),this.__checkbox=document.createElement("input"),this.__checkbox.setAttribute("type","checkbox"),u["default"].bind(this.__checkbox,"change",r,!1),this.domElement.appendChild(this.__checkbox),this.updateDisplay()}return r(t,e),t.prototype.setValue=function(t){var n=e.prototype.setValue.call(this,t);return this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue()),this.__prev=this.getValue(),n},t.prototype.updateDisplay=function(){return this.getValue()===!0?(this.__checkbox.setAttribute("checked","checked"),this.__checkbox.checked=!0):this.__checkbox.checked=!1,e.prototype.updateDisplay.call(this)},t}(s["default"]));t["default"]=c,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e){if("0"===e||a["default"].isUndefined(e))return 0;var t=e.match(u);return a["default"].isNull(t)?0:parseFloat(t[1])}t.__esModule=!0;var r=n(5),a=o(r),s={HTMLEvents:["change"],MouseEvents:["click","mousemove","mousedown","mouseup","mouseover"],KeyboardEvents:["keydown"]},l={};a["default"].each(s,function(e,t){a["default"].each(e,function(e){l[e]=t})});var u=/(\d+(\.\d+)?)px/,d={makeSelectable:function(e,t){void 0!==e&&void 0!==e.style&&(e.onselectstart=t?function(){return!1}:function(){},e.style.MozUserSelect=t?"auto":"none",e.style.KhtmlUserSelect=t?"auto":"none",e.unselectable=t?"on":"off")},makeFullscreen:function(e,t,n){a["default"].isUndefined(t)&&(t=!0),a["default"].isUndefined(n)&&(n=!0),e.style.position="absolute",t&&(e.style.left=0,e.style.right=0),n&&(e.style.top=0,e.style.bottom=0)},fakeEvent:function(e,t,n,o){n=n||{};var i=l[t];if(!i)throw new Error("Event type "+t+" not supported.");var r=document.createEvent(i);switch(i){case"MouseEvents":var s=n.x||n.clientX||0,u=n.y||n.clientY||0;r.initMouseEvent(t,n.bubbles||!1,n.cancelable||!0,window,n.clickCount||1,0,0,s,u,!1,!1,!1,!1,0,null);break;case"KeyboardEvents":var d=r.initKeyboardEvent||r.initKeyEvent;a["default"].defaults(n,{cancelable:!0,ctrlKey:!1,altKey:!1,shiftKey:!1,metaKey:!1,keyCode:void 0,charCode:void 0}),d(t,n.bubbles||!1,n.cancelable,window,n.ctrlKey,n.altKey,n.shiftKey,n.metaKey,n.keyCode,n.charCode);break;default:r.initEvent(t,n.bubbles||!1,n.cancelable||!0)}a["default"].defaults(r,o),e.dispatchEvent(r)},bind:function(e,t,n,o){return o=o||!1,e.addEventListener?e.addEventListener(t,n,o):e.attachEvent&&e.attachEvent("on"+t,n),d},unbind:function(e,t,n,o){return o=o||!1,e.removeEventListener?e.removeEventListener(t,n,o):e.detachEvent&&e.detachEvent("on"+t,n),d},addClass:function(e,t){if(void 0===e.className)e.className=t;else if(e.className!==t){var n=e.className.split(/ +/);-1==n.indexOf(t)&&(n.push(t),e.className=n.join(" ").replace(/^\s+/,"").replace(/\s+$/,""))}return d},removeClass:function(e,t){if(t)if(void 0===e.className);else if(e.className===t)e.removeAttribute("class");else{var n=e.className.split(/ +/),o=n.indexOf(t);-1!=o&&(n.splice(o,1),e.className=n.join(" "))}else e.className=void 0;return d},hasClass:function(e,t){return new RegExp("(?:^|\\s+)"+t+"(?:\\s+|$)").test(e.className)||!1},getWidth:function(e){var t=getComputedStyle(e);return i(t["border-left-width"])+i(t["border-right-width"])+i(t["padding-left"])+i(t["padding-right"])+i(t.width)},getHeight:function(e){var t=getComputedStyle(e);return i(t["border-top-width"])+i(t["border-bottom-width"])+i(t["padding-top"])+i(t["padding-bottom"])+i(t.height)},getOffset:function(e){var t={left:0,top:0};if(e.offsetParent)do t.left+=e.offsetLeft,t.top+=e.offsetTop;while(e=e.offsetParent);return t},isActive:function(e){return e===document.activeElement&&(e.type||e.href)}};t["default"]=d,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}t.__esModule=!0;var a=n(7),s=o(a),l=n(9),u=o(l),d=n(5),c=o(d),f=function(e){function t(n,o,r){i(this,t),e.call(this,n,o);var a=this;if(this.__select=document.createElement("select"),c["default"].isArray(r)){var s={};c["default"].each(r,function(e){s[e]=e}),r=s}c["default"].each(r,function(e,t){var n=document.createElement("option");n.innerHTML=t,n.setAttribute("value",e),a.__select.appendChild(n)}),this.updateDisplay(),u["default"].bind(this.__select,"change",function(){var e=this.options[this.selectedIndex].value;a.setValue(e)}),this.domElement.appendChild(this.__select)}return r(t,e),t.prototype.setValue=function(t){var n=e.prototype.setValue.call(this,t);return this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue()),n},t.prototype.updateDisplay=function(){return this.__select.value=this.getValue(),e.prototype.updateDisplay.call(this)},t}(s["default"]);t["default"]=f,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}t.__esModule=!0;var a=n(7),s=o(a),l=n(9),u=o(l),d=n(5),c=(o(d),function(e){function t(n,o){function r(){s.setValue(s.__input.value)}function a(){s.__onFinishChange&&s.__onFinishChange.call(s,s.getValue())}i(this,t),e.call(this,n,o);var s=this;this.__input=document.createElement("input"),this.__input.setAttribute("type","text"),u["default"].bind(this.__input,"keyup",r),u["default"].bind(this.__input,"change",r),u["default"].bind(this.__input,"blur",a),u["default"].bind(this.__input,"keydown",function(e){13===e.keyCode&&this.blur()}),this.updateDisplay(),this.domElement.appendChild(this.__input)}return r(t,e),t.prototype.updateDisplay=function(){return u["default"].isActive(this.__input)||(this.__input.value=this.getValue()),e.prototype.updateDisplay.call(this)},t}(s["default"]));t["default"]=c,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function a(e){return e=e.toString(),e.indexOf(".")>-1?e.length-e.indexOf(".")-1:0}t.__esModule=!0;var s=n(7),l=o(s),u=n(5),d=o(u),c=function(e){function t(n,o,r){i(this,t),e.call(this,n,o),r=r||{},this.__min=r.min,this.__max=r.max,this.__step=r.step,d["default"].isUndefined(this.__step)?0==this.initialValue?this.__impliedStep=1:this.__impliedStep=Math.pow(10,Math.floor(Math.log(Math.abs(this.initialValue))/Math.LN10))/10:this.__impliedStep=this.__step,this.__precision=a(this.__impliedStep)}return r(t,e),t.prototype.setValue=function(t){return void 0!==this.__min&&t<this.__min?t=this.__min:void 0!==this.__max&&t>this.__max&&(t=this.__max),void 0!==this.__step&&t%this.__step!=0&&(t=Math.round(t/this.__step)*this.__step),e.prototype.setValue.call(this,t)},t.prototype.min=function(e){return this.__min=e,this},t.prototype.max=function(e){return this.__max=e,this},t.prototype.step=function(e){return this.__step=e,this.__impliedStep=e,this.__precision=a(e),this},t}(l["default"]);t["default"]=c,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function a(e,t){var n=Math.pow(10,t);return Math.round(e*n)/n}t.__esModule=!0;var s=n(12),l=o(s),u=n(9),d=o(u),c=n(5),f=o(c),h=function(e){function t(n,o,r){function a(){var e=parseFloat(p.__input.value);f["default"].isNaN(e)||p.setValue(e)}function s(){a(),p.__onFinishChange&&p.__onFinishChange.call(p,p.getValue())}function l(e){d["default"].bind(window,"mousemove",u),d["default"].bind(window,"mouseup",c),h=e.clientY}function u(e){var t=h-e.clientY;p.setValue(p.getValue()+t*p.__impliedStep),h=e.clientY}function c(){d["default"].unbind(window,"mousemove",u),d["default"].unbind(window,"mouseup",c)}i(this,t),e.call(this,n,o,r),this.__truncationSuspended=!1;var h,p=this;this.__input=document.createElement("input"),this.__input.setAttribute("type","text"),d["default"].bind(this.__input,"change",a),d["default"].bind(this.__input,"blur",s),d["default"].bind(this.__input,"mousedown",l),d["default"].bind(this.__input,"keydown",function(e){13===e.keyCode&&(p.__truncationSuspended=!0,this.blur(),p.__truncationSuspended=!1)}),this.updateDisplay(),this.domElement.appendChild(this.__input)}return r(t,e),t.prototype.updateDisplay=function(){return this.__input.value=this.__truncationSuspended?this.getValue():a(this.getValue(),this.__precision),e.prototype.updateDisplay.call(this)},t}(l["default"]);t["default"]=h,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function a(e,t,n,o,i){return o+(i-o)*((e-t)/(n-t))}t.__esModule=!0;var s=n(12),l=o(s),u=n(9),d=o(u),c=n(15),f=o(c),h=n(5),p=(o(h),n(16)),_=o(p),m=function(e){function t(n,o,r,s,l){function u(e){d["default"].bind(window,"mousemove",c),d["default"].bind(window,"mouseup",f),c(e)}function c(e){e.preventDefault();var t=d["default"].getOffset(h.__background),n=d["default"].getWidth(h.__background);return h.setValue(a(e.clientX,t.left,t.left+n,h.__min,h.__max)),!1}function f(){d["default"].unbind(window,"mousemove",c),d["default"].unbind(window,"mouseup",f),h.__onFinishChange&&h.__onFinishChange.call(h,h.getValue())}i(this,t),e.call(this,n,o,{min:r,max:s,step:l});var h=this;this.__background=document.createElement("div"),this.__foreground=document.createElement("div"),d["default"].bind(this.__background,"mousedown",u),d["default"].addClass(this.__background,"slider"),d["default"].addClass(this.__foreground,"slider-fg"),this.updateDisplay(),this.__background.appendChild(this.__foreground),this.domElement.appendChild(this.__background)}return r(t,e),t.prototype.updateDisplay=function(){var t=(this.getValue()-this.__min)/(this.__max-this.__min);return this.__foreground.style.width=100*t+"%",e.prototype.updateDisplay.call(this)},t}(l["default"]);m.useDefaultStyles=function(){f["default"].inject(_["default"])},t["default"]=m,e.exports=t["default"]},function(e,t){"use strict";e.exports={load:function(e,t){var n=t||document,o=n.createElement("link");o.type="text/css",o.rel="stylesheet",o.href=e,n.getElementsByTagName("head")[0].appendChild(o)},inject:function(e,t){var n=t||document,o=document.createElement("style");o.type="text/css",o.innerHTML=e,n.getElementsByTagName("head")[0].appendChild(o)}}},function(e,t,n){var o=n(17);"string"==typeof o&&(o=[[e.id,o,""]]);n(19)(o,{});o.locals&&(e.exports=o.locals)},function(e,t,n){t=e.exports=n(18)(),t.push([e.id,".slider{box-shadow:inset 0 2px 4px rgba(0,0,0,.15);height:1em;border-radius:1em;background-color:#eee;padding:0 .5em;overflow:hidden}.slider-fg{padding:1px 0 2px;background-color:#aaa;height:1em;margin-left:-.5em;padding-right:.5em;border-radius:1em 0 0 1em}.slider-fg:after{display:inline-block;border-radius:1em;background-color:#fff;border:1px solid #aaa;content:'';float:right;margin-right:-1em;margin-top:-1px;height:.9em;width:.9em}",""])},function(e,t){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],t=0;t<this.length;t++){var n=this[t];n[2]?e.push("@media "+n[2]+"{"+n[1]+"}"):e.push(n[1])}return e.join("")},e.i=function(t,n){"string"==typeof t&&(t=[[null,t,""]]);for(var o={},i=0;i<this.length;i++){var r=this[i][0];"number"==typeof r&&(o[r]=!0)}for(i=0;i<t.length;i++){var a=t[i];"number"==typeof a[0]&&o[a[0]]||(n&&!a[2]?a[2]=n:n&&(a[2]="("+a[2]+") and ("+n+")"),e.push(a))}},e}},function(e,t,n){function o(e,t){for(var n=0;n<e.length;n++){var o=e[n],i=c[o.id];if(i){i.refs++;for(var r=0;r<i.parts.length;r++)i.parts[r](o.parts[r]);for(;r<o.parts.length;r++)i.parts.push(s(o.parts[r],t))}else{for(var a=[],r=0;r<o.parts.length;r++)a.push(s(o.parts[r],t));c[o.id]={id:o.id,refs:1,parts:a}}}}function i(e){for(var t=[],n={},o=0;o<e.length;o++){var i=e[o],r=i[0],a=i[1],s=i[2],l=i[3],u={css:a,media:s,sourceMap:l};n[r]?n[r].parts.push(u):t.push(n[r]={id:r,parts:[u]})}return t}function r(){var e=document.createElement("style"),t=p();return e.type="text/css",t.appendChild(e),e}function a(){var e=document.createElement("link"),t=p();return e.rel="stylesheet",t.appendChild(e),e}function s(e,t){var n,o,i;if(t.singleton){var s=m++;n=_||(_=r()),o=l.bind(null,n,s,!1),i=l.bind(null,n,s,!0)}else e.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(n=a(),o=d.bind(null,n),i=function(){n.parentNode.removeChild(n),n.href&&URL.revokeObjectURL(n.href)}):(n=r(),o=u.bind(null,n),i=function(){n.parentNode.removeChild(n)});return o(e),function(t){if(t){if(t.css===e.css&&t.media===e.media&&t.sourceMap===e.sourceMap)return;o(e=t)}else i()}}function l(e,t,n,o){var i=n?"":o.css;if(e.styleSheet)e.styleSheet.cssText=g(t,i);else{var r=document.createTextNode(i),a=e.childNodes;a[t]&&e.removeChild(a[t]),a.length?e.insertBefore(r,a[t]):e.appendChild(r)}}function u(e,t){var n=t.css,o=t.media;t.sourceMap;if(o&&e.setAttribute("media",o),e.styleSheet)e.styleSheet.cssText=n;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(n))}}function d(e,t){var n=t.css,o=(t.media,t.sourceMap);o&&(n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */");var i=new Blob([n],{type:"text/css"}),r=e.href;e.href=URL.createObjectURL(i),r&&URL.revokeObjectURL(r)}var c={},f=function(e){var t;return function(){return"undefined"==typeof t&&(t=e.apply(this,arguments)),t}},h=f(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),p=f(function(){return document.head||document.getElementsByTagName("head")[0]}),_=null,m=0;e.exports=function(e,t){t=t||{},"undefined"==typeof t.singleton&&(t.singleton=h());var n=i(e);return o(n,t),function(e){for(var r=[],a=0;a<n.length;a++){var s=n[a],l=c[s.id];l.refs--,r.push(l)}if(e){var u=i(e);o(u,t)}for(var a=0;a<r.length;a++){var l=r[a];if(0===l.refs){for(var d=0;d<l.parts.length;d++)l.parts[d]();delete c[l.id]}}}};var g=function(){var e=[];return function(t,n){return e[t]=n,e.filter(Boolean).join("\n")}}()},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}t.__esModule=!0;var a=n(7),s=o(a),l=n(9),u=o(l),d=n(5),c=(o(d),function(e){function t(n,o,r){i(this,t),e.call(this,n,o);var a=this;this.__button=document.createElement("div"),this.__button.innerHTML=void 0===r?"Fire":r,u["default"].bind(this.__button,"click",function(e){return e.preventDefault(),a.fire(),!1}),u["default"].addClass(this.__button,"button"),this.domElement.appendChild(this.__button)}return r(t,e),t.prototype.fire=function(){this.__onChange&&this.__onChange.call(this),this.getValue().call(this.object),this.__onFinishChange&&this.__onFinishChange.call(this,this.getValue())},t}(s["default"]));t["default"]=c,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function a(e,t,n,o){e.style.background="",g["default"].each(v,function(i){e.style.cssText+="background: "+i+"linear-gradient("+t+", "+n+" 0%, "+o+" 100%); "})}function s(e){e.style.background="",e.style.cssText+="background: -moz-linear-gradient(top,  #ff0000 0%, #ff00ff 17%, #0000ff 34%, #00ffff 50%, #00ff00 67%, #ffff00 84%, #ff0000 100%);",e.style.cssText+="background: -webkit-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: -o-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);",e.style.cssText+="background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);"}t.__esModule=!0;var l=n(7),u=o(l),d=n(9),c=o(d),f=n(2),h=o(f),p=n(3),_=o(p),m=n(5),g=o(m),b=function(e){function t(n,o){function r(e){f(e),c["default"].bind(window,"mousemove",f),c["default"].bind(window,"mouseup",l)}function l(){c["default"].unbind(window,"mousemove",f),c["default"].unbind(window,"mouseup",l)}function u(){var e=_["default"](this.value);e!==!1?(m.__color.__state=e,m.setValue(m.__color.toOriginal())):this.value=m.__color.toString()}function d(){c["default"].unbind(window,"mousemove",p),c["default"].unbind(window,"mouseup",d)}function f(e){e.preventDefault();var t=c["default"].getWidth(m.__saturation_field),n=c["default"].getOffset(m.__saturation_field),o=(e.clientX-n.left+document.body.scrollLeft)/t,i=1-(e.clientY-n.top+document.body.scrollTop)/t;return i>1?i=1:0>i&&(i=0),o>1?o=1:0>o&&(o=0),m.__color.v=i,m.__color.s=o,m.setValue(m.__color.toOriginal()),!1}function p(e){e.preventDefault();var t=c["default"].getHeight(m.__hue_field),n=c["default"].getOffset(m.__hue_field),o=1-(e.clientY-n.top+document.body.scrollTop)/t;return o>1?o=1:0>o&&(o=0),m.__color.h=360*o,m.setValue(m.__color.toOriginal()),!1}i(this,t),e.call(this,n,o),this.__color=new h["default"](this.getValue()),this.__temp=new h["default"](0);var m=this;this.domElement=document.createElement("div"),c["default"].makeSelectable(this.domElement,!1),this.__selector=document.createElement("div"),this.__selector.className="selector",this.__saturation_field=document.createElement("div"),this.__saturation_field.className="saturation-field",this.__field_knob=document.createElement("div"),this.__field_knob.className="field-knob",this.__field_knob_border="2px solid ",this.__hue_knob=document.createElement("div"),this.__hue_knob.className="hue-knob",this.__hue_field=document.createElement("div"),this.__hue_field.className="hue-field",this.__input=document.createElement("input"),this.__input.type="text",this.__input_textShadow="0 1px 1px ",c["default"].bind(this.__input,"keydown",function(e){13===e.keyCode&&u.call(this)}),c["default"].bind(this.__input,"blur",u),c["default"].bind(this.__selector,"mousedown",function(e){c["default"].addClass(this,"drag").bind(window,"mouseup",function(e){c["default"].removeClass(m.__selector,"drag")})});var b=document.createElement("div");g["default"].extend(this.__selector.style,{width:"122px",height:"102px",padding:"3px",backgroundColor:"#222",boxShadow:"0px 1px 3px rgba(0,0,0,0.3)"}),g["default"].extend(this.__field_knob.style,{position:"absolute",width:"12px",height:"12px",border:this.__field_knob_border+(this.__color.v<.5?"#fff":"#000"),boxShadow:"0px 1px 3px rgba(0,0,0,0.5)",borderRadius:"12px",zIndex:1}),g["default"].extend(this.__hue_knob.style,{position:"absolute",width:"15px",height:"2px",borderRight:"4px solid #fff",zIndex:1}),g["default"].extend(this.__saturation_field.style,{width:"100px",height:"100px",border:"1px solid #555",marginRight:"3px",display:"inline-block",cursor:"pointer"}),g["default"].extend(b.style,{width:"100%",height:"100%",background:"none"}),a(b,"top","rgba(0,0,0,0)","#000"),g["default"].extend(this.__hue_field.style,{width:"15px",height:"100px",display:"inline-block",border:"1px solid #555",cursor:"ns-resize"}),s(this.__hue_field),g["default"].extend(this.__input.style,{outline:"none",textAlign:"center",color:"#fff",border:0,fontWeight:"bold",textShadow:this.__input_textShadow+"rgba(0,0,0,0.7)"}),c["default"].bind(this.__saturation_field,"mousedown",r),c["default"].bind(this.__field_knob,"mousedown",r),c["default"].bind(this.__hue_field,"mousedown",function(e){p(e),c["default"].bind(window,"mousemove",p),c["default"].bind(window,"mouseup",d)}),this.__saturation_field.appendChild(b),this.__selector.appendChild(this.__field_knob),this.__selector.appendChild(this.__saturation_field),this.__selector.appendChild(this.__hue_field),this.__hue_field.appendChild(this.__hue_knob),
 this.domElement.appendChild(this.__input),this.domElement.appendChild(this.__selector),this.updateDisplay()}return r(t,e),t.prototype.updateDisplay=function(){var e=_["default"](this.getValue());if(e!==!1){var t=!1;g["default"].each(h["default"].COMPONENTS,function(n){return g["default"].isUndefined(e[n])||g["default"].isUndefined(this.__color.__state[n])||e[n]===this.__color.__state[n]?void 0:(t=!0,{})},this),t&&g["default"].extend(this.__color.__state,e)}g["default"].extend(this.__temp.__state,this.__color.__state),this.__temp.a=1;var n=this.__color.v<.5||this.__color.s>.5?255:0,o=255-n;g["default"].extend(this.__field_knob.style,{marginLeft:100*this.__color.s-7+"px",marginTop:100*(1-this.__color.v)-7+"px",backgroundColor:this.__temp.toString(),border:this.__field_knob_border+"rgb("+n+","+n+","+n+")"}),this.__hue_knob.style.marginTop=100*(1-this.__color.h/360)+"px",this.__temp.s=1,this.__temp.v=1,a(this.__saturation_field,"left","#fff",this.__temp.toString()),g["default"].extend(this.__input.style,{backgroundColor:this.__input.value=this.__color.toString(),color:"rgb("+n+","+n+","+n+")",textShadow:this.__input_textShadow+"rgba("+o+","+o+","+o+",.7)"})},t}(u["default"]),v=["-moz-","-o-","-webkit-","-ms-",""];t["default"]=b,e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t,n){var o=document.createElement("li");return t&&o.appendChild(t),n?e.__ul.insertBefore(o,params.before):e.__ul.appendChild(o),e.onResize(),o}function r(e,t){var n=e.__preset_select[e.__preset_select.selectedIndex];t?n.innerHTML=n.value+"*":n.innerHTML=n.value}function a(e,t,n){if(n.__li=t,n.__gui=e,K["default"].extend(n,{options:function(t){return arguments.length>1?(n.remove(),l(e,n.object,n.property,{before:n.__li.nextElementSibling,factoryArgs:[K["default"].toArray(arguments)]})):K["default"].isArray(t)||K["default"].isObject(t)?(n.remove(),l(e,n.object,n.property,{before:n.__li.nextElementSibling,factoryArgs:[t]})):void 0},name:function(e){return n.__li.firstElementChild.firstElementChild.innerHTML=e,n},listen:function(){return n.__gui.listen(n),n},remove:function(){return n.__gui.remove(n),n}}),n instanceof j["default"])!function(){var e=new M["default"](n.object,n.property,{min:n.__min,max:n.__max,step:n.__step});K["default"].each(["updateDisplay","onChange","onFinishChange"],function(t){var o=n[t],i=e[t];n[t]=e[t]=function(){var t=Array.prototype.slice.call(arguments);return o.apply(n,t),i.apply(e,t)}}),G["default"].addClass(t,"has-slider"),n.domElement.insertBefore(e.domElement,n.domElement.firstElementChild)}();else if(n instanceof M["default"]){var o=function(t){return K["default"].isNumber(n.__min)&&K["default"].isNumber(n.__max)?(n.remove(),l(e,n.object,n.property,{before:n.__li.nextElementSibling,factoryArgs:[n.__min,n.__max,n.__step]})):t};n.min=K["default"].compose(o,n.min),n.max=K["default"].compose(o,n.max)}else n instanceof T["default"]?(G["default"].bind(t,"click",function(){G["default"].fakeEvent(n.__checkbox,"click")}),G["default"].bind(n.__checkbox,"click",function(e){e.stopPropagation()})):n instanceof R["default"]?(G["default"].bind(t,"click",function(){G["default"].fakeEvent(n.__button,"click")}),G["default"].bind(t,"mouseover",function(){G["default"].addClass(n.__button,"hover")}),G["default"].bind(t,"mouseout",function(){G["default"].removeClass(n.__button,"hover")})):n instanceof D["default"]&&(G["default"].addClass(t,"color"),n.updateDisplay=K["default"].compose(function(e){return t.style.borderLeftColor=n.__color.toString(),e},n.updateDisplay),n.updateDisplay());n.setValue=K["default"].compose(function(t){return e.getRoot().__preset_select&&n.isModified()&&r(e.getRoot(),!0),t},n.setValue)}function s(e,t){var n=e.getRoot(),o=n.__rememberedObjects.indexOf(t.object);if(-1!==o){var i=n.__rememberedObjectIndecesToControllers[o];if(void 0===i&&(i={},n.__rememberedObjectIndecesToControllers[o]=i),i[t.property]=t,n.load&&n.load.remembered){var r=n.load.remembered,a=void 0;if(r[e.preset])a=r[e.preset];else{if(!r[Z])return;a=r[Z]}if(a[o]&&void 0!==a[o][t.property]){var s=a[o][t.property];t.initialValue=s,t.setValue(s)}}}}function l(e,t,n,o){if(void 0===t[n])throw new Error('Object "'+t+'" has no property "'+n+'"');var r=void 0;if(o.color)r=new D["default"](t,n);else{var l=[t,n].concat(o.factoryArgs);r=A["default"].apply(e,l)}o.before instanceof k["default"]&&(o.before=o.before.__li),s(e,r),G["default"].addClass(r.domElement,"c");var u=document.createElement("span");G["default"].addClass(u,"property-name"),u.innerHTML=r.property;var d=document.createElement("div");d.appendChild(u),d.appendChild(r.domElement);var c=i(e,d,o.before);return G["default"].addClass(c,oe.CLASS_CONTROLLER_ROW),r instanceof D["default"]?G["default"].addClass(c,"color"):G["default"].addClass(c,typeof r.getValue()),a(e,c,r),e.__controllers.push(r),r}function u(e,t){return document.location.href+"."+t}function d(e,t,n){var o=document.createElement("option");o.innerHTML=t,o.value=t,e.__preset_select.appendChild(o),n&&(e.__preset_select.selectedIndex=e.__preset_select.length-1)}function c(e){e.style.display=gui.useLocalStorage?"block":"none"}function f(e){var t=e.__save_row=document.createElement("li");G["default"].addClass(e.domElement,"has-save"),e.__ul.insertBefore(t,e.__ul.firstChild),G["default"].addClass(t,"save-row");var n=document.createElement("span");n.innerHTML="&nbsp;",G["default"].addClass(n,"button gears");var o=document.createElement("span");o.innerHTML="Save",G["default"].addClass(o,"button"),G["default"].addClass(o,"save");var i=document.createElement("span");i.innerHTML="New",G["default"].addClass(i,"button"),G["default"].addClass(i,"save-as");var r=document.createElement("span");r.innerHTML="Revert",G["default"].addClass(r,"button"),G["default"].addClass(r,"revert");var a=e.__preset_select=document.createElement("select");e.load&&e.load.remembered?K["default"].each(e.load.remembered,function(t,n){d(e,n,n===e.preset)}):d(e,Z,!1),G["default"].bind(a,"change",function(){for(var t=0;t<e.__preset_select.length;t++)e.__preset_select[t].innerHTML=e.__preset_select[t].value;e.preset=this.value}),t.appendChild(a),t.appendChild(n),t.appendChild(o),t.appendChild(i),t.appendChild(r),$&&!function(){var t=document.getElementById("dg-local-explain"),n=document.getElementById("dg-local-storage"),o=document.getElementById("dg-save-locally");o.style.display="block","true"===localStorage.getItem(u(e,"isLocal"))&&n.setAttribute("checked","checked"),c(t),G["default"].bind(n,"change",function(){e.useLocalStorage=!e.useLocalStorage,c(t)})}();var s=document.getElementById("dg-new-constructor");G["default"].bind(s,"keydown",function(e){!e.metaKey||67!==e.which&&67!==e.keyCode||W.hide()}),G["default"].bind(n,"click",function(){s.innerHTML=JSON.stringify(e.getSaveObject(),void 0,2),W.show(),s.focus(),s.select()}),G["default"].bind(o,"click",function(){e.save()}),G["default"].bind(i,"click",function(){var t=prompt("Enter a new preset name.");t&&e.saveAs(t)}),G["default"].bind(r,"click",function(){e.revert()})}function h(e){function t(t){return t.preventDefault(),e.width+=i-t.clientX,e.onResize(),i=t.clientX,!1}function n(){G["default"].removeClass(e.__closeButton,oe.CLASS_DRAG),G["default"].unbind(window,"mousemove",t),G["default"].unbind(window,"mouseup",n)}function o(o){return o.preventDefault(),i=o.clientX,G["default"].addClass(e.__closeButton,oe.CLASS_DRAG),G["default"].bind(window,"mousemove",t),G["default"].bind(window,"mouseup",n),!1}var i=void 0;e.__resize_handle=document.createElement("div"),K["default"].extend(e.__resize_handle.style,{width:"6px",marginLeft:"-3px",height:"200px",cursor:"ew-resize",position:"absolute"}),G["default"].bind(e.__resize_handle,"mousedown",o),G["default"].bind(e.__closeButton,"mousedown",o),e.domElement.insertBefore(e.__resize_handle,e.domElement.firstElementChild)}function p(e,t){e.domElement.style.width=t+"px",e.__save_row&&e.autoPlace&&(e.__save_row.style.width=t+"px"),e.__closeButton&&(e.__closeButton.style.width=t+"px")}function _(e,t){var n={};return K["default"].each(e.__rememberedObjects,function(o,i){var r={},a=e.__rememberedObjectIndecesToControllers[i];K["default"].each(a,function(e,n){r[n]=t?e.initialValue:e.getValue()}),n[i]=r}),n}function m(e){for(var t=0;t<e.__preset_select.length;t++)e.__preset_select[t].value===e.preset&&(e.__preset_select.selectedIndex=t)}function g(e){0!==e.length&&F["default"](function(){g(e)}),K["default"].each(e,function(e){e.updateDisplay()})}var b=n(15),v=o(b),y=n(23),x=o(y),w=n(24),E=o(w),C=n(26),A=o(C),S=n(7),k=o(S),O=n(8),T=o(O),L=n(20),R=o(L),N=n(13),M=o(N),B=n(14),j=o(B),P=n(10),V=(o(P),n(21)),D=o(V),H=n(27),F=o(H),I=n(28),U=o(I),z=n(9),G=o(z),X=n(5),K=o(X);v["default"].inject(E["default"]);var W,Y,J="dg",Q=72,q=20,Z="Default",$=function(){try{return"localStorage"in window&&null!==window.localStorage}catch(e){return!1}}(),ee=!0,te=!1,ne=[],oe=function ie(e){function t(){var e=n.getRoot();e.width+=1,K["default"].defer(function(){e.width-=1})}var n=this;this.domElement=document.createElement("div"),this.__ul=document.createElement("ul"),this.domElement.appendChild(this.__ul),G["default"].addClass(this.domElement,J),this.__folders={},this.__controllers=[],this.__rememberedObjects=[],this.__rememberedObjectIndecesToControllers=[],this.__listening=[],e=e||{},e=K["default"].defaults(e,{autoPlace:!0,width:ie.DEFAULT_WIDTH}),e=K["default"].defaults(e,{resizable:e.autoPlace,hideable:e.autoPlace}),K["default"].isUndefined(e.load)?e.load={preset:Z}:e.preset&&(e.load.preset=e.preset),K["default"].isUndefined(e.parent)&&e.hideable&&ne.push(this),e.resizable=K["default"].isUndefined(e.parent)&&e.resizable,e.autoPlace&&K["default"].isUndefined(e.scrollable)&&(e.scrollable=!0);var o,r=$&&"true"===localStorage.getItem(u(this,"isLocal"));if(Object.defineProperties(this,{parent:{get:function(){return e.parent}},scrollable:{get:function(){return e.scrollable}},autoPlace:{get:function(){return e.autoPlace}},preset:{get:function(){return n.parent?n.getRoot().preset:e.load.preset},set:function(t){n.parent?n.getRoot().preset=t:e.load.preset=t,m(this),n.revert()}},width:{get:function(){return e.width},set:function(t){e.width=t,p(n,t)}},name:{get:function(){return e.name},set:function(t){e.name=t,s&&(s.innerHTML=e.name)}},closed:{get:function(){return e.closed},set:function(t){e.closed=t,e.closed?G["default"].addClass(n.__ul,ie.CLASS_CLOSED):G["default"].removeClass(n.__ul,ie.CLASS_CLOSED),this.onResize(),n.__closeButton&&(n.__closeButton.innerHTML=t?ie.TEXT_OPEN:ie.TEXT_CLOSED)}},load:{get:function(){return e.load}},useLocalStorage:{get:function(){return r},set:function(e){$&&(r=e,e?G["default"].bind(window,"unload",o):G["default"].unbind(window,"unload",o),localStorage.setItem(u(n,"isLocal"),e))}}}),K["default"].isUndefined(e.parent)){if(e.closed=!1,G["default"].addClass(this.domElement,ie.CLASS_MAIN),G["default"].makeSelectable(this.domElement,!1),$&&r){n.useLocalStorage=!0;var a=localStorage.getItem(u(this,"gui"));a&&(e.load=JSON.parse(a))}this.__closeButton=document.createElement("div"),this.__closeButton.innerHTML=ie.TEXT_CLOSED,G["default"].addClass(this.__closeButton,ie.CLASS_CLOSE_BUTTON),this.domElement.appendChild(this.__closeButton),G["default"].bind(this.__closeButton,"click",function(){n.closed=!n.closed})}else{void 0===e.closed&&(e.closed=!0);var s=document.createTextNode(e.name);G["default"].addClass(s,"controller-name");var l=i(n,s),d=function(e){return e.preventDefault(),n.closed=!n.closed,!1};G["default"].addClass(this.__ul,ie.CLASS_CLOSED),G["default"].addClass(l,"title"),G["default"].bind(l,"click",d),e.closed||(this.closed=!1)}e.autoPlace&&(K["default"].isUndefined(e.parent)&&(ee&&(Y=document.createElement("div"),G["default"].addClass(Y,J),G["default"].addClass(Y,ie.CLASS_AUTO_PLACE_CONTAINER),document.body.appendChild(Y),ee=!1),Y.appendChild(this.domElement),G["default"].addClass(this.domElement,ie.CLASS_AUTO_PLACE)),this.parent||p(n,e.width)),G["default"].bind(window,"resize",function(){n.onResize()}),G["default"].bind(this.__ul,"webkitTransitionEnd",function(){n.onResize()}),G["default"].bind(this.__ul,"transitionend",function(){n.onResize()}),G["default"].bind(this.__ul,"oTransitionEnd",function(){n.onResize()}),this.onResize(),e.resizable&&h(this),o=function(){$&&"true"===localStorage.getItem(u(n,"isLocal"))&&localStorage.setItem(u(n,"gui"),JSON.stringify(n.getSaveObject()))},this.saveToLocalStorageIfPossible=o;n.getRoot();e.parent||t()};oe.toggleHide=function(){te=!te,K["default"].each(ne,function(e){e.domElement.style.zIndex=te?-999:999,e.domElement.style.opacity=te?0:1})},oe.CLASS_AUTO_PLACE="a",oe.CLASS_AUTO_PLACE_CONTAINER="ac",oe.CLASS_MAIN="main",oe.CLASS_CONTROLLER_ROW="cr",oe.CLASS_TOO_TALL="taller-than-window",oe.CLASS_CLOSED="closed",oe.CLASS_CLOSE_BUTTON="close-button",oe.CLASS_DRAG="drag",oe.DEFAULT_WIDTH=245,oe.TEXT_CLOSED="Close Controls",oe.TEXT_OPEN="Open Controls",G["default"].bind(window,"keydown",function(e){"text"===document.activeElement.type||e.which!==Q&&e.keyCode!=Q||oe.toggleHide()},!1),K["default"].extend(oe.prototype,{add:function(e){function t(t,n){return e.apply(this,arguments)}return t.toString=function(){return e.toString()},t}(function(e,t){return l(this,e,t,{factoryArgs:Array.prototype.slice.call(arguments,2)})}),addColor:function(e,t){return l(this,e,t,{color:!0})},remove:function(e){this.__ul.removeChild(e.__li),this.__controllers.splice(this.__controllers.indexOf(e),1);var t=this;K["default"].defer(function(){t.onResize()})},destroy:function(){this.autoPlace&&Y.removeChild(this.domElement)},addFolder:function(e){if(void 0!==this.__folders[e])throw new Error('You already have a folder in this GUI by the name "'+e+'"');var t={name:e,parent:this};t.autoPlace=this.autoPlace,this.load&&this.load.folders&&this.load.folders[e]&&(t.closed=this.load.folders[e].closed,t.load=this.load.folders[e]);var n=new oe(t);this.__folders[e]=n;var o=i(this,n.domElement);return G["default"].addClass(o,"folder"),n},open:function(){this.closed=!1},close:function(){this.closed=!0},onResize:function(){var e=this.getRoot();if(e.scrollable){var t=G["default"].getOffset(e.__ul).top,n=0;K["default"].each(e.__ul.childNodes,function(t){e.autoPlace&&t===e.__save_row||(n+=G["default"].getHeight(t))}),window.innerHeight-t-q<n?(G["default"].addClass(e.domElement,oe.CLASS_TOO_TALL),e.__ul.style.height=window.innerHeight-t-q+"px"):(G["default"].removeClass(e.domElement,oe.CLASS_TOO_TALL),e.__ul.style.height="auto")}e.__resize_handle&&K["default"].defer(function(){e.__resize_handle.style.height=e.__ul.offsetHeight+"px"}),e.__closeButton&&(e.__closeButton.style.width=e.width+"px")},remember:function(){if(K["default"].isUndefined(W)&&(W=new U["default"],W.domElement.innerHTML=x["default"]),this.parent)throw new Error("You can only call remember on a top level GUI.");var e=this;K["default"].each(Array.prototype.slice.call(arguments),function(t){0==e.__rememberedObjects.length&&f(e),-1==e.__rememberedObjects.indexOf(t)&&e.__rememberedObjects.push(t)}),this.autoPlace&&p(this,this.width)},getRoot:function(){for(var e=this;e.parent;)e=e.parent;return e},getSaveObject:function(){var e=this.load;return e.closed=this.closed,this.__rememberedObjects.length>0&&(e.preset=this.preset,e.remembered||(e.remembered={}),e.remembered[this.preset]=_(this)),e.folders={},K["default"].each(this.__folders,function(t,n){e.folders[n]=t.getSaveObject()}),e},save:function(){this.load.remembered||(this.load.remembered={}),this.load.remembered[this.preset]=_(this),r(this,!1),this.saveToLocalStorageIfPossible()},saveAs:function(e){this.load.remembered||(this.load.remembered={},this.load.remembered[Z]=_(this,!0)),this.load.remembered[e]=_(this),this.preset=e,d(this,e,!0),this.saveToLocalStorageIfPossible()},revert:function(e){K["default"].each(this.__controllers,function(t){this.getRoot().load.remembered?s(e||this.getRoot(),t):t.setValue(t.initialValue)},this),K["default"].each(this.__folders,function(e){e.revert(e)}),e||r(this.getRoot(),!1)},listen:function(e){var t=0==this.__listening.length;this.__listening.push(e),t&&g(this.__listening)}}),e.exports=oe},function(e,t){e.exports='<div id=dg-save class="dg dialogue">Here\'s the new load parameter for your <code>GUI</code>\'s constructor:<textarea id=dg-new-constructor></textarea><div id=dg-save-locally><input id=dg-local-storage type="checkbox"> Automatically save values to <code>localStorage</code> on exit.<div id=dg-local-explain>The values saved to <code>localStorage</code> will override those passed to <code>dat.GUI</code>\'s constructor. This makes it easier to work incrementally, but <code>localStorage</code> is fragile, and your friends may not see the same values you do.</div></div></div>'},function(e,t,n){var o=n(25);"string"==typeof o&&(o=[[e.id,o,""]]);n(19)(o,{});o.locals&&(e.exports=o.locals)},function(e,t,n){t=e.exports=n(18)(),t.push([e.id,".dg ul{list-style:none;margin:0;padding:0;width:100%;clear:both}.dg.ac{position:fixed;top:0;left:0;right:0;height:0;z-index:0}.dg:not(.ac) .main{overflow:hidden}.dg.main{-webkit-transition:opacity .1s linear;transition:opacity .1s linear}.dg.main.taller-than-window{overflow-y:auto}.dg.main.taller-than-window .close-button{opacity:1;margin-top:-1px;border-top:1px solid #2c2c2c}.dg.main ul.closed .close-button{opacity:1!important}.dg.main .close-button.drag,.dg.main:hover .close-button{opacity:1}.dg.main .close-button{-webkit-transition:opacity .1s linear;transition:opacity .1s linear;border:0;position:absolute;line-height:19px;height:20px;cursor:pointer;text-align:center;background-color:#000}.dg.main .close-button:hover{background-color:#111}.dg.a{float:right;margin-right:15px;overflow-x:hidden}.dg.a.has-save>ul{margin-top:27px}.dg.a.has-save>ul.closed{margin-top:0}.dg.a .save-row{position:fixed;top:0;z-index:1002}.dg li{-webkit-transition:height .1s ease-out;transition:height .1s ease-out}.dg li:not(.folder){cursor:auto;height:27px;line-height:27px;overflow:hidden;padding:0 4px 0 5px}.dg li.folder{padding:0;border-left:4px solid transparent}.dg li.title{cursor:pointer;margin-left:-4px}.dg .closed li:not(.title),.dg .closed ul li,.dg .closed ul li>*{height:0;overflow:hidden;border:0}.dg .cr{clear:both;padding-left:3px;height:27px}.dg .property-name{cursor:default;float:left;clear:left;width:40%;overflow:hidden;text-overflow:ellipsis}.dg .c{float:left;width:60%}.dg .c input[type=text]{border:0;margin-top:4px;padding:3px;width:100%;float:right}.dg .has-slider input[type=text]{width:30%;margin-left:0}.dg .slider{float:left;width:66%;margin-left:-5px;margin-right:0;height:19px;margin-top:4px}.dg .slider-fg{height:100%}.dg .c input[type=checkbox]{margin-top:9px}.dg .c select{margin-top:5px}.dg .cr.boolean,.dg .cr.boolean *,.dg .cr.function,.dg .cr.function *,.dg .cr.function .property-name{cursor:pointer}.dg .selector{display:none;position:absolute;margin-left:-9px;margin-top:23px;z-index:10}.dg .c:hover .selector,.dg .selector.drag{display:block}.dg li.save-row{padding:0}.dg li.save-row .button{display:inline-block;padding:0 6px}.dg.dialogue{background-color:#222;width:460px;padding:15px;font-size:13px;line-height:15px}#dg-new-constructor{padding:10px;color:#222;font-family:Monaco,monospace;font-size:10px;border:0;resize:none;box-shadow:inset 1px 1px 1px #888;word-wrap:break-word;margin:9pt 0;display:block;width:440px;overflow-y:scroll;height:75pt;position:relative}#dg-local-explain{display:none;font-size:11px;line-height:17px;border-radius:3px;background-color:#333;padding:8px;margin-top:10px}#dg-local-explain code{font-size:10px}#dat-gui-save-locally{display:none}.dg{color:#eee;font:11px 'Lucida Grande',sans-serif;text-shadow:0 -1px 0 #111}.dg.main::-webkit-scrollbar{width:5px;background:#1a1a1a}.dg.main::-webkit-scrollbar-corner{height:0;display:none}.dg.main::-webkit-scrollbar-thumb{border-radius:5px;background:#676767}.dg li:not(.folder){background:#1a1a1a;border-bottom:1px solid #2c2c2c}.dg li.save-row{line-height:25px;background:#dad5cb;border:0}.dg li.save-row select{margin-left:5px;width:81pt}.dg li.save-row .button{margin-left:5px;margin-top:1px;border-radius:2px;font-size:9px;line-height:7px;padding:4px 4px 5px;background:#c5bdad;color:#fff;text-shadow:0 1px 0 #b0a58f;box-shadow:0 -1px 0 #b0a58f;cursor:pointer}.dg li.save-row .button.gears{background:#c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;height:7px;width:8px}.dg li.save-row .button:hover{background-color:#bab19e;box-shadow:0 -1px 0 #b0a58f}.dg li.folder{border-bottom:0}.dg li.title{padding-left:1pc;background:#000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;cursor:pointer;border-bottom:1px solid hsla(0,0%,100%,.2)}.dg .closed li.title{background-image:url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==)}.dg .cr.boolean{border-left:3px solid #806787}.dg .cr.color{border-left:3px solid}.dg .cr.function{border-left:3px solid #e61d5f}.dg .cr.number{border-left:3px solid #2fa1d6}.dg .cr.number input[type=text]{color:#2fa1d6}.dg .cr.string{border-left:3px solid #1ed36f}.dg .cr.string input[type=text]{color:#1ed36f}.dg .cr.boolean:hover,.dg .cr.function:hover{background:#111}.dg .c input[type=text]{background:#303030;outline:0}.dg .c input[type=text]:hover{background:#3c3c3c}.dg .c input[type=text]:focus{background:#494949;color:#fff}.dg .c .slider{background:#303030;cursor:ew-resize}.dg .c .slider-fg{background:#2fa1d6}.dg .c .slider:hover{background:#3c3c3c}.dg .c .slider:hover .slider-fg{background:#44abda}",""])},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}t.__esModule=!0;var i=n(10),r=o(i),a=n(13),s=o(a),l=n(14),u=o(l),d=n(11),c=o(d),f=n(20),h=o(f),p=n(8),_=o(p),m=n(5),g=o(m),b=function(e,t){var n=e[t];return g["default"].isArray(arguments[2])||g["default"].isObject(arguments[2])?new r["default"](e,t,arguments[2]):g["default"].isNumber(n)?g["default"].isNumber(arguments[2])&&g["default"].isNumber(arguments[3])?g["default"].isNumber(arguments[4])?new u["default"](e,t,arguments[2],arguments[3],arguments[4]):new u["default"](e,t,arguments[2],arguments[3]):new s["default"](e,t,{min:arguments[2],max:arguments[3]}):g["default"].isString(n)?new c["default"](e,t):g["default"].isFunction(n)?new h["default"](e,t,""):g["default"].isBoolean(n)?new _["default"](e,t):void 0};t["default"]=b,e.exports=t["default"]},function(e,t){"use strict";t.__esModule=!0,t["default"]=function(){function e(e){window.setTimeout(e,1e3/60)}return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||e},e.exports=t["default"]},function(e,t,n){"use strict";function o(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}t.__esModule=!0;var r=n(9),a=o(r),s=n(5),l=o(s),u=function(){function e(){i(this,e),this.backgroundElement=document.createElement("div"),l["default"].extend(this.backgroundElement.style,{backgroundColor:"rgba(0,0,0,0.8)",top:0,left:0,display:"none",zIndex:"1000",opacity:0,WebkitTransition:"opacity 0.2s linear",transition:"opacity 0.2s linear"}),a["default"].makeFullscreen(this.backgroundElement),this.backgroundElement.style.position="fixed",this.domElement=document.createElement("div"),l["default"].extend(this.domElement.style,{position:"fixed",display:"none",zIndex:"1001",opacity:0,WebkitTransition:"-webkit-transform 0.2s ease-out, opacity 0.2s linear",transition:"transform 0.2s ease-out, opacity 0.2s linear"}),document.body.appendChild(this.backgroundElement),document.body.appendChild(this.domElement);var t=this;a["default"].bind(this.backgroundElement,"click",function(){t.hide()})}return e.prototype.show=function(){var e=this;this.backgroundElement.style.display="block",this.domElement.style.display="block",this.domElement.style.opacity=0,this.domElement.style.webkitTransform="scale(1.1)",this.layout(),l["default"].defer(function(){e.backgroundElement.style.opacity=1,e.domElement.style.opacity=1,e.domElement.style.webkitTransform="scale(1)"})},e.prototype.hide=function t(){var e=this,t=function n(){e.domElement.style.display="none",e.backgroundElement.style.display="none",a["default"].unbind(e.domElement,"webkitTransitionEnd",n),a["default"].unbind(e.domElement,"transitionend",n),a["default"].unbind(e.domElement,"oTransitionEnd",n)};a["default"].bind(this.domElement,"webkitTransitionEnd",t),a["default"].bind(this.domElement,"transitionend",t),a["default"].bind(this.domElement,"oTransitionEnd",t),this.backgroundElement.style.opacity=0,this.domElement.style.opacity=0,this.domElement.style.webkitTransform="scale(1.1)"},e.prototype.layout=function(){this.domElement.style.left=window.innerWidth/2-a["default"].getWidth(this.domElement)/2+"px",this.domElement.style.top=window.innerHeight/2-a["default"].getHeight(this.domElement)/2+"px"},e}();t["default"]=u,e.exports=t["default"]}])});
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\n#define POSITION_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\n\r\nvoid main()\r\n{\r\n    gl_Position = u_MVP * vec4(position, 1.0) ;\r\n}"
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\n#define FRAG_COLOR_LOCATION 0\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\r\n\r\nvoid main()\r\n{\r\n    color = vec4(1.0, 0.0, 0.0, 1.0);\r\n}"
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\n\r\nlayout(location = 0) in vec3 position;\r\n\r\nout vec3 texcoord;\r\n\r\nvoid main()\r\n{\r\n    vec4 pos = u_MVP * vec4(position, 1.0);\r\n    gl_Position = pos.xyww;\r\n    texcoord = position;\r\n}"
+
+/***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\n\nvoid main()\n{\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
+module.exports = "#version 300 es\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform samplerCube u_environment;\r\n\r\nin vec3 texcoord;\r\n\r\nout vec4 color;\r\n\r\nvoid main()\r\n{\r\n    color = texture(u_environment, texcoord);\r\n}"
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\nvoid main()\n{\n    color = vec4(1.0, 0.0, 0.0, 1.0);\n}"
+module.exports = "#define POSITION_LOCATION 0\r\n#define NORMAL_LOCATION 1\r\n#define TEXCOORD_0_LOCATION 2\r\n#define JOINTS_0_LOCATION 3\r\n#define JOINTS_1_LOCATION 5\r\n#define WEIGHTS_0_LOCATION 4\r\n#define WEIGHTS_1_LOCATION 6\r\n#define TANGENT_LOCATION 7\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\nuniform mat4 u_MVP;\r\nuniform mat4 u_MV;\r\nuniform mat4 u_MVNormal;\r\n\r\n#ifdef HAS_SKIN\r\nuniform JointMatrix\r\n{\r\n    mat4 matrix[32];\r\n} u_jointMatrix;\r\n#endif\r\n\r\nlayout(location = POSITION_LOCATION) in vec3 position;\r\nlayout(location = NORMAL_LOCATION) in vec3 normal;\r\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\r\n\r\n#ifdef HAS_SKIN\r\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\r\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\r\n#ifdef SKIN_VEC8\r\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\r\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\r\n#endif\r\n#endif\r\n\r\n\r\n// #ifdef HAS_TANGENTS\r\n// layout(location = TANGENT_LOCATION) in vec4 tangent;\r\n\r\n// out vec3 v_tangentW;\r\n// out vec3 v_bitangentW;\r\n// #endif\r\n\r\n\r\nout vec3 v_position;\r\nout vec3 v_normal;\r\nout vec2 v_uv;\r\n\r\nvoid main()\r\n{\r\n\r\n#ifdef HAS_SKIN\r\n    mat4 skinMatrix = \r\n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\r\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\r\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\r\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)];\r\n#ifdef SKIN_VEC8\r\n    skinMatrix +=\r\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\r\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\r\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\r\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\r\n#endif\r\n#endif\r\n\r\n    v_uv = uv;\r\n\r\n#ifdef HAS_SKIN\r\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\r\n    vec4 pos = u_MV * skinMatrix * vec4(position, 1.0);\r\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0);\r\n#else\r\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\r\n    vec4 pos = u_MV * vec4(position, 1.0);\r\n    gl_Position = u_MVP * vec4(position, 1.0);\r\n#endif\r\n\r\n    v_position = vec3(pos.xyz) / pos.w;\r\n    \r\n    \r\n}"
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    v_normal = normalize((u_MVNormal * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * vec4(position, 1.0) ;\n}"
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define FRAG_COLOR_LOCATION 0\n\nprecision highp float;\nprecision highp int;\n\nuniform vec4 u_baseColorFactor;\nuniform sampler2D u_baseColorTexture;\nuniform sampler2D u_normalTexture;\n\nin vec3 v_normal;\nin vec2 v_uv;\n\nlayout(location = FRAG_COLOR_LOCATION) out vec4 color;\n\n\nvec3 applyNormalMap(vec3 geomnor, vec3 normap) {\n    normap = normap * 2.0 - 1.0;\n    vec3 up = normalize(vec3(0.001, 1, 0.001));\n    vec3 surftan = normalize(cross(geomnor, up));\n    vec3 surfbinor = cross(geomnor, surftan);\n    return normap.y * surftan + normap.x * surfbinor + normap.z * geomnor;\n}\n\nvoid main()\n{\n    vec3 normal = applyNormalMap( v_normal, texture(u_normalTexture, v_uv).rgb );\n    normal = gl_FrontFacing ? normal : -normal;\n\n    float intensity = dot(normal, vec3(0.0, 0.0, 1.0));\n    color = u_baseColorFactor * texture(u_baseColorTexture, v_uv) * intensity;\n    color.a = 1.0;\n}"
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define WEIGHTS_0_LOCATION 4\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define JOINTS_1_LOCATION 5\n#define WEIGHTS_0_LOCATION 4\n#define WEIGHTS_1_LOCATION 6\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\n\nout vec3 v_normal;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define WEIGHTS_0_LOCATION 4\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight.x * u_jointMatrix.matrix[int(joint.x)] +\n        weight.y * u_jointMatrix.matrix[int(joint.y)] +\n        weight.z * u_jointMatrix.matrix[int(joint.z)] +\n        weight.w * u_jointMatrix.matrix[int(joint.w)];\n\n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n#define POSITION_LOCATION 0\n#define NORMAL_LOCATION 1\n#define TEXCOORD_0_LOCATION 2\n#define JOINTS_0_LOCATION 3\n#define JOINTS_1_LOCATION 5\n#define WEIGHTS_0_LOCATION 4\n#define WEIGHTS_1_LOCATION 6\n\nprecision highp float;\nprecision highp int;\n\nuniform mat4 u_MVP;\nuniform mat4 u_MVNormal;\n\nuniform JointMatrix\n{\n    mat4 matrix[32];\n} u_jointMatrix;\n\nlayout(location = POSITION_LOCATION) in vec3 position;\nlayout(location = NORMAL_LOCATION) in vec3 normal;\nlayout(location = TEXCOORD_0_LOCATION) in vec2 uv;\nlayout(location = JOINTS_0_LOCATION) in vec4 joint0;\nlayout(location = JOINTS_1_LOCATION) in vec4 joint1;\nlayout(location = WEIGHTS_0_LOCATION) in vec4 weight0;\nlayout(location = WEIGHTS_1_LOCATION) in vec4 weight1;\n\nout vec3 v_normal;\nout vec2 v_uv;\n\nvoid main()\n{\n    mat4 skinMatrix = \n        weight0.x * u_jointMatrix.matrix[int(joint0.x)] +\n        weight0.y * u_jointMatrix.matrix[int(joint0.y)] +\n        weight0.z * u_jointMatrix.matrix[int(joint0.z)] +\n        weight0.w * u_jointMatrix.matrix[int(joint0.w)] +\n        weight1.x * u_jointMatrix.matrix[int(joint1.x)] +\n        weight1.y * u_jointMatrix.matrix[int(joint1.y)] +\n        weight1.z * u_jointMatrix.matrix[int(joint1.z)] +\n        weight1.w * u_jointMatrix.matrix[int(joint1.w)];\n    \n    \n    v_normal = normalize(( u_MVNormal * transpose(inverse(skinMatrix)) * vec4(normal, 0)).xyz);\n    v_uv = uv;\n    gl_Position = u_MVP * skinMatrix * vec4(position, 1.0) ;\n}"
+module.exports = "#define FRAG_COLOR_LOCATION 0\r\n\r\n// reference: https://github.com/KhronosGroup/glTF-WebGL-PBR/blob/master/shaders/pbr-frag.glsl\r\n\r\nprecision highp float;\r\nprecision highp int;\r\n\r\n// IBL\r\nuniform samplerCube u_DiffuseEnvSampler;\r\nuniform samplerCube u_SpecularEnvSampler;\r\nuniform sampler2D u_brdfLUT;\r\n\r\n// Metallic-roughness material\r\n\r\n// base color\r\nuniform vec4 u_baseColorFactor;\r\n#ifdef HAS_BASECOLORMAP\r\nuniform sampler2D u_baseColorTexture;\r\n#endif\r\n\r\n// normal map\r\n#ifdef HAS_NORMALMAP\r\nuniform sampler2D u_normalTexture;\r\nuniform float u_normalTextureScale;\r\n#endif\r\n\r\n// emmisve map\r\n#ifdef HAS_EMISSIVEMAP\r\nuniform sampler2D u_emissiveTexture;\r\nuniform vec3 u_emissiveFactor;\r\n#endif\r\n\r\n// metal roughness\r\n#ifdef HAS_METALROUGHNESSMAP\r\nuniform sampler2D u_metallicRoughnessTexture;\r\n#endif\r\nuniform float u_metallicFactor;\r\nuniform float u_roughnessFactor;\r\n\r\n// occlusion texture\r\n#ifdef HAS_OCCLUSIONMAP\r\nuniform sampler2D u_occlusionTexture;\r\nuniform float u_occlusionStrength;\r\n#endif\r\n\r\nin vec3 v_position;\r\nin vec3 v_normal;\r\nin vec2 v_uv;\r\n\r\nlayout(location = FRAG_COLOR_LOCATION) out vec4 frag_color;\r\n\r\nstruct PBRInfo\r\n{\r\n    float NdotL;                  // cos angle between normal and light direction\r\n    float NdotV;                  // cos angle between normal and view direction\r\n    float NdotH;                  // cos angle between normal and half vector\r\n    float LdotH;                  // cos angle between light direction and half vector\r\n    float VdotH;                  // cos angle between view direction and half vector\r\n    float perceptualRoughness;    // roughness value, as authored by the model creator (input to shader)\r\n    float metalness;              // metallic value at the surface\r\n    vec3 reflectance0;            // full reflectance color (normal incidence angle)\r\n    vec3 reflectance90;           // reflectance color at grazing angle\r\n    float alphaRoughness;         // roughness mapped to a more linear change in the roughness (proposed by [2])\r\n    vec3 diffuseColor;            // color contribution from diffuse lighting\r\n    vec3 specularColor;           // color contribution from specular lighting\r\n};\r\n\r\n\r\n// vec3 applyNormalMap(vec3 geomnor, vec3 normap) {\r\n//     normap = normap * 2.0 - 1.0;\r\n//     vec3 up = normalize(vec3(0.01, 1, 0.01));\r\n//     vec3 surftan = normalize(cross(geomnor, up));\r\n//     vec3 surfbinor = cross(geomnor, surftan);\r\n//     return normap.y * surftan * u_normalTextureScale + normap.x * surfbinor * u_normalTextureScale + normap.z * geomnor;\r\n// }\r\n\r\nconst float M_PI = 3.141592653589793;\r\nconst float c_MinRoughness = 0.04;\r\n\r\n\r\n// vec3 getNormal()\r\n// {\r\n\r\n// #ifdef HAS_NORMALMAP\r\n// #ifdef HAS_TANGENTS\r\n//     vec3 n = texture(u_normalTexture, v_uv).rgb;\r\n//     n = normalize(v_TBN * (2.0 * n - 1.0) - vec3(u_normalTextureScale, u_normalTextureScale, 1.0));\r\n// #else\r\n//     vec3 n = applyNormalMap( v_normal, texture(u_normalTexture, v_uv).rgb );\r\n// #endif\r\n// #else\r\n//     vec3 n = v_normal;\r\n// #endif\r\n//     return n;\r\n\r\n// #endif\r\n// }\r\n\r\n// Find the normal for this fragment, pulling either from a predefined normal map\r\n// or from the interpolated mesh normal and tangent attributes.\r\nvec3 getNormal()\r\n{\r\n\r\n// #ifdef HAS_NORMALMAP\r\n//     vec3 n = applyNormalMap( v_normal, texture(u_normalTexture, v_uv).rgb );\r\n// #else\r\n//     vec3 n = v_normal;\r\n// #endif\r\n//     return n;\r\n\r\n\r\n    // Retrieve the tangent space matrix\r\n// #ifndef HAS_TANGENTS\r\n    vec3 pos_dx = dFdx(v_position);\r\n    vec3 pos_dy = dFdy(v_position);\r\n    vec3 tex_dx = dFdx(vec3(v_uv, 0.0));\r\n    vec3 tex_dy = dFdy(vec3(v_uv, 0.0));\r\n    vec3 t = (tex_dy.t * pos_dx - tex_dx.t * pos_dy) / (tex_dx.s * tex_dy.t - tex_dy.s * tex_dx.t);\r\n\r\n    vec3 ng = v_normal;\r\n// #ifdef HAS_NORMALS\r\n//     vec3 ng = normalize(v_normal);\r\n// #else\r\n//     vec3 ng = cross(pos_dx, pos_dy);\r\n// #endif\r\n\r\n    t = normalize(t - ng * dot(ng, t));\r\n    vec3 b = normalize(cross(ng, t));\r\n    mat3 tbn = mat3(t, b, ng);\r\n// #else // HAS_TANGENTS\r\n    // mat3 tbn = v_TBN;\r\n// #endif\r\n\r\n// TODO: TANGENTS\r\n\r\n#ifdef HAS_NORMALMAP\r\n    vec3 n = texture(u_normalTexture, v_uv).rgb;\r\n    n = normalize(tbn * ((2.0 * n - 1.0) * vec3(u_normalTextureScale, u_normalTextureScale, 1.0)));\r\n#else\r\n    vec3 n = tbn[2].xyz;\r\n#endif\r\n\r\n    return n;\r\n}\r\n\r\nvec3 getIBLContribution(PBRInfo pbrInputs, vec3 n, vec3 reflection)\r\n{\r\n    // float mipCount = 9.0; // resolution of 512x512\r\n    // float mipCount = 10.0; // resolution of 1024x1024\r\n    float mipCount = 10.0; // resolution of 256x256\r\n    float lod = (pbrInputs.perceptualRoughness * mipCount);\r\n    // retrieve a scale and bias to F0. See [1], Figure 3\r\n    vec3 brdf = texture(u_brdfLUT, vec2(pbrInputs.NdotV, 1.0 - pbrInputs.perceptualRoughness)).rgb;\r\n    vec3 diffuseLight = texture(u_DiffuseEnvSampler, n).rgb;\r\n\r\n// #ifdef USE_TEX_LOD\r\n    vec3 specularLight = texture(u_SpecularEnvSampler, reflection, lod).rgb;\r\n// #else\r\n    // vec3 specularLight = texture(u_SpecularEnvSampler, reflection).rgb;\r\n// #endif\r\n\r\n    vec3 diffuse = diffuseLight * pbrInputs.diffuseColor;\r\n    vec3 specular = specularLight * (pbrInputs.specularColor * brdf.x + brdf.y);\r\n\r\n    // // For presentation, this allows us to disable IBL terms\r\n    // diffuse *= u_ScaleIBLAmbient.x;\r\n    // specular *= u_ScaleIBLAmbient.y;\r\n\r\n    return diffuse + specular;\r\n}\r\n\r\n// Basic Lambertian diffuse\r\n// Implementation from Lambert's Photometria https://archive.org/details/lambertsphotome00lambgoog\r\n// See also [1], Equation 1\r\nvec3 diffuse(PBRInfo pbrInputs)\r\n{\r\n    return pbrInputs.diffuseColor / M_PI;\r\n}\r\n\r\n\r\n// The following equation models the Fresnel reflectance term of the spec equation (aka F())\r\n// Implementation of fresnel from [4], Equation 15\r\nvec3 specularReflection(PBRInfo pbrInputs)\r\n{\r\n    return pbrInputs.reflectance0 + (pbrInputs.reflectance90 - pbrInputs.reflectance0) * pow(clamp(1.0 - pbrInputs.VdotH, 0.0, 1.0), 5.0);\r\n}\r\n\r\n\r\n// This calculates the specular geometric attenuation (aka G()),\r\n// where rougher material will reflect less light back to the viewer.\r\n// This implementation is based on [1] Equation 4, and we adopt their modifications to\r\n// alphaRoughness as input as originally proposed in [2].\r\nfloat geometricOcclusion(PBRInfo pbrInputs)\r\n{\r\n    float NdotL = pbrInputs.NdotL;\r\n    float NdotV = pbrInputs.NdotV;\r\n    float r = pbrInputs.alphaRoughness;\r\n\r\n    float attenuationL = 2.0 * NdotL / (NdotL + sqrt(r * r + (1.0 - r * r) * (NdotL * NdotL)));\r\n    float attenuationV = 2.0 * NdotV / (NdotV + sqrt(r * r + (1.0 - r * r) * (NdotV * NdotV)));\r\n    return attenuationL * attenuationV;\r\n}\r\n\r\n\r\n// The following equation(s) model the distribution of microfacet normals across the area being drawn (aka D())\r\n// Implementation from \"Average Irregularity Representation of a Roughened Surface for Ray Reflection\" by T. S. Trowbridge, and K. P. Reitz\r\n// Follows the distribution function recommended in the SIGGRAPH 2013 course notes from EPIC Games [1], Equation 3.\r\nfloat microfacetDistribution(PBRInfo pbrInputs)\r\n{\r\n    float roughnessSq = pbrInputs.alphaRoughness * pbrInputs.alphaRoughness;\r\n    float f = (pbrInputs.NdotH * roughnessSq - pbrInputs.NdotH) * pbrInputs.NdotH + 1.0;\r\n    return roughnessSq / (M_PI * f * f);\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\nvoid main()\r\n{\r\n    float perceptualRoughness = u_roughnessFactor;\r\n    float metallic = u_metallicFactor;\r\n\r\n#ifdef HAS_METALROUGHNESSMAP\r\n    // Roughness is stored in the 'g' channel, metallic is stored in the 'b' channel.\r\n    // This layout intentionally reserves the 'r' channel for (optional) occlusion map data\r\n    vec4 mrSample = texture(u_metallicRoughnessTexture, v_uv);\r\n    perceptualRoughness = mrSample.g * perceptualRoughness;\r\n    metallic = mrSample.b * metallic;\r\n#endif\r\n    perceptualRoughness = clamp(perceptualRoughness, c_MinRoughness, 1.0);\r\n    metallic = clamp(metallic, 0.0, 1.0);\r\n    // Roughness is authored as perceptual roughness; as is convention,\r\n    // convert to material roughness by squaring the perceptual roughness [2].\r\n    float alphaRoughness = perceptualRoughness * perceptualRoughness;\r\n\r\n\r\n    // The albedo may be defined from a base texture or a flat color\r\n#ifdef HAS_BASECOLORMAP\r\n    vec4 baseColor = texture(u_baseColorTexture, v_uv) * u_baseColorFactor;\r\n#else\r\n    vec4 baseColor = u_baseColorFactor;\r\n#endif\r\n\r\n\r\n\r\n    vec3 f0 = vec3(0.04);\r\n    vec3 diffuseColor = baseColor.rgb * (vec3(1.0) - f0);\r\n    diffuseColor *= 1.0 - metallic;\r\n    vec3 specularColor = mix(f0, baseColor.rgb, metallic);\r\n\r\n    // Compute reflectance.\r\n    float reflectance = max(max(specularColor.r, specularColor.g), specularColor.b);\r\n\r\n\r\n    // For typical incident reflectance range (between 4% to 100%) set the grazing reflectance to 100% for typical fresnel effect.\r\n    // For very low reflectance range on highly diffuse objects (below 4%), incrementally reduce grazing reflecance to 0%.\r\n    float reflectance90 = clamp(reflectance * 25.0, 0.0, 1.0);\r\n    vec3 specularEnvironmentR0 = specularColor.rgb;\r\n    vec3 specularEnvironmentR90 = vec3(1.0, 1.0, 1.0) * reflectance90;\r\n\r\n\r\n    vec3 n = getNormal();                             // normal at surface point\r\n    // vec3 v = vec3( 0.0, 0.0, 1.0 );        // Vector from surface point to camera\r\n    vec3 v = normalize(-v_position);                       // Vector from surface point to camera\r\n    // vec3 l = normalize(u_LightDirection);             // Vector from surface point to light\r\n    vec3 l = normalize(vec3( 1.0, 1.0, 1.0 ));             // Vector from surface point to light\r\n    // vec3 l = vec3( 0.0, 0.0, 1.0 );             // Vector from surface point to light\r\n    vec3 h = normalize(l+v);                          // Half vector between both l and v\r\n    vec3 reflection = -normalize(reflect(v, n));\r\n\r\n    float NdotL = clamp(dot(n, l), 0.001, 1.0);\r\n    float NdotV = abs(dot(n, v)) + 0.001;\r\n    float NdotH = clamp(dot(n, h), 0.0, 1.0);\r\n    float LdotH = clamp(dot(l, h), 0.0, 1.0);\r\n    float VdotH = clamp(dot(v, h), 0.0, 1.0);\r\n\r\n    PBRInfo pbrInputs = PBRInfo(\r\n        NdotL,\r\n        NdotV,\r\n        NdotH,\r\n        LdotH,\r\n        VdotH,\r\n        perceptualRoughness,\r\n        metallic,\r\n        specularEnvironmentR0,\r\n        specularEnvironmentR90,\r\n        alphaRoughness,\r\n        diffuseColor,\r\n        specularColor\r\n    );\r\n\r\n    // Calculate the shading terms for the microfacet specular shading model\r\n    vec3 F = specularReflection(pbrInputs);\r\n    float G = geometricOcclusion(pbrInputs);\r\n    float D = microfacetDistribution(pbrInputs);\r\n\r\n    // Calculation of analytical lighting contribution\r\n    vec3 diffuseContrib = (1.0 - F) * diffuse(pbrInputs);\r\n    vec3 specContrib = F * G * D / (4.0 * NdotL * NdotV);\r\n    // vec3 color = NdotL * u_LightColor * (diffuseContrib + specContrib);\r\n    vec3 color = NdotL * (diffuseContrib + specContrib);    // assume light color vec3(1, 1, 1)\r\n\r\n    // Calculate lighting contribution from image based lighting source (IBL)\r\n// #ifdef USE_IBL\r\n    color += getIBLContribution(pbrInputs, n, reflection);\r\n// #endif\r\n\r\n\r\n    // Apply optional PBR terms for additional (optional) shading\r\n#ifdef HAS_OCCLUSIONMAP\r\n    float ao = texture(u_occlusionTexture, v_uv).r;\r\n    color = mix(color, color * ao, u_occlusionStrength);\r\n#endif\r\n\r\n#ifdef HAS_EMISSIVEMAP\r\n    vec3 emissive = texture(u_emissiveTexture, v_uv).rgb * u_emissiveFactor;\r\n    color += emissive;\r\n#endif\r\n\r\n    // // This section uses mix to override final color for reference app visualization\r\n    // // of various parameters in the lighting equation.\r\n    // color = mix(color, F, u_ScaleFGDSpec.x);\r\n    // color = mix(color, vec3(G), u_ScaleFGDSpec.y);\r\n    // color = mix(color, vec3(D), u_ScaleFGDSpec.z);\r\n    // color = mix(color, specContrib, u_ScaleFGDSpec.w);\r\n\r\n    // color = mix(color, diffuseContrib, u_ScaleDiffBaseMR.x);\r\n    // color = mix(color, baseColor.rgb, u_ScaleDiffBaseMR.y);\r\n    // color = mix(color, vec3(metallic), u_ScaleDiffBaseMR.z);\r\n    // color = mix(color, vec3(perceptualRoughness), u_ScaleDiffBaseMR.w);\r\n\r\n    frag_color = vec4(color, baseColor.a);\r\n}"
 
 /***/ })
 /******/ ]);

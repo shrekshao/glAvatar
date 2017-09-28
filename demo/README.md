@@ -29,3 +29,4 @@ And goto `localhost:7000` in browser.
 
 * Batman VS Superman Suit by Valentin Yovchev is licensed under CC Attributio (modified with blender) [link](https://sketchfab.com/models/35e9fbd6dc3b4fa8a8cc469cc1a16393#)
 * VC from [glTF sample Models](https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/VC)
+* [minimal-gltf-loader](https://github.com/shrekshao/minimal-gltf-loader) by @shrekshao
