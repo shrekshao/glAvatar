@@ -151,37 +151,37 @@ var Utils = Utils || {};
             // }
         }
 
-        // function setupSkeleton(name, gltf) {
-        //     if (skeletonGltfScene) {
-        //         // unload all current skins(accessories)
+        function setupSkeleton(name, gltf) {
+            if (skeletonGltfScene) {
+                // unload all current skins(accessories)
 
-        //         for (var c in glAvatarSystem.curAccessories) {
-        //             glAvatarSystem.curAccessories[c].name = null;
-        //             glAvatarSystem.curAccessories[c].scene = null;
-        //             scenes[glAvatarSystem.curAccessories[c].sceneID] = null;
-        //             glAvatarSystem.curAccessories[c].sceneID = null;
-        //         }
-        //     }
+                for (var c in glAvatarSystem.curAccessories) {
+                    glAvatarSystem.curAccessories[c].name = null;
+                    glAvatarSystem.curAccessories[c].scene = null;
+                    scenes[glAvatarSystem.curAccessories[c].sceneID] = null;
+                    glAvatarSystem.curAccessories[c].sceneID = null;
+                }
+            }
 
-        //     glAvatarSystem.skeletons[name] = gltf;
-        //     glAvatarSystem.curSkeleton.name = name;
-        //     glAvatarSystem.curSkeleton.scene = skeletonGltfScene = setupScene(gltf, skeletonGltfScene);
-        //     glAvatarSystem.curSkeleton.sceneID = scenes.length - 1;
-        // }
+            glAvatarSystem.skeletons[name] = gltf;
+            glAvatarSystem.curSkeleton.name = name;
+            glAvatarSystem.curSkeleton.scene = skeletonGltfScene = setupScene(gltf, skeletonGltfScene);
+            glAvatarSystem.curSkeleton.sceneID = scenes.length - 1;
+        }
 
-        // function selectSkeleton(name, uri) {
-        //     var loadedSkeleton = glAvatarSystem.skeletons[name];
-        //     if (!loadedSkeleton) {
-        //         console.log('first load ' + uri);
-        //         glTFLoader.loadGLTF(uri
-        //             , function(gltf) {
-        //                 setupSkeleton(name, gltf);
-        //             }
-        //         );
-        //     } else {
-        //         setupSkeleton(name, loadedSkeleton);
-        //     }
-        // }
+        function selectSkeleton(name, uri) {
+            var loadedSkeleton = glAvatarSystem.skeletons[name];
+            if (!loadedSkeleton) {
+                console.log('first load ' + uri);
+                glTFLoader.loadGLTF(uri
+                    , function(gltf) {
+                        setupSkeleton(name, gltf);
+                    }
+                );
+            } else {
+                setupSkeleton(name, loadedSkeleton);
+            }
+        }
 
 
         this.VC = function() {
@@ -193,14 +193,14 @@ var Utils = Utils || {};
         };
 
 
-        // this.patrick = function() {
-        //     selectSkeleton(
-        //         'patrick'
-        //         , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
-        //     );
+        this.patrick = function() {
+            selectSkeleton(
+                'patrick'
+                , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
+            );
 
-        //     // TODO: change dat.gui accessories
-        // };
+            // TODO: change dat.gui accessories
+        };
 
 
 
@@ -234,8 +234,8 @@ var Utils = Utils || {};
 
 
 
-    // var folderSkeleton = gui.addFolder('skeletons');
-    // folderSkeleton.add(avatarControl, 'patrick');
+    var folderSkeleton = gui.addFolder('skeletons');
+    folderSkeleton.add(avatarControl, 'patrick');
 
     
 
@@ -1435,7 +1435,10 @@ var Utils = Utils || {};
             for (i = 0, len = scenes.length; i < len; i++) {
                 curScene = scenes[i];
 
-                drawScene(scenes[i]);
+                if (curScene) {
+                    drawScene(curScene);
+                }
+                
             }
 
             if (drawBoundingBox) {
