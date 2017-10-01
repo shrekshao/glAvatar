@@ -65,6 +65,8 @@ There are some other potential ideas:
 * Exporter in blender glTF models with glAvatar extensions
     * might extend [Blender glTF 2.0 Exporter](https://github.com/KhronosGroup/glTF-Blender-Exporter)
 * Online asset library for model contributions?
+* Separate animation to a standalone and animation file format (like CZML?)
+* Animation mapping standard, like the humanoid in Unity3D, so animations are not limited to certain skeleton. Animation and skeletons can make arbitrary combinations. 
 
 ## Use case
 
