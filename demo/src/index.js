@@ -202,6 +202,15 @@ var Utils = Utils || {};
             // TODO: change dat.gui accessories
         };
 
+        this.saber = function() {
+            selectSkeleton(
+                'saber'
+                , 'models/saber-gltf-test/saber-maid.gltf'
+            );
+
+            // TODO: change dat.gui accessories
+        };
+
 
 
         this.gltfShirt = function() {
@@ -236,6 +245,7 @@ var Utils = Utils || {};
 
     var folderSkeleton = gui.addFolder('skeletons');
     folderSkeleton.add(avatarControl, 'patrick');
+    folderSkeleton.add(avatarControl, 'saber');
 
     
 

@@ -594,7 +594,7 @@ var Skin = MinimalGLTFLoader.Skin = function (gltf, s, skinID) {
         // );      // for copy to UBO
 
         // @tmp: fixed length to coordinate with shader, for copy to UBO
-        this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+        this.jointMatrixUnidormBufferData = new Float32Array(64 * 16);
 
         for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
             this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
@@ -658,7 +658,7 @@ var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseB
         // );      // for copy to UBO
 
         // @tmp: fixed length to coordinate with shader, for copy to UBO
-        this.jointMatrixUnidormBufferData = new Float32Array(32 * 16);
+        this.jointMatrixUnidormBufferData = new Float32Array(64 * 16);
 
         for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
             this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
