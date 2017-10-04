@@ -4,6 +4,8 @@
 
 ![](img/demo.gif)
 
+![](img/saber.png)
+
 
 This is a temporary demo built on minimal-gltf-loader and ugly raw webgl code.
 

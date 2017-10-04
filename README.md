@@ -7,6 +7,7 @@ An open source assest library of 3D avatar content creation where artists can co
 ## Demo
 
 ![](demo/img/demo.gif)
+![](demo/img/saber.png)
 
 ## Overview
 
