@@ -56,6 +56,7 @@ There are some other potential ideas:
 
 * switchable textures
 * use morph targets for face, skin, musle shape custom controlling
+* invisible base skin lookup texture, and visible array for clothes
 
 ## Things to implement
 
@@ -142,6 +143,11 @@ There are some other potential ideas:
     "extensionsUsed": [
         "gl_avatar"
     ],
+    "extensions": {
+        "gl_avatar": {
+            "visible": [1, 1, 1, 0, 1]
+        }
+    },
     "nodes": [
         {
             "name": "jeans",
@@ -179,6 +185,15 @@ There are some other potential ideas:
             ]
         }
     ],
+    "materials": {
+        "...": "...",
+        "extensions": {
+            "gl_avatar": {
+                "//comment": "used for make part of based skin invisible, only appears in base skin",
+                "body_part_id_texture_id": 2
+            }
+        }
+    }
     "...": "..."
 }
 ```
