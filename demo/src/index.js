@@ -205,7 +205,8 @@ var Utils = Utils || {};
         this.saber = function() {
             selectSkeleton(
                 'saber'
-                , 'models/saber-pure-body-test/saber-pure-body-test.gltf'
+                , 'models/saber-body/saber-body.gltf'
+                // , 'models/saber-body-old-test/saber-body.gltf'
             );
 
             // TODO: change dat.gui accessories
