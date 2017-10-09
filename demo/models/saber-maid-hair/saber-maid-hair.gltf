@@ -1,4 +1,12 @@
 {
+    "extensionsUsed": [
+        "gl_avatar"
+    ],
+    "extensions": {
+        "gl_avatar": {
+            "visibility": [0, 0, 0, 0, 1, 0, 0, 0]
+        }
+    },
     "accessors" : [
         {
             "bufferView" : 0, 

@@ -88,11 +88,17 @@ var Utils = Utils || {};
 
     var glAvatarSystem = {
 
+        BODY_VISIBILITY_LENGTH: 8,
+        BODY_PART_UNIFORM_BLOCK_ID: 16,
+
+
         curSkeleton: {
             name: null,
             scene: null,
             sceneID: null
         },
+
+        curVisibilityArray: null,
 
         curAccessories: {
             clothes: {
@@ -107,6 +113,8 @@ var Utils = Utils || {};
             }
         },
 
+        bodyPartVisibilityUniformBuffer: null,
+
 
         // assets
         skeletons: {},
@@ -114,8 +122,31 @@ var Utils = Utils || {};
         accessories: {
             clothes: {},
             hair: {}
+        },
+
+
+        initVisibilityArray: function() {
+            for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
+                this.curVisibilityArray[i * 4] = 1;
+            }
+        },
+
+        updateVisibilityArray: function(v) {
+            for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
+                this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
+            }
+
+            // TODO: update uniform block
+            gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
+            gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray);
+            // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray, 0, this.curVisibilityArray.length);
+            gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+            
         }
     };
+
+    glAvatarSystem.curVisibilityArray = new Uint32Array(glAvatarSystem.BODY_VISIBILITY_LENGTH * 4); // fit 16 byte padding
+    glAvatarSystem.initVisibilityArray();
 
     var gui = new GUI.GUI();
     var glAvatarControl = function() {
@@ -127,6 +158,12 @@ var Utils = Utils || {};
             glAvatarSystem.curAccessories[category].name = name;
             glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
             glAvatarSystem.curAccessories[category].sceneID = scenes.length - 1;
+
+            var v = gltf.json.extensions.gl_avatar.visibility;
+            if (v) {
+                glAvatarSystem.updateVisibilityArray(v);
+            }
+            
         }
 
         function selectAccessory(category, name, uri) {
@@ -615,11 +652,16 @@ var Utils = Utils || {};
             HAS_NORMALMAP: 8,
             HAS_METALROUGHNESSMAP: 16,
             HAS_OCCLUSIONMAP: 32,
-            HAS_EMISSIVEMAP: 64
+            HAS_EMISSIVEMAP: 64,
+
+            // for gl avatar
+            GLAVATAR_HAS_BODY_ID_LUT: 128,
+            GLAVATAR_BODY_VISIBILITY_LENGTH: 256    // this will remain the same in a deployment
         },
 
         vsMasterCode: require('./shaders/vs-pbr-master.glsl'),
-        fsMasterCode: require('./shaders/fs-pbr-master.glsl'),
+        // fsMasterCode: require('./shaders/fs-pbr-master.glsl'),
+        fsMasterCode: require('./shaders/fs-pbr-master-glavatar.glsl'),
 
         programObjects: {}    // < flags, Shader Object >
     };
@@ -646,6 +688,9 @@ var Utils = Utils || {};
     };
     Shader.prototype.hasEmissiveMap = function() {
         return this.flags & Shader_Static.bitMasks.HAS_EMISSIVEMAP;
+    };
+    Shader.prototype.hasBodyIdLUT = function() {
+        return this.flags & Shader_Static.bitMasks.GLAVATAR_HAS_BODY_ID_LUT;
     };
 
 
@@ -693,6 +738,13 @@ var Utils = Utils || {};
         }
         if (this.flags & Shader_Static.bitMasks.HAS_EMISSIVEMAP) {
             fsDefine += '#define HAS_EMISSIVEMAP\n';
+        }
+
+        if (this.flags & Shader_Static.bitMasks.GLAVATAR_HAS_BODY_ID_LUT) {
+            fsDefine += '#define GLAVATAR_HAS_BODY_ID_LUT\n';
+        }
+        if (this.flags & Shader_Static.bitMasks.GLAVATAR_BODY_VISIBILITY_LENGTH) {
+            fsDefine += '#define GLAVATAR_BODY_VISIBILITY_LENGTH ' + glAvatarSystem.BODY_VISIBILITY_LENGTH + 'u\n';
         }
 
 
@@ -750,6 +802,13 @@ var Utils = Utils || {};
             us.emissiveTexture = gl.getUniformLocation(program, 'u_emissiveTexture');
             us.emissiveFactor = gl.getUniformLocation(program, 'u_emissiveFactor');
         }
+
+
+        if (this.flags & Shader_Static.bitMasks.GLAVATAR_HAS_BODY_ID_LUT) {
+            us.bodyIdLUT = gl.getUniformLocation(program, 'u_bodyIdLUT');
+            this.programObject.uniformBlockIndices.BodyPartVisibility = gl.getUniformBlockIndex(program, "BodyPartVisibility");
+        }
+
 
         us.diffuseEnvSampler = gl.getUniformLocation(program, 'u_DiffuseEnvSampler');
         us.specularEnvSampler = gl.getUniformLocation(program, 'u_SpecularEnvSampler');
@@ -935,6 +994,26 @@ var Utils = Utils || {};
         if (glTF.textures) {
             for (i = 0, len = glTF.textures.length; i < len; i++) {
                 texture = glTF.textures[i];
+
+                if (texture.extensions) {
+                    if (texture.extensions.gl_avatar == 'bodyIdLUT') {
+                        texture.texture = gl.createTexture();
+                        gl.bindTexture(gl.TEXTURE_2D, texture.texture);
+                        gl.texImage2D(
+                            gl.TEXTURE_2D,  // assumed
+                            0,        // Level of details
+                            gl.RGBA8UI, // Format
+                            gl.RGBA_INTEGER,
+                            gl.UNSIGNED_BYTE,
+                            texture.source
+                        );
+                        // gl.generateMipmap(gl.TEXTURE_2D);
+                        gl.bindTexture(gl.TEXTURE_2D, null);
+
+                        continue;
+                    }
+                }
+
                 texture.createTexture(gl);
             }
         }
@@ -987,7 +1066,7 @@ var Utils = Utils || {};
             return false;
         }
 
-        // create vaoss & materials shader source setup
+        // create vao & materials shader source setup
         for (mid = 0, lenMeshes = glTF.meshes.length; mid < lenMeshes; mid++) {
             mesh = glTF.meshes[mid];
 
@@ -1065,6 +1144,29 @@ var Utils = Utils || {};
                     }
                 }
 
+
+                // gl avatar
+                if (primitive.extensions) {
+                    if (primitive.extensions.gl_avatar.bodyIdTexture !== undefined) {
+                        primitive.shader.defineMacro('GLAVATAR_HAS_BODY_ID_LUT');
+
+                        // bind uniform block
+                        // assume there's only one primitive with this per scene
+                        var ub = glAvatarSystem.bodyPartVisibilityUniformBuffer = gl.createBuffer();
+
+                        gl.bindBufferBase(gl.UNIFORM_BUFFER, glAvatarSystem.BODY_PART_UNIFORM_BLOCK_ID, ub);
+        
+                        gl.bindBuffer(gl.UNIFORM_BUFFER, ub);
+                        gl.bufferData(gl.UNIFORM_BUFFER, glAvatarSystem.curVisibilityArray, gl.STATIC_DRAW);
+                        gl.bufferSubData(gl.UNIFORM_BUFFER, 0, glAvatarSystem.curVisibilityArray);
+                        gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+
+
+                        // primitive.hasBodyIdLUT = true;
+                    }
+                }
+
+
                 primitive.shader.compile();
             }
             
@@ -1113,10 +1215,10 @@ var Utils = Utils || {};
         var curScene;
         var program = null;
 
-        function activeAndBindTexture(uniformLocation, textureInfo) {
-            gl.uniform1i(uniformLocation, textureInfo.index);
-            gl.activeTexture(gl.TEXTURE0 + textureInfo.index);
-            var texture = curScene.glTF.textures[ textureInfo.index ];
+        function activeAndBindTexture(uniformLocation, index) {
+            gl.uniform1i(uniformLocation, index);
+            gl.activeTexture(gl.TEXTURE0 + index);
+            var texture = curScene.glTF.textures[ index ];
             gl.bindTexture(gl.TEXTURE_2D, texture.texture);
             var sampler;
             if (texture.sampler) {
@@ -1125,7 +1227,7 @@ var Utils = Utils || {};
                 sampler = defaultSampler;
             }
 
-            gl.bindSampler(textureInfo.index, sampler);
+            gl.bindSampler(index, sampler);
         }
         
 
@@ -1167,18 +1269,18 @@ var Utils = Utils || {};
             if (material) {
                 // base color texture
                 if (shader.hasBaseColorMap()) {
-                    activeAndBindTexture(program.uniformLocations.baseColorTexture, pbrMetallicRoughness.baseColorTexture);
+                    activeAndBindTexture(program.uniformLocations.baseColorTexture, pbrMetallicRoughness.baseColorTexture.index);
                 }
 
                 // normal texture
                 if (shader.hasNormalMap()) {
-                    activeAndBindTexture(program.uniformLocations.normalTexture, material.normalTexture);
+                    activeAndBindTexture(program.uniformLocations.normalTexture, material.normalTexture.index);
                     gl.uniform1f(program.uniformLocations.normalTextureScale, material.normalTexture.scale);
                 }
 
                 // metallic roughness texture
                 if (shader.hasMetalRoughnessMap()) {
-                    activeAndBindTexture(program.uniformLocations.metallicRoughnessTexture, pbrMetallicRoughness.metallicRoughnessTexture);
+                    activeAndBindTexture(program.uniformLocations.metallicRoughnessTexture, pbrMetallicRoughness.metallicRoughnessTexture.index);
                 }
                 
                 gl.uniform1f(program.uniformLocations.metallicFactor, pbrMetallicRoughness.metallicFactor);
@@ -1186,13 +1288,13 @@ var Utils = Utils || {};
 
                 // occlusion texture
                 if (shader.hasOcclusionMap()) {
-                    activeAndBindTexture(program.uniformLocations.occlusionTexture, material.occlusionTexture);
+                    activeAndBindTexture(program.uniformLocations.occlusionTexture, material.occlusionTexture.index);
                     gl.uniform1f(program.uniformLocations.occlusionStrength, material.occlusionTexture.strength);
                 }
 
                 // emissive texture
                 if (shader.hasEmissiveMap()) {
-                    activeAndBindTexture(program.uniformLocations.emissiveTexture, material.emissiveTexture);
+                    activeAndBindTexture(program.uniformLocations.emissiveTexture, material.emissiveTexture.index);
                     gl.uniform3fv(program.uniformLocations.emissiveFactor, material.emissiveFactor);
                 }
             }
@@ -1201,6 +1303,14 @@ var Utils = Utils || {};
             // TODO: skin JointMatrix uniform block
             if (shader.hasSkin()) {
                 gl.uniformBlockBinding(program.program, program.uniformBlockIndices.JointMatrix, uniformBlockID);
+            }
+
+
+            if (shader.hasBodyIdLUT()) {
+                activeAndBindTexture(program.uniformLocations.bodyIdLUT, primitive.extensions.gl_avatar.bodyIdTexture);
+                gl.uniformBlockBinding(program.program, program.uniformBlockIndices.BodyPartVisibility, glAvatarSystem.BODY_PART_UNIFORM_BLOCK_ID);
+
+                // gl.getActiveUniformBlockParameter(program.program, program.uniformBlockIndices.BodyPartVisibility, gl.UNIFORM_BLOCK_DATA_SIZE);
             }
 
 

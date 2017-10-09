@@ -57,6 +57,9 @@ There are some other potential ideas:
 * switchable textures
 * use morph targets for face, skin, musle shape custom controlling
 * invisible base skin lookup texture, and visible array for clothes
+    * An integer texture (maybe just use a regular png with 8byte RGBA would be good enough, since red channel only can represent 0 - 255 id)
+    * When a cloth skin is updated, it comes along with info of the visibility of the body parts (which is an bool array). Do a bit and operation with cur visibility array.
+    * In fragment shader for rendering base skin, first look up the body id, use this id to access the visibility array (in a uniform buffer). If not visible, simply return.
 
 ## Things to implement
 
@@ -145,7 +148,8 @@ There are some other potential ideas:
     ],
     "extensions": {
         "gl_avatar": {
-            "visible": [1, 1, 1, 0, 1]
+            "visibility": [1, 1, 1, 0, 1]
+            "//comment": "visiblity for all other accessory skins"
         }
     },
     "nodes": [
@@ -177,23 +181,15 @@ There are some other potential ideas:
                             "attributes": {
                                 "JOINTS_0": 1,
                                 "WEIGHTS_0": 2
-                            }
+                            },
+                            "bodyIdTexture": 1
                         },
-                        "//comment": "this part is not necessary, depending on the engine implementation"
+                        "//comment": "bodyIdTexture only appears in base skin glTF file. (which can potentially be a skeleton file)"
                     }
                 }
             ]
         }
     ],
-    "materials": {
-        "...": "...",
-        "extensions": {
-            "gl_avatar": {
-                "//comment": "used for make part of based skin invisible, only appears in base skin",
-                "body_part_id_texture_id": 2
-            }
-        }
-    },
     "...": "..."
 }
 ```

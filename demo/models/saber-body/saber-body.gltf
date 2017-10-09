@@ -977,7 +977,12 @@
                         "WEIGHTS_1" : 16
                     }, 
                     "indices" : 8, 
-                    "material" : 0
+                    "material" : 0,
+                    "extensions": {
+                        "gl_avatar": {
+                            "bodyIdTexture": 1
+                        }
+                    }
                 }
             ]
         }
@@ -1940,7 +1945,11 @@
         }
     ], 
     "samplers" : [
-        {}
+        {},
+        {
+            "magFilter": 9728,
+            "minFilter": 9728
+        }
     ], 
     "scene" : 0, 
     "scenes" : [
@@ -2148,8 +2157,11 @@
             "source" : 0
         },
         {
-            "sampler" : 0, 
-            "source" : 1
+            "sampler" : 1, 
+            "source" : 1,
+            "extensions": {
+                "gl_avatar": "bodyIdLUT"
+            }
         },
         {
             "sampler" : 0, 
