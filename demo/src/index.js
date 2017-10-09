@@ -234,6 +234,15 @@ var Utils = Utils || {};
                 , 'red_hair'
                 , 'models/hair_glavatar/hair.gltf');
         };
+
+
+        // saber accessory ----------------
+        this.maidHair = function() {
+            selectAccessory(
+                'hair'
+                , 'maid_hair'
+                , 'models/saber-maid-hair/saber-maid-hair.gltf');
+        };
     };
     var avatarControl = new glAvatarControl();
     
@@ -252,6 +261,7 @@ var Utils = Utils || {};
 
     var folderHair = gui.addFolder('hair');
     folderHair.add(avatarControl, 'redHair');
+    folderHair.add(avatarControl, 'maidHair');
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
     folderClothes.add(avatarControl, 'batman_armor');
@@ -1481,13 +1491,15 @@ var Utils = Utils || {};
     // 2.0
     
     // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
-    var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
+    // var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
+    var gltfUrl = 'models/saber-body/saber-body.gltf';
     // var gltfUrl = 'models/girl16/scene.gltf';
 
 
     CUBE_MAP.finishLoadingCallback = function() {
         glTFLoader.loadGLTF(gltfUrl, function(glTF) {
-            glAvatarSystem.curSkeleton.name = 'patrick';
+            // glAvatarSystem.curSkeleton.name = 'patrick';
+            glAvatarSystem.curSkeleton.name = 'saber';
             skeletonGltfScene = glAvatarSystem.curSkeleton.scene = setupScene(glTF);
             
             Renderer.render();

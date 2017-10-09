@@ -193,7 +193,7 @@ There are some other potential ideas:
                 "body_part_id_texture_id": 2
             }
         }
-    }
+    },
     "...": "..."
 }
 ```

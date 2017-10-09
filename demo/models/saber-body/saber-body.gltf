@@ -1,4 +1,11 @@
 {
+    "extensions": {
+        "gl_avatar": {
+            "skins": {
+                "main": 0
+            }
+        }
+    },
     "accessors" : [
         {
             "bufferView" : 0, 
