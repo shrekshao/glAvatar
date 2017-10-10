@@ -4,7 +4,7 @@
     ],
     "extensions": {
         "gl_avatar": {
-            "visibility": [0, 0, 0, 0, 1, 0, 0, 0]
+            "visibility": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         }
     },
     "accessors" : [

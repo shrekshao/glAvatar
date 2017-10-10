@@ -88,7 +88,7 @@ var Utils = Utils || {};
 
     var glAvatarSystem = {
 
-        BODY_VISIBILITY_LENGTH: 8,
+        BODY_VISIBILITY_LENGTH: 12,
         BODY_PART_UNIFORM_BLOCK_ID: 16,
 
 
@@ -1153,6 +1153,7 @@ var Utils = Utils || {};
                 if (primitive.extensions) {
                     if (primitive.extensions.gl_avatar.bodyIdTexture !== undefined) {
                         primitive.shader.defineMacro('GLAVATAR_HAS_BODY_ID_LUT');
+                        primitive.shader.defineMacro('GLAVATAR_BODY_VISIBILITY_LENGTH');
 
                         // bind uniform block
                         // assume there's only one primitive with this per scene
