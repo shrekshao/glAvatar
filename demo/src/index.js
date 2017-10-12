@@ -88,7 +88,7 @@ var Utils = Utils || {};
 
     var glAvatarSystem = {
 
-        BODY_VISIBILITY_LENGTH: 12,
+        BODY_VISIBILITY_LENGTH: 24,
         BODY_PART_UNIFORM_BLOCK_ID: 16,
 
 
@@ -280,6 +280,13 @@ var Utils = Utils || {};
                 , 'maid_hair'
                 , 'models/saber-maid-hair/saber-maid-hair.gltf');
         };
+
+        this.maidDress = function() {
+            selectAccessory(
+                'clothes'
+                , 'maid_dress'
+                , 'models/saber-maid-dress/saber-maid-dress.gltf');
+        };
     };
     var avatarControl = new glAvatarControl();
     
@@ -299,9 +306,11 @@ var Utils = Utils || {};
     var folderHair = gui.addFolder('hair');
     folderHair.add(avatarControl, 'redHair');
     folderHair.add(avatarControl, 'maidHair');
+
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
     folderClothes.add(avatarControl, 'batman_armor');
+    folderClothes.add(avatarControl, 'maidDress');
 
 
     var skeletonGltfScene = null;
