@@ -1622,7 +1622,8 @@ var Utils = Utils || {};
     
     // var gltfUrl = 'https://raw.githubusercontent.com/shrekshao/glAvatar/master/demo/models/patrick_no_shirt/patrick-no-shirt.gltf';
     // var gltfUrl = 'models/patrick_no_shirt/patrick-no-shirt.gltf';
-    var gltfUrl = 'models/saber-body/saber-body.gltf';
+    // var gltfUrl = 'models/saber-body/saber-body.gltf';
+    var gltfUrl = 'models/saber-body-walk/saber-body-walk.gltf';
     // var gltfUrl = 'models/girl16/scene.gltf';
 
 
