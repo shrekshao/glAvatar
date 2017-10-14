@@ -1372,8 +1372,8 @@ var Utils = Utils || {};
         // to compute transform matrices,
         // then sort node array by material and render use a for loop
         // to minimize context switch
-        var drawNode = Renderer.drawNode = function (node, nodeID, nodeMatrix, parentModelMatrix) {
-            var matrix = nodeMatrix[nodeID];
+        var drawNode = Renderer.drawNode = function (node, nodeID, parentModelMatrix) {
+            var matrix = curScene.nodeMatrix[nodeID];
             
             if (parentModelMatrix !== undefined) {
                 mat4.mul(matrix, parentModelMatrix, node.matrix);
@@ -1403,7 +1403,7 @@ var Utils = Utils || {};
                         // gl_avatar
                         mat4.mul(tmpMat4, curScene.glTF.skeletonGltfRuntimeScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
                     } else {
-                        mat4.mul(tmpMat4, nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
+                        mat4.mul(tmpMat4, curScene.nodeMatrix[jointNode.nodeID], skin.inverseBindMatrix[i]);
                     }
                     
                     
@@ -1446,7 +1446,7 @@ var Utils = Utils || {};
             for (i = 0, len = node.children.length; i < len; i++) {
                 // childNodeID = node.children[i];
                 // drawNode(glTF.nodes[childNodeID], childNodeID, matrix);
-                drawNode(node.children[i], node.children[i].nodeID, nodeMatrix, matrix);
+                drawNode(node.children[i], node.children[i].nodeID, matrix);
             }
         }
 
@@ -1487,15 +1487,18 @@ var Utils = Utils || {};
                             break;
                         }
 
-                        node.updateMatrixFromTRS();
+                        // node.updateMatrixFromTRS();
                         
                     }
                 }
             }
 
+            for (i = 0, len = glTF.nodes.length; i < len; i++) {
+                glTF.nodes[i].updateMatrixFromTRS();
+            }
 
-            for (var i = 0, len = scene.glTFScene.nodes.length; i < len; i++) {
-                drawNode( scene.glTFScene.nodes[i], scene.glTFScene.nodes[i].nodeID, scene.nodeMatrix, scene.rootTransform );
+            for (i = 0, len = scene.glTFScene.nodes.length; i < len; i++) {
+                drawNode( scene.glTFScene.nodes[i], scene.glTFScene.nodes[i].nodeID, scene.rootTransform );
             }
         }
 

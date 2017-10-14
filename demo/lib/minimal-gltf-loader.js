@@ -777,7 +777,7 @@ var AnimationSampler = MinimalGLTFLoader.AnimationSampler = function (gltf, s) {
     this.curIdx = 0;
     // this.curValue = 0;
     this.curValue = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["vec4"].create();
-    this.inputMax = this.inputTypedArray[this.inputTypedArray.length - 1];
+    this.inputMax = this.inputTypedArray[this.inputTypedArray.length - 1] - this.inputTypedArray[0];
 
     this.loopOffset = 0;
 };
