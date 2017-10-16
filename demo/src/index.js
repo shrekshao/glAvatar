@@ -88,7 +88,7 @@ var Utils = Utils || {};
 
     var glAvatarSystem = {
 
-        BODY_VISIBILITY_LENGTH: 24,
+        BODY_VISIBILITY_LENGTH: 31,
         BODY_PART_UNIFORM_BLOCK_ID: 16,
 
 
