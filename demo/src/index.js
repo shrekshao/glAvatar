@@ -1054,7 +1054,7 @@ var Utils = Utils || {};
 
                 gl.bindBuffer(gl.UNIFORM_BUFFER, skin.jointMatrixUniformBuffer);
                 gl.bufferData(gl.UNIFORM_BUFFER, skin.jointMatrixUnidormBufferData, gl.DYNAMIC_DRAW);
-                gl.bufferSubData(gl.UNIFORM_BUFFER, 0, skin.jointMatrixUnidormBufferData);
+                // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, skin.jointMatrixUnidormBufferData);
                 gl.bindBuffer(gl.UNIFORM_BUFFER, null);
             }
         }
@@ -1172,7 +1172,7 @@ var Utils = Utils || {};
         
                         gl.bindBuffer(gl.UNIFORM_BUFFER, ub);
                         gl.bufferData(gl.UNIFORM_BUFFER, glAvatarSystem.curVisibilityArray, gl.STATIC_DRAW);
-                        gl.bufferSubData(gl.UNIFORM_BUFFER, 0, glAvatarSystem.curVisibilityArray);
+                        // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, glAvatarSystem.curVisibilityArray);
                         gl.bindBuffer(gl.UNIFORM_BUFFER, null);
 
 
@@ -1397,6 +1397,9 @@ var Utils = Utils || {};
 
                 // @tmp: assume joint nodes are always in the front of the scene node list
                 // so that their matrices are ready to use
+
+                // TODO: possible optimizations
+                // separate into two uniform buffers
                 for (i = 0, len = joints.length; i < len; i++) {
                     jointNode = joints[i];
                     if (skin.isLink) {
