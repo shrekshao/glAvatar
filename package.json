@@ -33,6 +33,8 @@
     "webpack-glsl-loader": "^1.0.1"
   },
   "dependencies": {
+    "command-line-args": "^4.0.7",
+    "command-line-usage": "^4.0.1",
     "dat.gui": "^0.6.1",
     "gl-matrix": "^2.4.0"
   }
