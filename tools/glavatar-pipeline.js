@@ -71,6 +71,8 @@ if (options.help) {
 
     } else if (options.skin) {
         // console.log('skin');
+
+        // root extensions
         if (!gltf.extensions) {
             gltf.extensions = {};
         }
@@ -122,6 +124,32 @@ if (options.help) {
                 }
             }
         }
+
+
+        // parse nodes, move skin to extensions
+        // assume only one joint array (skeleton)
+        for (let i = 0, leni = gltf.nodes.length; i < leni; i++) {
+            let node = gltf.nodes[i];
+            if (node.skin !== undefined) {
+                if (!node.extensions) {
+                    node.extensions = {};
+                }
+                node.extensions.gl_avatar = {
+                    'skin': {
+                        'name': 'main',  //temp
+                        'inverseBindMatrices': gltf.skins[node.skin].inverseBindMatrices
+                    }
+                }
+
+                delete node.skin;
+            }
+        }
+
+        // TODO: remove skin related nodes
+
+
+        // TODO: delete skin
+
 
         fs.writeFileSync(outputFilename, JSON.stringify(gltf));
     } else {
