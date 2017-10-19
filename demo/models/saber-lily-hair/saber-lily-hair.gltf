@@ -1,0 +1,408 @@
+{
+    "extensionsUsed": [
+        "gl_avatar"
+    ],
+    "extensions": {
+        "gl_avatar": {
+            "visibility": [
+                0, 
+                0, 0, 1, 1, 1, 
+                1, 1, 1, 1, 1, 
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1
+            ],
+            "type": "skin"
+        }
+    },
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5123, 
+            "count" : 4740, 
+            "max" : [
+                1105
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                11.374273300170898, 
+                15.642099380493164, 
+                -119.52468872070312
+            ], 
+            "min" : [
+                -13.540653228759766, 
+                -19.256460189819336, 
+                -157.7926483154297
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                0.9985656142234802, 
+                0.999603271484375, 
+                0.9921262264251709
+            ], 
+            "min" : [
+                -0.999969482421875, 
+                -0.9973143935203552, 
+                -0.9978026747703552
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                0.9997196197509766, 
+                0.9990291595458984, 
+                0.9980584383010864, 
+                1.0
+            ], 
+            "min" : [
+                -0.9999768137931824, 
+                -0.9979665875434875, 
+                -0.999821662902832, 
+                1.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 4, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                0.9960240125656128, 
+                0.6760500073432922
+            ], 
+            "min" : [
+                0.013795963488519192, 
+                0.015339016914367676
+            ], 
+            "type" : "VEC2"
+        }, 
+        {
+            "bufferView" : 5, 
+            "componentType" : 5123, 
+            "count" : 1106, 
+            "max" : [
+                18, 
+                20, 
+                20, 
+                21
+            ], 
+            "min" : [
+                2, 
+                0, 
+                0, 
+                0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 6, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                1.0000755786895752, 
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                0.0, 
+                0.0, 
+                0.0, 
+                0.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 7, 
+            "componentType" : 5123, 
+            "count" : 1106, 
+            "max" : [
+                20, 
+                20, 
+                0, 
+                0
+            ], 
+            "min" : [
+                0, 
+                0, 
+                0, 
+                0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 8, 
+            "componentType" : 5126, 
+            "count" : 1106, 
+            "max" : [
+                1.0, 
+                0.0, 
+                0.0, 
+                0.0
+            ], 
+            "min" : [
+                0.0, 
+                0.0, 
+                0.0, 
+                0.0
+            ], 
+            "type" : "VEC4"
+        }, 
+        {
+            "bufferView" : 9, 
+            "componentType" : 5126, 
+            "count" : 41, 
+            "max" : [
+                0.44795364141464233, 
+                1.032723307609558, 
+                1.0304852724075317, 
+                0.0, 
+                1.0327229499816895, 
+                1.0281169414520264, 
+                1.0310161113739014, 
+                0.0, 
+                0.8810679912567139, 
+                1.03268301486969, 
+                1.0301592350006104, 
+                0.0, 
+                89.43721008300781, 
+                97.14434051513672, 
+                128.8488311767578, 
+                1.0
+            ], 
+            "min" : [
+                -1.029309868812561, 
+                -1.032723069190979, 
+                -1.032723069190979, 
+                0.0, 
+                -1.0320454835891724, 
+                -0.3175051212310791, 
+                -0.46084821224212646, 
+                0.0, 
+                -0.6950178146362305, 
+                -1.0327229499816895, 
+                -1.0295288562774658, 
+                0.0, 
+                -89.42352294921875, 
+                -140.8106231689453, 
+                -85.46763610839844, 
+                1.0
+            ], 
+            "type" : "MAT4"
+        }
+    ],
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 9480, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 13272, 
+            "byteOffset" : 9480, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 13272, 
+            "byteOffset" : 22752, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 17696, 
+            "byteOffset" : 36024, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 8848, 
+            "byteOffset" : 53720, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 8848, 
+            "byteOffset" : 62568, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 17696, 
+            "byteOffset" : 71416, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 8848, 
+            "byteOffset" : 89112, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 17696, 
+            "byteOffset" : 97960, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 2624, 
+            "byteOffset" : 115656
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 128784, 
+            "uri" : "saber-lily-hair.bin"
+        }
+    ], 
+    "images" : [
+        {
+            "uri" : "saber-lily-hair.png"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "lambert2.001", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1, 
+                    1, 
+                    1, 
+                    1.0
+                ], 
+                "baseColorTexture" : {
+                    "index" : 0
+                }, 
+                "metallicFactor" : 0.0
+            },
+            "doubleSided": true
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "F005_Saber_Lily.000", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2, 
+                        "POSITION" : 1, 
+                        "TANGENT" : 3, 
+                        "TEXCOORD_0" : 4
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0,
+                    "extensions": {
+                        "gl_avatar": {
+                            "attributes": {
+                                "JOINTS_0" : 5, 
+                                "JOINTS_1" : 7, 
+                                "WEIGHTS_0" : 6, 
+                                "WEIGHTS_1" : 8
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "children" : [
+                1
+            ], 
+            "name" : "Bip001", 
+            "rotation" : [
+                -1.5454320489993734e-08, 
+                -0.7071062922477722, 
+                1.54543009500685e-08, 
+                0.7071073055267334
+            ], 
+            "scale" : [
+                0.009999998845160007, 
+                0.009999999776482582, 
+                0.009999998845160007
+            ], 
+            "translation" : [
+                0.0, 
+                0.9365723133087158, 
+                0.003923905547708273
+            ]
+        }, 
+        {
+            "mesh" : 0, 
+            "name" : "F005_Saber_Lily_Hair", 
+            "rotation" : [
+                0.5000004172325134, 
+                0.49999961256980896, 
+                -0.4999997019767761, 
+                0.5000002980232239
+            ], 
+            "scale" : [
+                1.0327229499816895, 
+                1.0327229499816895, 
+                1.0327228307724
+            ], 
+            "translation" : [
+                -0.3923947811126709, 
+                -93.65723419189453, 
+                -5.441732469080307e-07
+            ],
+            "extensions": {
+                "gl_avatar": {
+                    "skin": {
+                        "name": "main",
+                        "inverseBindMatrices": 9
+                    }
+                }
+            }
+        }
+    ], 
+    "samplers" : [
+        {}
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0, 
+            "source" : 0
+        }
+    ]
+}

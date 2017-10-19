@@ -281,6 +281,13 @@ var Utils = Utils || {};
                 , 'models/saber-maid-hair/saber-maid-hair.gltf');
         };
 
+        this.lilyHair = function() {
+            selectAccessory(
+                'hair'
+                , 'pony_tail_hair'
+                , 'models/saber-lily-hair/saber-lily-hair.gltf');
+        };
+
         this.maidDress = function() {
             selectAccessory(
                 'clothes'
@@ -306,6 +313,7 @@ var Utils = Utils || {};
     var folderHair = gui.addFolder('hair');
     folderHair.add(avatarControl, 'redHair');
     folderHair.add(avatarControl, 'maidHair');
+    folderHair.add(avatarControl, 'lilyHair');
 
     var folderClothes = gui.addFolder('clothes');
     folderClothes.add(avatarControl, 'gltfShirt');
