@@ -2,9 +2,9 @@
 
 ## Demo
 
-![](img/demo.gif)
+![](demo/img/saber-demo.gif)
 
-![](img/saber.png)
+![](img/demo.gif)
 
 
 This is a temporary demo built on minimal-gltf-loader and ugly raw webgl code.
