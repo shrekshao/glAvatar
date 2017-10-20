@@ -294,6 +294,13 @@ var Utils = Utils || {};
                 , 'maid_dress'
                 , 'models/saber-maid-dress/saber-maid-dress.gltf');
         };
+
+        this.suite = function() {
+            selectAccessory(
+                'clothes'
+                , 'suite'
+                , 'models/saber-suite/saber-suite.gltf');
+        };
     };
     var avatarControl = new glAvatarControl();
     
@@ -319,6 +326,7 @@ var Utils = Utils || {};
     folderClothes.add(avatarControl, 'gltfShirt');
     folderClothes.add(avatarControl, 'batman_armor');
     folderClothes.add(avatarControl, 'maidDress');
+    folderClothes.add(avatarControl, 'suite');
 
 
     var skeletonGltfScene = null;
