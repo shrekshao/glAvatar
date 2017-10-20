@@ -288,6 +288,13 @@ var Utils = Utils || {};
                 , 'models/saber-lily-hair/saber-lily-hair.gltf');
         };
 
+        this.proHair = function() {
+            selectAccessory(
+                'hair'
+                , 'pro_hair'
+                , 'models/saber-pro-hair/saber-pro-hair.gltf');
+        };
+
         this.maidDress = function() {
             selectAccessory(
                 'clothes'
@@ -318,13 +325,14 @@ var Utils = Utils || {};
     
 
     var folderHair = gui.addFolder('hair');
-    folderHair.add(avatarControl, 'redHair');
+    // folderHair.add(avatarControl, 'redHair');
     folderHair.add(avatarControl, 'maidHair');
     folderHair.add(avatarControl, 'lilyHair');
+    folderHair.add(avatarControl, 'proHair');
 
     var folderClothes = gui.addFolder('clothes');
-    folderClothes.add(avatarControl, 'gltfShirt');
-    folderClothes.add(avatarControl, 'batman_armor');
+    // folderClothes.add(avatarControl, 'gltfShirt');
+    // folderClothes.add(avatarControl, 'batman_armor');
     folderClothes.add(avatarControl, 'maidDress');
     folderClothes.add(avatarControl, 'suite');
 
