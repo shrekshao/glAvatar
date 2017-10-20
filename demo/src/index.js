@@ -131,10 +131,34 @@ var Utils = Utils || {};
             }
         },
 
-        updateVisibilityArray: function(v) {
-            for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
-                this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
+        // updateVisibilityArray: function(v) {
+        //     for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
+        //         this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
+        //     }
+
+        //     // TODO: update uniform block
+        //     gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
+        //     gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray);
+        //     // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray, 0, this.curVisibilityArray.length);
+        //     gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+            
+        // }
+
+        updateVisibilityArray: function(cat, v) {
+
+            if (this.accessories[cat][this.curAccessories[cat].name]) {
+                var oldVisibility = this.accessories[cat][this.curAccessories[cat].name].json.extensions.gl_avatar.visibility;
+                for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
+                    this.curVisibilityArray[i * 4] = (this.curVisibilityArray[i * 4] || !oldVisibility[i]) && v[i];
+                }
+            } else {
+                for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
+                    this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
+                }
             }
+            
+
+            
 
             // TODO: update uniform block
             gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
@@ -153,17 +177,17 @@ var Utils = Utils || {};
 
 
         function setupAccessory(category, name, gltf) {
+            var v = gltf.json.extensions.gl_avatar.visibility;
+            if (v) {
+                glAvatarSystem.updateVisibilityArray(category, v);
+            }
+
             gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
             glAvatarSystem.accessories[category][name] = gltf;
             glAvatarSystem.curAccessories[category].name = name;
             glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
             glAvatarSystem.curAccessories[category].sceneID = scenes.length - 1;
 
-            var v = gltf.json.extensions.gl_avatar.visibility;
-            if (v) {
-                glAvatarSystem.updateVisibilityArray(v);
-            }
-            
         }
 
         function selectAccessory(category, name, uri) {
