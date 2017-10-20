@@ -326,11 +326,11 @@ var Utils = Utils || {};
                 , 'models/saber-maid-dress/saber-maid-dress.gltf');
         };
 
-        this.suite = function() {
+        this.suit = function() {
             selectAccessory(
                 'clothes'
-                , 'suite'
-                , 'models/saber-suite/saber-suite.gltf');
+                , 'suit'
+                , 'models/saber-suit/saber-suit.gltf');
         };
     };
     var avatarControl = new glAvatarControl();
@@ -358,7 +358,7 @@ var Utils = Utils || {};
     // folderClothes.add(avatarControl, 'gltfShirt');
     // folderClothes.add(avatarControl, 'batman_armor');
     folderClothes.add(avatarControl, 'maidDress');
-    folderClothes.add(avatarControl, 'suite');
+    folderClothes.add(avatarControl, 'suit');
 
 
     var skeletonGltfScene = null;

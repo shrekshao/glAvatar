@@ -329,12 +329,12 @@
     "buffers" : [
         {
             "byteLength" : 385700, 
-            "uri" : "saber-suite.bin"
+            "uri" : "saber-suit.bin"
         }
     ], 
     "images" : [
         {
-            "uri" : "saber-suite.png"
+            "uri" : "saber-suit.png"
         }
     ], 
     "materials" : [
