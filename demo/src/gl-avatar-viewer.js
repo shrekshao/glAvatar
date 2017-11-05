@@ -23,7 +23,8 @@ import img_diffuse_06 from '../textures/environment/diffuse/bakedDiffuse_06.jpg'
 import img_brdf_lut from '../textures/brdfLUT.png';
 
 var glAvatarViewer = {
-    canvas: null
+    canvas: null,
+    finishLoadingCallback: null
 };
 
 var canvas;
@@ -529,9 +530,13 @@ glAvatarViewer.init = function (v_canvas) {
             // @tmp
             BRDF_LUT.createTexture(this.images[this.images.length - 1]);
     
-            if (this.finishLoadingCallback) {
-                this.finishLoadingCallback();
+            if (glAvatarViewer.finishLoadingCallback) {
+                glAvatarViewer.finishLoadingCallback();
             }
+
+            // return new Promise(function (resolve, refject) {
+
+            // });
         },
     
         // finishLoadingCallback: null,

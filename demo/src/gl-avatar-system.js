@@ -86,7 +86,7 @@ var glAvatarSystem = {
     }
 };
 
-
+glAvatarViewer.finishLoadingCallback = glAvatarSystem.render;
 glAvatarSystem.curVisibilityArray = new Uint32Array(BODY_VISIBILITY_LENGTH * 4);
 glAvatarSystem.initVisibilityArray();
 

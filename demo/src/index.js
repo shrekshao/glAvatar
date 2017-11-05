@@ -13,10 +13,6 @@ canvas.height = window.innerHeight;
 document.body.appendChild(canvas);
 
 
-
-glAvatarSystem.init(canvas);
-
-
 // ------------------------------------------------
 //                     GUI
 // ------------------------------------------------
@@ -153,5 +149,5 @@ folderClothes.add(avatarControl, 'suit');
 
 
 
-
-glAvatarSystem.render();
+glAvatarSystem.init(canvas);
+// glAvatarSystem.render();
