@@ -1,10 +1,26 @@
 'use strict';
 
 import {vec3, vec4, quat, mat4} from 'gl-matrix';
-var MinimalGLTFLoader = require('Lib/minimal-gltf-loader.js');
-// var Utils = require('./utls.js');
 import {Utils} from './utls.js';
-import GUI from 'dat.gui';
+
+// skybox
+import img_px from '../textures/environment/px.jpg';
+import img_nx from '../textures/environment/nx.jpg';
+import img_py from '../textures/environment/py.jpg';
+import img_ny from '../textures/environment/ny.jpg';
+import img_pz from '../textures/environment/pz.jpg';
+import img_nz from '../textures/environment/nz.jpg';
+
+// ibl diffuse
+import img_diffuse_01 from '../textures/environment/diffuse/bakedDiffuse_01.jpg';
+import img_diffuse_02 from '../textures/environment/diffuse/bakedDiffuse_02.jpg';
+import img_diffuse_03 from '../textures/environment/diffuse/bakedDiffuse_03.jpg';
+import img_diffuse_04 from '../textures/environment/diffuse/bakedDiffuse_04.jpg';
+import img_diffuse_05 from '../textures/environment/diffuse/bakedDiffuse_05.jpg';
+import img_diffuse_06 from '../textures/environment/diffuse/bakedDiffuse_06.jpg';
+
+// brdfLUT
+import img_brdf_lut from '../textures/brdfLUT.png';
 
 var glAvatarViewer = {
     canvas: null
@@ -14,10 +30,24 @@ var canvas;
 var gl;
 var defaultSampler;
 
-var skeletonGltfScene = null;
+
 
 var BRDF_LUT, CUBE_MAP;
 
+
+var glAvatarConfig = glAvatarViewer.glAvatarConfig = {
+    BODY_VISIBILITY_LENGTH: 60,
+    BODY_PART_UNIFORM_BLOCK_ID: 16,
+    bodyPartVisibilityUniformBuffer: null,
+    visibilityArray: null,
+
+    updateBodyVisibilityBuffer: function (visibilityArray) {
+        gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
+        gl.bufferSubData(gl.UNIFORM_BUFFER, 0, visibilityArray);
+        gl.bindBuffer(gl.UNIFORM_BUFFER, null);
+        
+    }
+};
 
 
 var drawBoundingBox = false;
@@ -180,7 +210,7 @@ Shader.prototype.compile = function() {
         fsDefine += '#define GLAVATAR_HAS_BODY_ID_LUT\n';
     }
     if (this.flags & Shader_Static.bitMasks.GLAVATAR_BODY_VISIBILITY_LENGTH) {
-        fsDefine += '#define GLAVATAR_BODY_VISIBILITY_LENGTH ' + glAvatarSystem.BODY_VISIBILITY_LENGTH + 'u\n';
+        fsDefine += '#define GLAVATAR_BODY_VISIBILITY_LENGTH ' + glAvatarConfig.BODY_VISIBILITY_LENGTH + 'u\n';
     }
 
 
@@ -396,32 +426,57 @@ glAvatarViewer.init = function (v_canvas) {
         textureIBLDiffuse: null,
     
         // loading asset --------------------
-        // TODO: use webpack to pack these
+        // // TODO: use webpack to pack these
+        // uris: [
+        //     'textures/environment/px.jpg',
+        //     'textures/environment/nx.jpg',
+        //     'textures/environment/py.jpg',
+        //     'textures/environment/ny.jpg',
+        //     'textures/environment/pz.jpg',
+        //     'textures/environment/nz.jpg',
+    
+        //     // ibl diffuse
+        //     'textures/environment/diffuse/bakedDiffuse_01.jpg',
+        //     'textures/environment/diffuse/bakedDiffuse_02.jpg',
+        //     'textures/environment/diffuse/bakedDiffuse_03.jpg',
+        //     'textures/environment/diffuse/bakedDiffuse_04.jpg',
+        //     'textures/environment/diffuse/bakedDiffuse_05.jpg',
+        //     'textures/environment/diffuse/bakedDiffuse_06.jpg',
+    
+        //     // @tmp, ugly, load brdfLUT here
+        //     'textures/brdfLUT.png'
+        // ],
+    
         uris: [
-            'textures/environment/px.jpg',
-            'textures/environment/nx.jpg',
-            'textures/environment/py.jpg',
-            'textures/environment/ny.jpg',
-            'textures/environment/pz.jpg',
-            'textures/environment/nz.jpg',
-    
-            // ibl diffuse
-            'textures/environment/diffuse/bakedDiffuse_01.jpg',
-            'textures/environment/diffuse/bakedDiffuse_02.jpg',
-            'textures/environment/diffuse/bakedDiffuse_03.jpg',
-            'textures/environment/diffuse/bakedDiffuse_04.jpg',
-            'textures/environment/diffuse/bakedDiffuse_05.jpg',
-            'textures/environment/diffuse/bakedDiffuse_06.jpg',
-    
-            // @tmp, ugly, load brdfLUT here
-            'textures/brdfLUT.png'
+            img_px,
+            img_nx,
+            img_py,
+            img_ny,
+            img_pz,
+            img_nz,
+
+            img_diffuse_01,
+            img_diffuse_02,
+            img_diffuse_03,
+            img_diffuse_04,
+            img_diffuse_05,
+            img_diffuse_06,
+
+            img_brdf_lut
         ],
-    
-        images: null,
+
+        images: [],
     
         loadAll: function() {
             Utils.loadImages(this.uris, this.onloadAll.bind(this));
         },
+        // loadAll: function() {
+        //     for (var i = 0, len = this.uris.length; i < len; i++) { 
+        //         this.images[i] = new Image();
+        //         this.images[i].src = this.uris[i];
+        //     }
+        //     this.onloadAll(this.images);
+        // },
     
         onloadAll: function(imgs) {
             this.images = imgs;
@@ -479,7 +534,7 @@ glAvatarViewer.init = function (v_canvas) {
             }
         },
     
-        finishLoadingCallback: null,
+        // finishLoadingCallback: null,
     
     
         // runtime stuffs -------------------------
@@ -632,15 +687,7 @@ glAvatarViewer.init = function (v_canvas) {
     // ------------------------------------------------
 
 
-    CUBE_MAP.finishLoadingCallback = function() {
-        glTFLoader.loadGLTF(initGltfUrl, function(glTF) {
-            // glAvatarSystem.curSkeleton.name = 'patrick';
-            glAvatarSystem.curSkeleton.name = 'saber';
-            skeletonGltfScene = glAvatarSystem.curSkeleton.scene = setupScene(glTF);
-            
-            Renderer.render();
-        });
-    };
+
     
     CUBE_MAP.loadAll();
 };
@@ -896,13 +943,12 @@ var setupScene = glAvatarViewer.setupScene = function(glTF, replaceScene) {
 
                     // bind uniform block
                     // assume there's only one primitive with this per scene
-                    var ub = glAvatarSystem.bodyPartVisibilityUniformBuffer = gl.createBuffer();
+                    var ub = glAvatarConfig.bodyPartVisibilityUniformBuffer = gl.createBuffer();
 
-                    gl.bindBufferBase(gl.UNIFORM_BUFFER, glAvatarSystem.BODY_PART_UNIFORM_BLOCK_ID, ub);
+                    gl.bindBufferBase(gl.UNIFORM_BUFFER, glAvatarConfig.BODY_PART_UNIFORM_BLOCK_ID, ub);
     
                     gl.bindBuffer(gl.UNIFORM_BUFFER, ub);
-                    gl.bufferData(gl.UNIFORM_BUFFER, glAvatarSystem.curVisibilityArray, gl.STATIC_DRAW);
-                    // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, glAvatarSystem.curVisibilityArray);
+                    gl.bufferData(gl.UNIFORM_BUFFER, glAvatarConfig.curVisibilityArray, gl.STATIC_DRAW);
                     gl.bindBuffer(gl.UNIFORM_BUFFER, null);
 
 
@@ -920,11 +966,7 @@ var setupScene = glAvatarViewer.setupScene = function(glTF, replaceScene) {
     return newGltfRuntimeScene;
 };
 
-var initGltfUrl = 'models/saber-body-walk/saber-body-walk.gltf';
 
-glAvatarViewer.render = function() {
-    console.log('TODO: render');
-};
 
 
 
@@ -935,315 +977,7 @@ glAvatarViewer.render = function() {
 
 
 
-
-
-var glTFLoader = new MinimalGLTFLoader.glTFLoader(gl);
-
-var glAvatarSystem = glAvatarViewer.glAvatarSystem = {
-
-    BODY_VISIBILITY_LENGTH: 60,
-
-    BODY_PART_UNIFORM_BLOCK_ID: 16,
-    bodyPartVisibilityUniformBuffer: null,
-
-    curSkeleton: {
-        name: null,
-        scene: null,
-        sceneID: null
-    },
-
-    curVisibilityArray: null,
-
-    curAccessories: {
-        clothes: {
-            name: null,
-            scene: null,
-            sceneID: null
-        },
-        hair: {
-            name: null,
-            scene: null,
-            sceneID: null
-        }
-    },
-
-    
-
-
-    // assets
-    skeletons: {},
-
-    accessories: {
-        clothes: {},
-        hair: {}
-    },
-
-
-    initVisibilityArray: function() {
-        for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
-            this.curVisibilityArray[i * 4] = 1;
-        }
-    },
-
-    // updateVisibilityArray: function(v) {
-    //     for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
-    //         this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
-    //     }
-
-    //     // TODO: update uniform block
-    //     gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
-    //     gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray);
-    //     // gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray, 0, this.curVisibilityArray.length);
-    //     gl.bindBuffer(gl.UNIFORM_BUFFER, null);
-        
-    // }
-
-    updateVisibilityArray: function(cat, v) {
-
-        if (this.accessories[cat][this.curAccessories[cat].name]) {
-            var oldVisibility = this.accessories[cat][this.curAccessories[cat].name].json.extensions.gl_avatar.visibility;
-            for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
-                this.curVisibilityArray[i * 4] = (this.curVisibilityArray[i * 4] || !oldVisibility[i]) && v[i];
-            }
-        } else {
-            for (var i = 0, len = this.BODY_VISIBILITY_LENGTH; i < len; i++) {
-                this.curVisibilityArray[i * 4] = this.curVisibilityArray[i * 4] && v[i];
-            }
-        }
-        
-
-        
-
-        // update uniform block
-        gl.bindBuffer(gl.UNIFORM_BUFFER, this.bodyPartVisibilityUniformBuffer);
-        gl.bufferSubData(gl.UNIFORM_BUFFER, 0, this.curVisibilityArray);
-        gl.bindBuffer(gl.UNIFORM_BUFFER, null);
-        
-    }
-};
-
-glAvatarSystem.curVisibilityArray = new Uint32Array(glAvatarSystem.BODY_VISIBILITY_LENGTH * 4); // fit 16 byte padding
-glAvatarSystem.initVisibilityArray();
-
-    var gui = new GUI.GUI();
-    var glAvatarControl = function() {
-
-
-        function setupAccessory(category, name, gltf) {
-            var v = gltf.json.extensions.gl_avatar.visibility;
-            if (v) {
-                glAvatarSystem.updateVisibilityArray(category, v);
-            }
-
-            gltf.skeletonGltfRuntimeScene = skeletonGltfScene;
-            glAvatarSystem.accessories[category][name] = gltf;
-            glAvatarSystem.curAccessories[category].name = name;
-            glAvatarSystem.curAccessories[category].scene = setupScene(gltf, glAvatarSystem.curAccessories[category].scene);
-            glAvatarSystem.curAccessories[category].sceneID = scenes.length - 1;
-
-        }
-
-        function selectAccessory(category, name, uri) {
-            if (glAvatarSystem.curAccessories[category].name != name) {
-                var loadedAccessory = glAvatarSystem.accessories[category][name];
-                if (!loadedAccessory) {
-                    // load gltf first
-                    console.log('first load ' + uri);
-                    glTFLoader.loadGLTF_GL_Avatar_Skin(uri
-                        , skeletonGltfScene.glTF
-                        , function(gltf) {
-                            setupAccessory(category, name, gltf);
-                        }
-                    );
-                } else {
-                    setupAccessory(category, name, loadedAccessory);
-                }
-            }
-            // else {
-            //     // test
-            //     console.log('no need to change');
-            // }
-        }
-
-        function setupSkeleton(name, gltf) {
-            if (skeletonGltfScene) {
-                // unload all current skins(accessories)
-
-                for (var c in glAvatarSystem.curAccessories) {
-                    glAvatarSystem.curAccessories[c].name = null;
-                    glAvatarSystem.curAccessories[c].scene = null;
-                    scenes[glAvatarSystem.curAccessories[c].sceneID] = null;
-                    glAvatarSystem.curAccessories[c].sceneID = null;
-                }
-            }
-
-            glAvatarSystem.skeletons[name] = gltf;
-            glAvatarSystem.curSkeleton.name = name;
-            glAvatarSystem.curSkeleton.scene = skeletonGltfScene = setupScene(gltf, skeletonGltfScene);
-            glAvatarSystem.curSkeleton.sceneID = scenes.length - 1;
-        }
-
-        function selectSkeleton(name, uri) {
-            var loadedSkeleton = glAvatarSystem.skeletons[name];
-            if (!loadedSkeleton) {
-                console.log('first load ' + uri);
-                glTFLoader.loadGLTF(uri
-                    , function(gltf) {
-                        setupSkeleton(name, gltf);
-                    }
-                );
-            } else {
-                setupSkeleton(name, loadedSkeleton);
-            }
-        }
-
-
-        this.VC = function() {
-            console.log("load VC");
-            // glTFLoader.loadGLTF("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf"
-            glTFLoader.loadGLTF("https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/VC/glTF/VC.gltf"
-                , setupScene
-            )
-        };
-
-
-        this.patrick = function() {
-            selectSkeleton(
-                'patrick'
-                , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
-            );
-
-            // TODO: change dat.gui accessories
-        };
-
-        this.saber = function() {
-            selectSkeleton(
-                'saber'
-                , 'models/saber-body/saber-body.gltf'
-                // , 'models/saber-body-old-test/saber-body.gltf'
-            );
-
-            // TODO: change dat.gui accessories
-        };
-
-
-
-        this.gltfShirt = function() {
-            selectAccessory(
-                'clothes'
-                , 'gltfShirt'
-                , 'models/gltf_shirt_glavatar_fix/gltf_shirt.gltf');
-        };
-
-        this.batman_armor = function() {
-            selectAccessory(
-                'clothes'
-                , 'batman_armor'
-                , 'models/batman_armor_glavatar/batman_armor.gltf');
-        };
-
-        this.redHair = function() {
-            selectAccessory(
-                'hair'
-                , 'red_hair'
-                , 'models/hair_glavatar/hair.gltf');
-        };
-
-
-        // saber accessory ----------------
-        this.maidHair = function() {
-            selectAccessory(
-                'hair'
-                , 'maid_hair'
-                , 'models/saber-maid-hair/saber-maid-hair.gltf');
-        };
-
-        this.lilyHair = function() {
-            selectAccessory(
-                'hair'
-                , 'pony_tail_hair'
-                , 'models/saber-lily-hair/saber-lily-hair.gltf');
-        };
-
-        this.proHair = function() {
-            selectAccessory(
-                'hair'
-                , 'pro_hair'
-                , 'models/saber-pro-hair/saber-pro-hair.gltf');
-        };
-
-        this.maidDress = function() {
-            selectAccessory(
-                'clothes'
-                , 'maid_dress'
-                , 'models/saber-maid-dress/saber-maid-dress.gltf');
-        };
-
-        this.suit = function() {
-            selectAccessory(
-                'clothes'
-                , 'suit'
-                , 'models/saber-suit/saber-suit.gltf');
-        };
-    };
-    var avatarControl = new glAvatarControl();
-    
-
-    var folderScene = gui.addFolder('scene');
-    folderScene.add(avatarControl, 'VC');
-
-
-
-
-    var folderSkeleton = gui.addFolder('skeletons');
-    folderSkeleton.add(avatarControl, 'patrick');
-    folderSkeleton.add(avatarControl, 'saber');
-
-    
-
-    var folderHair = gui.addFolder('hair');
-    // folderHair.add(avatarControl, 'redHair');
-    folderHair.add(avatarControl, 'maidHair');
-    folderHair.add(avatarControl, 'lilyHair');
-    folderHair.add(avatarControl, 'proHair');
-
-    var folderClothes = gui.addFolder('clothes');
-    // folderClothes.add(avatarControl, 'gltfShirt');
-    // folderClothes.add(avatarControl, 'batman_armor');
-    folderClothes.add(avatarControl, 'maidDress');
-    folderClothes.add(avatarControl, 'suit');
-
-
-    
-
-    // document.getElementById("bbox-toggle").addEventListener("change", function() {
-    //     drawBoundingBox = this.checked;
-    // });
-
-    // document.getElementById("bbox-type").addEventListener("change", function() {
-    //     boundingBoxType = this.value;
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var Renderer = glAvatarViewer.Renderer = {};
+var Renderer = glAvatarViewer.renderer = {};
 
 (function() {
     'use strict';
@@ -1376,7 +1110,7 @@ var Renderer = glAvatarViewer.Renderer = {};
             var texture = curScene.glTF.textures[ index ];
             gl.bindTexture(gl.TEXTURE_2D, texture.texture);
 
-            gl.uniformBlockBinding(program.program, program.uniformBlockIndices.BodyPartVisibility, glAvatarSystem.BODY_PART_UNIFORM_BLOCK_ID);
+            gl.uniformBlockBinding(program.program, program.uniformBlockIndices.BodyPartVisibility, glAvatarConfig.BODY_PART_UNIFORM_BLOCK_ID);
 
             // gl.getActiveUniformBlockParameter(program.program, program.uniformBlockIndices.BodyPartVisibility, gl.UNIFORM_BLOCK_DATA_SIZE);
         }

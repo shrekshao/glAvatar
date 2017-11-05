@@ -1,7 +1,7 @@
 
 
-// var glAvatarViewer = require('./gl-avatar-viewer.js');
-import {glAvatarViewer} from './gl-avatar-viewer.js';
+
+import {glAvatarSystem} from './gl-avatar-system.js';
 import '../css/style.css';
 // import dat from 'dat.gui-mirror';
 
@@ -15,5 +15,8 @@ document.body.appendChild(canvas);
 
 
 
-glAvatarViewer.init(canvas);
-glAvatarViewer.render();
+glAvatarSystem.init(canvas);
+glAvatarSystem.render();
+
+// glAvatarViewer.init(canvas);
+// glAvatarViewer.render();
