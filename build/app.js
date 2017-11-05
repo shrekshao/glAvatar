@@ -2541,10 +2541,6 @@ canvas.height = window.innerHeight;
 document.body.appendChild(canvas);
 
 
-
-__WEBPACK_IMPORTED_MODULE_0__gl_avatar_system_js__["a" /* glAvatarSystem */].init(canvas);
-
-
 // ------------------------------------------------
 //                     GUI
 // ------------------------------------------------
@@ -2681,8 +2677,8 @@ folderClothes.add(avatarControl, 'suit');
 
 
 
-
-__WEBPACK_IMPORTED_MODULE_0__gl_avatar_system_js__["a" /* glAvatarSystem */].render();
+__WEBPACK_IMPORTED_MODULE_0__gl_avatar_system_js__["a" /* glAvatarSystem */].init(canvas);
+// glAvatarSystem.render();
 
 
 /***/ }),
@@ -2780,7 +2776,7 @@ var glAvatarSystem = {
     }
 };
 
-
+__WEBPACK_IMPORTED_MODULE_0__gl_avatar_viewer_js__["a" /* glAvatarViewer */].finishLoadingCallback = glAvatarSystem.render;
 glAvatarSystem.curVisibilityArray = new Uint32Array(BODY_VISIBILITY_LENGTH * 4);
 glAvatarSystem.initVisibilityArray();
 
@@ -8329,7 +8325,8 @@ const forEach = (function() {
 
 
 var glAvatarViewer = {
-    canvas: null
+    canvas: null,
+    finishLoadingCallback: null
 };
 
 var canvas;
@@ -8835,9 +8832,13 @@ glAvatarViewer.init = function (v_canvas) {
             // @tmp
             BRDF_LUT.createTexture(this.images[this.images.length - 1]);
     
-            if (this.finishLoadingCallback) {
-                this.finishLoadingCallback();
+            if (glAvatarViewer.finishLoadingCallback) {
+                glAvatarViewer.finishLoadingCallback();
             }
+
+            // return new Promise(function (resolve, refject) {
+
+            // });
         },
     
         // finishLoadingCallback: null,
