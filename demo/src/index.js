@@ -52,6 +52,26 @@ var glAvatarControl = function() {
         // TODO: change dat.gui accessories
     };
 
+    this.saber_mixamo = function() {
+        selectSkeleton(
+            'saber_mixamo'
+            , 'models/saber-mixamo-animation-test/saber-animation.gltf'
+        );
+
+
+        // TODO: fix minimal gltf loader 
+        // get TRS from matrix
+        
+
+
+
+
+
+        // TODO: change dat.gui accessories
+    };
+
+
+
 
 
     this.gltfShirt = function() {
@@ -124,6 +144,7 @@ var folderScene = gui.addFolder('scene');
 var folderSkeleton = gui.addFolder('skeletons');
 // folderSkeleton.add(avatarControl, 'patrick');
 folderSkeleton.add(avatarControl, 'saber');
+folderSkeleton.add(avatarControl, 'saber_mixamo');
 
 
 

@@ -3,6 +3,7 @@ import {glAvatarViewer} from './gl-avatar-viewer.js';
 
 
 var initGltfUrl = 'models/saber-body-walk/saber-body-walk.gltf';
+// var initGltfUrl = 'models/saber-mixamo-animation-test/saber-animation.gltf';
 var BODY_VISIBILITY_LENGTH = glAvatarViewer.glAvatarConfig.BODY_VISIBILITY_LENGTH;
 
 var skeletonGltfScene = null;

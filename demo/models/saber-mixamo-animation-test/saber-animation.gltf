@@ -1,4 +1,11 @@
 {
+    "extensions": {
+        "gl_avatar": {
+            "skins": {
+                "main": 0
+            }
+        }
+    },
     "accessors": [
         {
             "bufferView": 714,
@@ -30327,6 +30334,10 @@
         {
             "name": "saber_01_face.png",
             "uri": "saber_01_face.png"
+        },
+        {
+            "name": "body_id.png",
+            "uri": "body_id.png"
         }
     ],
     "materials": [
@@ -30406,7 +30417,12 @@
                     },
                     "indices": 703,
                     "material": 0,
-                    "mode": 4
+                    "mode": 4,
+                    "extensions": {
+                        "gl_avatar": {
+                            "bodyIdTexture": 2
+                        }
+                    }
                 }
             ]
         }
@@ -32010,6 +32026,13 @@
             "name": "saber-face",
             "sampler": 0,
             "source": 1
+        },
+        {
+            "sampler" : 0, 
+            "source" : 2,
+            "extensions": {
+                "gl_avatar": "bodyIdLUT"
+            }
         }
     ]
 }
