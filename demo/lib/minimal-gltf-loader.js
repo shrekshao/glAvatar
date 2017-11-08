@@ -90,6 +90,8 @@ var globalUniformBlockID = 0;
 
 var curLoader = null;       // @tmp, might be unsafe if loading multiple model at the same time
 
+var NUM_MAX_JOINTS = 65;
+
 // Data classes
 var Scene = MinimalGLTFLoader.Scene = function (gltf, s) {
     this.name = s.name !== undefined ? s.name : null;
@@ -649,7 +651,7 @@ var Skin = MinimalGLTFLoader.Skin = function (gltf, s, skinID) {
         // );      // for copy to UBO
 
         // @tmp: fixed length to coordinate with shader, for copy to UBO
-        this.jointMatrixUnidormBufferData = new Float32Array(65 * 16);
+        this.jointMatrixUnidormBufferData = new Float32Array(NUM_MAX_JOINTS * 16);
 
         for (i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
             this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
@@ -713,7 +715,7 @@ var SkinLink = MinimalGLTFLoader.SkinLink = function (gltf, linkedSkin, inverseB
         // );      // for copy to UBO
 
         // @tmp: fixed length to coordinate with shader, for copy to UBO
-        this.jointMatrixUnidormBufferData = new Float32Array(65 * 16);
+        this.jointMatrixUnidormBufferData = new Float32Array(NUM_MAX_JOINTS * 16);
 
         for (var i = 0, len = this.inverseBindMatricesData.length; i < len; i += 16) {
             this.inverseBindMatrix.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["mat4"].fromValues(
@@ -1165,12 +1167,6 @@ glTFLoader.prototype._postprocess = function () {
             if (mesh.boundingBox) {
 
                 n.aabb = BoundingBox.getAABBFromOBB(mesh.boundingBox, tmpMat4);
-
-                // vec3.min(scene.boundingBox.min, scene.boundingBox.min, n.aabb.min);
-                // vec3.max(scene.boundingBox.max, scene.boundingBox.max, n.aabb.max);
-                
-                // vec3.min(parentBVH.min, parentBVH.min, n.aabb.min);
-                // vec3.max(parentBVH.max, parentBVH.max, n.aabb.max);
 
                 if (n.children.length === 0) {
                     // n.bvh = n.aabb;

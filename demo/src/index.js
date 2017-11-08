@@ -23,6 +23,9 @@ var selectSkeleton = glAvatarSystem.selectSkeleton;
 var gui = new GUI.GUI();
 var glAvatarControl = function() {
 
+    this.curAnimation = 0;
+    this.animations = {};
+    this.animationList = null;
 
     // this.VC = function() {
     //     console.log("load VC");
@@ -31,12 +34,27 @@ var glAvatarControl = function() {
     //         , setupScene
     //     )
     // };
+    
+    this.onChangeSkeleton = function(gltf) {
+        this.animations = {};
+        if (gltf.animations) {
+            for (var i = 0, len = gltf.animations.length; i < len; i++) {
+                this.animations[gltf.animations[i].name || i] = i;
+            }
+        }
+        if (this.animationList) {
+            gui.remove(this.animationList);
+        }
+        this.animationList = gui.add(this, 'curAnimation', this.animations);
+        this.animationList.onChange(glAvatarSystem.selectAnimation.bind(glAvatarSystem));
+    };
 
 
     this.patrick = function() {
         selectSkeleton(
             'patrick'
             , 'models/patrick_no_shirt/patrick-no-shirt.gltf'
+            , this.onChangeSkeleton.bind(this)
         );
 
         // TODO: change dat.gui accessories
@@ -47,6 +65,7 @@ var glAvatarControl = function() {
             'saber'
             , 'models/saber-body/saber-body.gltf'
             // , 'models/saber-body-old-test/saber-body.gltf'
+            , this.onChangeSkeleton.bind(this)
         );
 
         // TODO: change dat.gui accessories
@@ -56,6 +75,7 @@ var glAvatarControl = function() {
         selectSkeleton(
             'saber_mixamo'
             , 'models/saber-mixamo-animation-test/saber-animation.gltf'
+            , this.onChangeSkeleton.bind(this)
         );
 
 
@@ -165,10 +185,16 @@ folderClothes.add(avatarControl, 'suit');
 
 
 
+// var animationList = gui.add(avatarControl, 'animations', {});
+// animationList.onChange(function(s){
+//     glAvatarSystem.selectAnimation(s);
+// });
 
 
 
 
 
+
+glAvatarSystem.onload = avatarControl.onChangeSkeleton.bind(avatarControl);
 glAvatarSystem.init(canvas);
 // glAvatarSystem.render();

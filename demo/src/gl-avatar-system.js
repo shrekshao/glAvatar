@@ -44,6 +44,11 @@ var glAvatarSystem = {
         hair: {}
     },
 
+    selectAnimation: function(id) {
+        if (this.curSkeleton.scene) {
+            this.curSkeleton.scene.curAnimationId = id;
+        }
+    },
 
     initVisibilityArray: function() {
         for (var i = 0, len = BODY_VISIBILITY_LENGTH; i < len; i++) {
@@ -78,13 +83,23 @@ var glAvatarSystem = {
         glAvatarViewer.init(canvas);
     },
     render: function() {
-        glTFLoader.loadGLTF(initGltfUrl, function(glTF) {
-            glAvatarSystem.curSkeleton.name = 'saber';
-            skeletonGltfScene = glAvatarSystem.curSkeleton.scene = glAvatarViewer.setupScene(glTF);
+        // glTFLoader.loadGLTF(initGltfUrl, function(glTF) {
+        //     glAvatarSystem.curSkeleton.name = 'saber';
+        //     skeletonGltfScene = glAvatarSystem.curSkeleton.scene = glAvatarViewer.setupScene(glTF);
             
+        //     glAvatarViewer.renderer.render();
+        // });
+        
+
+        glAvatarSystem.selectSkeleton('saber', initGltfUrl, function(gltf){
+            if (glAvatarSystem.onload) {
+                glAvatarSystem.onload(gltf);
+            }
             glAvatarViewer.renderer.render();
         });
-    }
+    },
+
+    onload: null
 };
 
 glAvatarViewer.finishLoadingCallback = glAvatarSystem.render;
@@ -149,17 +164,26 @@ function setupSkeleton(name, gltf) {
     glAvatarSystem.curSkeleton.sceneID = glAvatarViewer.scenes.length - 1;
 }
 
-glAvatarSystem.selectSkeleton = function (name, uri) {
+glAvatarSystem.selectSkeleton = function (name, uri, callback) {
     var loadedSkeleton = glAvatarSystem.skeletons[name];
     if (!loadedSkeleton) {
         console.log('first load ' + uri);
         glTFLoader.loadGLTF(uri
             , function(gltf) {
+                
                 setupSkeleton(name, gltf);
+
+                if (callback) {
+                    callback(gltf);
+                }
             }
         );
     } else {
         setupSkeleton(name, loadedSkeleton);
+
+        if (callback) {
+            callback(loadedSkeleton);
+        }
     }
 }
 

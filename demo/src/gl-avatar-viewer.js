@@ -96,6 +96,8 @@ var Scene = glAvatarViewer.Scene = function(glTFScene, glTF, id) {
     this.glTF = glTF;
     this.id = id;
 
+    this.curAnimationId = 0;
+
     // runtime renderer context
     this.rootTransform = mat4.create();
     // @temp, assume every node is in current scene
@@ -1252,34 +1254,33 @@ var Renderer = glAvatarViewer.renderer = {};
 
         var glTF = scene.glTF;
         if (glTF.animations) {
-            for (i = 0, len = glTF.animations.length; i < len; i++) {
-                animation = glTF.animations[i];
-                for (j = 0, lenj = animation.samplers.length; j < lenj; j++) {
-                    animation.samplers[j].getValue(timeParameter);
+            
+            animation = glTF.animations[scene.curAnimationId];
+            for (j = 0, lenj = animation.samplers.length; j < lenj; j++) {
+                animation.samplers[j].getValue(timeParameter);
+            }
+
+            for (j = 0, lenj = animation.channels.length; j < lenj; j++) {
+                channel = animation.channels[j];
+                animationSampler = channel.sampler;
+                node = glTF.nodes[channel.target.nodeID];
+
+                switch (channel.target.path) {
+                    case 'rotation':
+                    vec4.copy(node.rotation, animationSampler.curValue);
+                    break;
+
+                    case 'translation':
+                    vec3.copy(node.translation, animationSampler.curValue);
+                    break;
+
+                    case 'scale':
+                    vec3.copy(node.scale, animationSampler.curValue);
+                    break;
                 }
 
-                for (j = 0, lenj = animation.channels.length; j < lenj; j++) {
-                    channel = animation.channels[j];
-                    animationSampler = channel.sampler;
-                    node = glTF.nodes[channel.target.nodeID];
-
-                    switch (channel.target.path) {
-                        case 'rotation':
-                        vec4.copy(node.rotation, animationSampler.curValue);
-                        break;
-
-                        case 'translation':
-                        vec3.copy(node.translation, animationSampler.curValue);
-                        break;
-
-                        case 'scale':
-                        vec3.copy(node.scale, animationSampler.curValue);
-                        break;
-                    }
-
-                    // node.updateMatrixFromTRS();
-                    
-                }
+                // node.updateMatrixFromTRS();
+                
             }
         }
 
