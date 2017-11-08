@@ -1110,12 +1110,12 @@ var Renderer = glAvatarViewer.renderer = {};
 
 
         if (shader.hasBodyIdLUT()) {
-            // activeAndBindTexture(program.uniformLocations.bodyIdLUT, primitive.extensions.gl_avatar.bodyIdTexture);
-            var index = primitive.extensions.gl_avatar.bodyIdTexture
-            gl.uniform1i(program.uniformLocations.bodyIdLUT, index);
-            gl.activeTexture(gl.TEXTURE0 + index);
-            var texture = curScene.glTF.textures[ index ];
-            gl.bindTexture(gl.TEXTURE_2D, texture.texture);
+            activeAndBindTexture(program.uniformLocations.bodyIdLUT, primitive.extensions.gl_avatar.bodyIdTexture);
+            // var index = primitive.extensions.gl_avatar.bodyIdTexture;
+            // gl.uniform1i(program.uniformLocations.bodyIdLUT, index);
+            // gl.activeTexture(gl.TEXTURE0 + index);
+            // var texture = curScene.glTF.textures[ index ];
+            // gl.bindTexture(gl.TEXTURE_2D, texture.texture);
 
             gl.uniformBlockBinding(program.program, program.uniformBlockIndices.BodyPartVisibility, glAvatarConfig.BODY_PART_UNIFORM_BLOCK_ID);
 

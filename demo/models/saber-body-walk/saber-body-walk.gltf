@@ -7878,7 +7878,11 @@
         }
     ], 
     "samplers" : [
-        {}
+        {},
+        {
+            "magFilter": 9728,
+            "minFilter": 9728
+        }
     ], 
     "scene" : 0, 
     "scenes" : [
@@ -7992,7 +7996,7 @@
             "source" : 0
         }, 
         {
-            "sampler" : 0, 
+            "sampler" : 1, 
             "source" : 1,
             "extensions": {
                 "gl_avatar": "bodyIdLUT"
