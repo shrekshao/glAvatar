@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build-watch": "webpack --watch",
+    "build-gl-avatar-system": "webpack --config webpack-lib.config.js",
     "dev-server": "node_modules/.bin/webpack-dev-server"
   },
   "repository": {
