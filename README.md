@@ -150,7 +150,7 @@ There are some other potential ideas:
     ],
     "extensions": {
         "gl_avatar": {
-            "visibility": [1, 1, 1, 0, 1]
+            "visibility": [1, 1, 1, 0, 1],
             "//comment": "visiblity for all other accessory skins"
         }
     },
