@@ -151,6 +151,13 @@ var glAvatarControl = function() {
             , 'suit'
             , 'models/saber-suit/saber-suit.gltf');
     };
+
+
+    // -----------------
+
+    this.exportGltf = function() {
+        // Utils.exportGltf(glAvatarViewer.scenes.map(function (x) { return x.gltf; }));
+    };
 };
 var avatarControl = new glAvatarControl();
 
@@ -180,7 +187,7 @@ var folderClothes = gui.addFolder('clothes');
 folderClothes.add(avatarControl, 'maidDress');
 folderClothes.add(avatarControl, 'suit');
 
-
+gui.add(avatarControl, 'exportGltf');
 
 
 

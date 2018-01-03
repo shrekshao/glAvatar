@@ -68,6 +68,13 @@ var Utils = Utils || {};
         }
     };
 
+
+
+    // // merge scene gltf json
+    // Utils.exportGltf = function(gltfs) {
+    //     console.log(gltfs[0].json);
+    // };
+
 })();
 
 export {Utils};
