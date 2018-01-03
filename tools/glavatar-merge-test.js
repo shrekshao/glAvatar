@@ -103,6 +103,18 @@ function merge(skeleton, skin) {
                     a[att] += accessorBaseId;
                 }
             }
+
+            if (p.extensions) {
+                if (p.extensions.gl_avatar.attributes) {
+                    var ea = p.extensions.gl_avatar.attributes;
+                    if (!p.attributes) {
+                        p.attributes = {};
+                    }
+                    for (var att2 in ea) {
+                        p.attributes[att2] = ea[att2] + accessorBaseId;
+                    }
+                }
+            }
         }
     }
 
@@ -123,8 +135,11 @@ function merge(skeleton, skin) {
 
             // skins link
             if (n.extensions) {
+                // create a new skin copy of skin linked
+                // replace inverseBindMatrices
                 if (n.extensions.gl_avatar) {
-                    n.skin = skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]
+                    n.skin = Object.assign({}, skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]);
+                    n.skin = n.extensions.gl_avatar.skin.inverseBindMatrices;
                 }
 
                 n.extensions = null;
