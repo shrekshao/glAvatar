@@ -1,6 +1,7 @@
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
-const fs = require('fs');
+// const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 // node .\tools\glavatar-merge-test.js -s .\demo\models\saber-body-walk\saber-body-walk.gltf -a .\demo\models\saber-maid-hair\saber-maid-hair.gltf .\demo\models\saber-maid-dress\saber-maid-dress.gltf -f models/test
@@ -259,12 +260,15 @@ function ensureDirectoryExistence(filePath) {
     fs.mkdirSync(dirname);
 }
 
+function copyAssets(inputFolder, outputFolder) {
+    // TODO: copy recursively using ncp
 
-
-
-
-for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
-    merge(skeleton, JSON.parse(fs.readFileSync(accessoryFilepaths[i])));
+    var assets = fs.readdirSync(inputFolder);
+    for (var i = 0, len = assets.length; i < len; i++) {
+        if (path.extname(assets[i]) !== '.gltf') {
+            fs.copy( path.join(inputFolder, assets[i]), path.join(outputFolder, assets[i]) );
+        }
+    }
 }
 
 
@@ -274,6 +278,14 @@ for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
 var outputFilename = path.join(options.outputFolder, options.outputFilename);
 ensureDirectoryExistence(outputFilename);
 
-// TODO: copy asset files
+copyAssets(skeletonGltfDir, options.outputFolder);
+for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
+    merge(skeleton, JSON.parse(fs.readFileSync(accessoryFilepaths[i])));
+    copyAssets( path.dirname(accessoryFilepaths[i]), options.outputFolder );
+}
+
+
+
+
 
 fs.writeFileSync(outputFilename, JSON.stringify(skeleton));
