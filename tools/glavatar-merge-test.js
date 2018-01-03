@@ -120,6 +120,7 @@ function merge(skeleton, skin) {
 
     // nodes
     var nodeBaseId = skeleton.meshes.length;
+    var numLinkedSkin = 0;
     for (i = 0, len = skin.nodes.length; i < len; i++) {
         skeleton.nodes.push(skin.nodes[i]);
         var n = skeleton.nodes[i + nodeBaseId];
@@ -138,7 +139,9 @@ function merge(skeleton, skin) {
                 // create a new skin copy of skin linked
                 // replace inverseBindMatrices
                 if (n.extensions.gl_avatar) {
-                    n.skin = Object.assign({}, skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]);
+                    var newskin = skeleton.skins.push(Object.assign({}, skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]));
+                    numLinkedSkin++;
+                    n.skin = skeleton.skins.length;
                     n.skin = n.extensions.gl_avatar.skin.inverseBindMatrices;
                 }
 
@@ -153,7 +156,7 @@ function merge(skeleton, skin) {
     for (i = 0, len = skin.scenes[0].nodes.length; i < len; i++) {
         skeleton.scenes[0].nodes[i + sceneNodeBaseId] += nodeBaseId;
     }
-
+    
     
 
 
