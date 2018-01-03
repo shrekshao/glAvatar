@@ -88,6 +88,36 @@ for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
 
 
 var skeleton = JSON.parse(fs.readFileSync(options.skeletonFilePath));
+if(!skeleton.extensions) {
+    skeleton.extensions = {};
+}
+
+if (!skeleton.extensions.gl_avatar) {
+    skeleton.extensions.gl_avatar = {};
+}
+
+
+if (!skeleton.extensions.gl_avatar.visibility) {
+    skeleton.extensions.gl_avatar.visibility = [];
+}
+
+function visibilityAndOperation(vi) {
+    if (skeleton.extensions.gl_avatar.visibility.length === 0) {
+        skeleton.extensions.gl_avatar.visibility = vi.slice(0);
+        return;
+    }
+
+    var v = skeleton.extensions.gl_avatar.visibility;
+    var vl = v.length;
+    for (var i = 0, len = vi.length; i < len; i++) {
+        if (vl <= i) {
+            v[i] = vi[i];
+        } else {
+            v[i] = v[i] && vi[i];
+        }
+    }
+}
+
 
 /**
  * 
@@ -245,8 +275,8 @@ function merge(skeleton, skin) {
     // TODO: animations, cameras...
 
 
-    // TODO: extensions: visibility array
-
+    // extensions: visibility array
+    visibilityAndOperation(skin.extensions.gl_avatar.visibility);
 
 }
 
@@ -275,12 +305,17 @@ function copyAssets(inputFolder, outputFolder) {
 
 
 
+
+
+
+
 var outputFilename = path.join(options.outputFolder, options.outputFilename);
 ensureDirectoryExistence(outputFilename);
 
 copyAssets(skeletonGltfDir, options.outputFolder);
 for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
     merge(skeleton, JSON.parse(fs.readFileSync(accessoryFilepaths[i])));
+    
     copyAssets( path.dirname(accessoryFilepaths[i]), options.outputFolder );
 }
 
