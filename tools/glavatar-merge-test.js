@@ -88,39 +88,46 @@ function merge(skeleton, skin) {
         skeleton.meshes.push(skin.meshes[i]);
         var m = skeleton.meshes[i + meshBaseId];
         if (m.primitives !== undefined) {
-            var p = m.primitives;
-            if (p.indices !== undefined) {
-                p.indices += accessorBaseId;
-            }
 
-            if (p.material !== undefined) {
-                p.material += materialBaseId;
-            }
+            for (j = 0, lenj = m.primitives.length; j < lenj; j++) {
+                var p = m.primitives[j];
 
-            if (p.attributes) {
-                var a = p.attributes;
-                for (var att in a) {
-                    a[att] += accessorBaseId;
+                if (p.indices !== undefined) {
+                    p.indices += accessorBaseId;
                 }
-            }
-
-            if (p.extensions) {
-                if (p.extensions.gl_avatar.attributes) {
-                    var ea = p.extensions.gl_avatar.attributes;
-                    if (!p.attributes) {
-                        p.attributes = {};
-                    }
-                    for (var att2 in ea) {
-                        p.attributes[att2] = ea[att2] + accessorBaseId;
+    
+                if (p.material !== undefined) {
+                    p.material += materialBaseId;
+                }
+    
+                if (p.attributes !== undefined) {
+                    var a = p.attributes;
+                    for (var att in a) {
+                        a[att] += accessorBaseId;
                     }
                 }
+    
+                if (p.extensions !== undefined) {
+                    if (p.extensions.gl_avatar.attributes) {
+                        var ea = p.extensions.gl_avatar.attributes;
+                        if (!p.attributes) {
+                            p.attributes = {};
+                        }
+                        for (var att2 in ea) {
+                            p.attributes[att2] = ea[att2] + accessorBaseId;
+                        }
+                    }
+
+                    delete p.extensions;
+                }
             }
+            
         }
     }
 
     // nodes
-    var nodeBaseId = skeleton.meshes.length;
-    var numLinkedSkin = 0;
+    var nodeBaseId = skeleton.nodes.length;
+    // var numLinkedSkin = 0;
     for (i = 0, len = skin.nodes.length; i < len; i++) {
         skeleton.nodes.push(skin.nodes[i]);
         var n = skeleton.nodes[i + nodeBaseId];
@@ -129,25 +136,27 @@ function merge(skeleton, skin) {
             for (j = 0, lenj = c.length; j < lenj; j++) {
                 c[j] += nodeBaseId;
             }
-
-            if (n.mesh != undefined) {
-                n.mesh += meshBaseId;
-            }
-
-            // skins link
-            if (n.extensions) {
-                // create a new skin copy of skin linked
-                // replace inverseBindMatrices
-                if (n.extensions.gl_avatar) {
-                    var newskin = skeleton.skins.push(Object.assign({}, skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]));
-                    numLinkedSkin++;
-                    n.skin = skeleton.skins.length;
-                    n.skin = n.extensions.gl_avatar.skin.inverseBindMatrices;
-                }
-
-                n.extensions = null;
-            }
         }
+
+        if (n.mesh !== undefined) {
+            n.mesh += meshBaseId;
+        }
+
+        // skins link
+        if (n.extensions) {
+            // create a new skin copy of skin linked
+            // replace inverseBindMatrices
+            if (n.extensions.gl_avatar) {
+                var newSkin = Object.assign({}, skeleton.skins[skeleton.extensions.gl_avatar.skins[n.extensions.gl_avatar.skin.name]]);
+                skeleton.skins.push(newSkin);
+                // numLinkedSkin++;
+                n.skin = skeleton.skins.length - 1;
+                newSkin.inverseBindMatrices = n.extensions.gl_avatar.skin.inverseBindMatrices + accessorBaseId;
+            }
+
+            delete n.extensions;
+        }
+        
     }
 
     // scenes (assume only one scene)
@@ -158,6 +167,8 @@ function merge(skeleton, skin) {
     }
     
     
+
+    // TODO: extensions: visibility array
 
 
 }
