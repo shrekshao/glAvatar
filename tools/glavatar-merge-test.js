@@ -28,7 +28,7 @@ function merge(skeleton, skin) {
     // for (i = 0, len = skin.buffers.length; i < len; i++) {
     //     skeleton.buffers.push(skin.buffers[i]);
     // }
-    skeleton.buffers.concat(skin.buffers);
+    skeleton.buffers = skeleton.buffers.concat(skin.buffers);
 
 
     // bufferViews
@@ -41,22 +41,22 @@ function merge(skeleton, skin) {
     // accessors
     var accessorBaseId = skeleton.accessors.length;
     for (i = 0, len = skin.accessors.length; i < len; i++) {
-        skeleton.accessors.push(skin.bufferViews[i]);
+        skeleton.accessors.push(skin.accessors[i]);
         skeleton.accessors[i + accessorBaseId].bufferView += bufferViewBaseId;
     }
 
 
     // images
     var imageBaseId = skeleton.images.length;
-    skeleton.images.concat(skin.images);
+    skeleton.images = skeleton.images.concat(skin.images);
 
     // samplers
     var samplerBaseId = skeleton.samplers.length;
-    skeleton.samplers.concat(skin.samplers);
+    skeleton.samplers = skeleton.samplers.concat(skin.samplers);
 
     // textures
     var textureBaseId = skeleton.textures.length;
-    skeleton.textures.concat(skin.textures);
+    skeleton.textures = skeleton.textures.concat(skin.textures);
     for (i = 0, len = skin.textures.length; i < len; i++) {
         var t = skeleton.textures[i + textureBaseId];
         if (t.sampler !== undefined) {
@@ -69,12 +69,15 @@ function merge(skeleton, skin) {
 
     // materials
     var materialBaseId = skeleton.materials.length;
-    for (i = 0, len = skin.accessors.length; i < len; i++) {
+    for (i = 0, len = skin.materials.length; i < len; i++) {
         skeleton.materials.push(skin.materials[i]);
         var m = skeleton.materials[i + materialBaseId];
         if (m.pbrMetallicRoughness !== undefined) {
             if (m.pbrMetallicRoughness.baseColorTexture !== undefined) {
-                m.pbrMetallicRoughness.baseColorTexture += imageBaseId;
+                var bt = m.pbrMetallicRoughness.baseColorTexture;
+                for (var tt in bt) {
+                    bt[tt] += imageBaseId;
+                }
             }
         }
     }
@@ -131,7 +134,7 @@ function merge(skeleton, skin) {
 
     // scenes (assume only one scene)
     var sceneNodeBaseId = skeleton.scenes[0].nodes.length;
-    skeleton.scenes[0].nodes.concat(skin.scenes.nodes);
+    skeleton.scenes[0].nodes = skeleton.scenes[0].nodes.concat(skin.scenes[0].nodes);
     for (i = 0, len = skin.scenes[0].nodes.length; i < len; i++) {
         skeleton.scenes[0].nodes[i + sceneNodeBaseId] += nodeBaseId;
     }
@@ -146,6 +149,6 @@ merge(skeleton, accessory);
 
 
 
-var outputFilename = 'output.gltf';
+var outputFilename = 'models/merged/output.gltf';
 
 fs.writeFileSync(outputFilename, JSON.stringify(skeleton));
