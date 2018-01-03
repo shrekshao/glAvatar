@@ -1,18 +1,92 @@
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 const fs = require('fs');
+const path = require('path');
+
+// node .\tools\glavatar-merge-test.js -s .\demo\models\saber-body-walk\saber-body-walk.gltf -a .\demo\models\saber-maid-hair\saber-maid-hair.gltf .\demo\models\saber-maid-dress\saber-maid-dress.gltf -f models/test
+
+const optionDefinitions = [
+    {
+        name: 'help',
+        alias: 'h',
+        type: Boolean,
+        description: 'Display this usage guide.'
+    },
+    {
+        name: 'skeletonFilePath',
+        alias: 's',
+        type: String,
+        description: '/path/to/accessory-file/skeleton-gltf-file'
+    },
+    {
+        name: 'accessoriesFilePath',
+        alias: 'a',
+        type: String,
+        multiple: true,
+        // defaultValue: true,
+        description: '/path/to/accessory-gltf-file [multiple]'
+    },
+    {
+        name: 'outputFolder',
+        alias: 'f',
+        type: String,
+        defaultValue: './',
+        description: '/path/to/outputFolder'
+    },
+    {
+        name: 'outputFilename',
+        alias: 'o',
+        type: String,
+        defaultValue: 'output.gltf',
+        description: 'output filename'
+    }
+];
+
+const options = commandLineArgs(optionDefinitions);
+
+if (options.help) {
+    const usage = commandLineUsage([
+        {
+            header: 'glAvatar Merge test',
+            content: 'Merge skeleton and accessories gltf into one gltf file'
+        },
+        {
+            header: 'Options',
+            optionList: optionDefinitions
+        }
+    ]);
+    console.log(usage);
+    return;
+}
 
 
-// temp
-var skeletonGltfPath = 'demo/models/saber-body-walk/';
-var skeletonGltfFilename = 'saber-body-walk.gltf';
-var accessoryGltfPath = 'demo/models/saber-maid-hair/';
-var accessoryGltfFilename = 'saber-maid-hair.gltf';
+// // temp
+// // TODO: cmd line arg
+// var skeletonGltfPath = 'demo/models/saber-body-walk/';
+// var skeletonGltfFilename = 'saber-body-walk.gltf';
+// var accessoryGltfPath = 'demo/models/saber-maid-hair/';
+// var accessoryGltfFilename = 'saber-maid-hair.gltf';
+// var outputFilename = 'models/merged/output.gltf';
+// var skeleton = JSON.parse(fs.readFileSync(skeletonGltfPath + skeletonGltfFilename));
+// var accessory = JSON.parse(fs.readFileSync(accessoryGltfPath + accessoryGltfFilename));
 
 
-var skeleton = JSON.parse(fs.readFileSync(skeletonGltfPath + skeletonGltfFilename));
-var accessory = JSON.parse(fs.readFileSync(accessoryGltfPath + accessoryGltfFilename));
+// preprocess
+// TODO: all sanity checks should happen here
 
+var skeletonGltfDir = path.dirname(options.skeletonFilePath);
+var accessoryFilepaths = options.accessoriesFilePath;
+
+
+
+console.log('skeleton filename: ', options.skeletonFilePath);
+console.log('skin filenames: ');
+for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
+    console.log(accessoryFilepaths[i]);
+}
+
+
+var skeleton = JSON.parse(fs.readFileSync(options.skeletonFilePath));
 
 /**
  * 
@@ -167,6 +241,8 @@ function merge(skeleton, skin) {
     }
     
     
+    // TODO: animations, cameras...
+
 
     // TODO: extensions: visibility array
 
@@ -174,10 +250,30 @@ function merge(skeleton, skin) {
 }
 
 
-merge(skeleton, accessory);
+function ensureDirectoryExistence(filePath) {
+    var dirname = path.dirname(filePath);
+    if (fs.existsSync(dirname)) {
+        return true;
+    }
+    ensureDirectoryExistence(dirname);
+    fs.mkdirSync(dirname);
+}
 
 
 
-var outputFilename = 'models/merged/output.gltf';
+
+
+for (var i = 0, len = accessoryFilepaths.length; i < len; i++) {
+    merge(skeleton, JSON.parse(fs.readFileSync(accessoryFilepaths[i])));
+}
+
+
+
+
+
+var outputFilename = path.join(options.outputFolder, options.outputFilename);
+ensureDirectoryExistence(outputFilename);
+
+// TODO: copy asset files
 
 fs.writeFileSync(outputFilename, JSON.stringify(skeleton));
