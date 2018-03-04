@@ -1,5 +1,7 @@
 # glAvatar
 
+# !! Future work has moved to https://github.com/shrekshao/gltf-avatar-threejs !!
+
 (Potentially) a glTF extension (extra?) for avatar with switchable skeletons, skins, clothes, etc.
 
 An open source assest library of 3D avatar content creation where artists can contribute.
